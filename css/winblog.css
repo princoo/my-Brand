@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+*{
+    font-family: "montserrat",sans-serif;
+}
+/* navbar */
+li,a,h1{
+    font-family: "montserrat",sans-serif;
+    text-shadow: 2px 2px #42414157}
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 10px;
+    width: 100%;
+}
+h1{
+    margin-left: 30px;
+    cursor: pointer;
+}
+.logo{
+    background-color: white;
+border-radius: 50%;
+width: 40px;
+text-align: center;
+color: EE500C;
+}
+nav ul{
+list-style: none;
+}
+nav li{
+    display: inline-block;
+    padding: 10px 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    transition: all 0.4s ease 0s;
+}
+nav li:hover{
+    background-color: EE500C;
+}
+nav li a{
+    text-decoration: none;
+    color: rgb(246, 245, 245);
+}
+.side{
+    display: none;
+}
+
+
+
+
+/* dashboard */
+.flex{
+    display: flex;
+}
+.right{
+    width: 80%;
+    background-color: rgb(21, 21, 21);
+    height: 100vh;
+}
+.left{
+    width: 20%;
+    background-color: rgb(65, 64, 64);
+    padding-bottom: 10px;
+}
+.left img{
+    margin: 5% 25%;
+    width:50%;
+    border-radius: 60%;
+}
+.left p{
+    margin-top:0px;
+    margin-bottom: 0px;
+    text-align: center;
+}
+.email{
+color:white;
+}
+.box{
+    background-color: rgb(223, 122, 40);
+    padding: 10px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.box:hover{
+    transform: scale(0.9);
+}
+.blog{
+    background-color: rgb(223, 122, 40);
+    margin-top: 50px;
+}
+.drafts{
+    margin-top: 30px;
+}
+.messages{
+    margin-top: 30px;
+}
+.add{
+    margin-top: 30px;
+}
+.manage{
+    margin-top: 30px;
+}
+
+.right h1,h3{
+    text-align: center;
+}
+.right h1{
+    margin-top: 10%;
+    margin-bottom: 10px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+/* BLOGLIST */
+.blogs{
+    display: flex;
+    width: 80%;
+    background-color: grey;
+    margin-left: 10%;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.blogs img{
+    width: 15%;
+    object-fit: cover;
+}
+.blogs p{
+    margin-left: 5%;
+    /* font-size: 1.3vw; */
+    margin-bottom: 0%;
+}
+.parag{
+    width: 90%;
+        border-right: 1px dashed black;
+}
+span{
+    font-size: 10px;
+   }
+.edit{
+    display: grid;
+    grid-template-columns: 50px 50px;
+    grid-row-gap:5px;
+    width: 20%;
+    margin: 1%;
+    margin-left: 1%;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.fa{
+    font-size: 20px;
+    text-shadow: 2px 2px #42414157;
+}
+.div{
+    cursor: pointer;
+    transition: 0.5s;
+}
+.div:hover{
+    transform: scale(1.2);
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+.back{
+    width:61%;
+    height: 100%;
+    background-color: rgb(126, 56, 56);
+    display: none;
+}
+
+@media(max-width:800px){
+/* navbar */
+nav ul li{
+    display:block;
+   }
+  
+   
+   nav{
+    position: absolute;
+    background: orangered;
+    height: 100vh;
+    top: 0;
+    right: -200px;
+    transition: 1s;
+   }
+   
+   .side{
+    display: block;
+    margin: 10px;
+    font-size: 25px;
+    cursor: pointer;
+   }
+   nav ul{
+    padding: 10px;
+   }
+   button{
+    bottom: 20%;
+   }
+
+
+    /* dashboard */
+    .flex{
+        flex-direction: column;
+    }
+    .left{
+        min-width: 100%;
+    }
+    .box{
+        width: 50%;
+        margin-top: 1%;
+        padding: 2vw;
+        margin-left: 24%;
+        border-radius: 5px;
+    }
+    .right{
+        min-width: 100%;
+        height: 100%;
+    }
+    .right h1{
+        margin-bottom: 10px;
+    }
+  .blogs{
+    font-size: 4vw;
+    width: 70%;
+    flex-direction: column;
+    margin-left: 20%;
+  }
+  .blogs img{
+    width: 100%;
+    object-fit: cover;
+  }
+  .parag{
+    border-right: none;
+    border-bottom: 1px dashed black;
+  }
+  .edit{
+    display: flex;
+    gap: 30px;
+    width: 80%;
+    margin-top: 2%;
+    margin-left: 10%;
+  }
+}
+
+
+
+

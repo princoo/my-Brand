@@ -1,0 +1,186 @@
+
+body{
+    margin: 0;
+}
+
+/* navigation */
+li,a,h1{
+    font-family: "montserrat",sans-serif;
+    text-shadow: 2px 2px #42414157}
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+}
+h1{
+    margin-left: 30px;
+    padding: 0px 0px;
+    cursor: pointer;
+}
+.logo{
+ background-color: white;
+border-radius: 50%;
+width: 40px;
+text-align: center;
+color: EE500C;
+}
+nav ul{
+list-style: none;
+}
+nav li{
+    display: inline-block;
+    padding: 10px 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    transition: all 0.4s ease 0s;
+}
+nav li a:hover{
+    color: rgb(232, 239, 17);
+}
+nav li a{
+    text-decoration: none;
+    color: rgb(246, 245, 245);
+}
+.active{
+    padding: 10px 10px;
+    border-radius: 5px;
+    background-color: orangered;
+}
+.side{
+    display: none;
+}
+
+
+/* about */
+body{
+    background-color: black;
+}
+.flex{
+    display: flex;
+    margin-top: 10%;
+    justify-content: space-around;
+}
+
+.border{
+    width: 27%;
+    height: 70%;
+  
+}
+.profile{
+    width: 100%;
+    object-fit: cover;
+    border: 10px solid rgb(84, 83, 83);
+}
+
+/* container */ 
+.container{
+   
+    width: 45%;
+    height: 80%;
+    color: beige;
+}
+.container h2{
+    margin-top: 0%;
+    margin-bottom: 0%;
+    font-family: 'Inter', sans-serif;
+    font-size: 30px;
+    letter-spacing: 2;
+
+}
+.container .mini{
+    margin-top: 1%;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 2;
+
+}
+.mini span{
+    color:EE500C ;
+}
+.body{
+    margin-top: 30px;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.7;
+    letter-spacing: 2;
+    margin-bottom: 30px;
+}
+pre{
+letter-spacing: 2;
+}
+pre span{
+color: rgb(62, 61, 61);
+}
+.lower{
+   display: flex;
+}
+button{
+    padding: 5px ;
+    background-color: aliceblue;
+    color:EE500C;
+    font-family: 'Inter', sans-serif;
+    border-radius: 5px;
+}
+@media(max-width:800px){
+/* navbar */
+nav ul li{
+    display:block;
+   }
+  
+   
+   nav{
+    position: absolute;
+    background: orangered;
+    height: 100vh;
+    top: 0;
+    right: -200px;
+    transition: 1s;
+   }
+   
+   .side{
+    display: block;
+    margin: 10px;
+    font-size: 25px;
+    cursor: pointer;
+    color: white;
+   }
+   nav ul{
+    padding: 10px;
+   }
+
+
+    /* about */
+    .flex{
+        flex-direction: column;
+        margin-top: 20%;
+    }
+    .container{
+        margin-left: 5%; 
+        min-width: 95%;
+ }
+    .container h2{
+        font-size: 7vh;
+        text-align: center;
+    }
+    .mini{
+        font-size: 2vh;
+        text-align: center;
+    }
+    .lower{
+        flex-direction: column;
+    }
+    .border{
+        width: 80%;
+        margin-left: 10%;
+        margin-bottom: 40px;
+    }
+    .body{
+        font-size: 5vw;
+        margin-left: 25px;
+    }
+    button{
+        margin: 0% 0% 5% 25%;
+    padding: 8px;
+    }
+}

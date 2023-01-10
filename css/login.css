@@ -1,0 +1,157 @@
+/* navbar */
+li,a,h1{
+    font-family: "montserrat",sans-serif;
+    text-shadow: 2px 2px #42414157}
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 10px;
+    width: 100%;
+}
+h1{
+    margin-left: 30px;
+    cursor: pointer;
+}
+.logo{
+    background-color: white;
+border-radius: 50%;
+width: 40px;
+text-align: center;
+color: EE500C;
+}
+nav ul{
+list-style: none;
+}
+nav li{
+    display: inline-block;
+    padding: 10px 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    transition: all 0.4s ease 0s;
+}
+nav li a:hover{
+    color: yellow;
+}
+nav li a{
+    text-decoration: none;
+    color: rgb(246, 245, 245);
+}
+.active{
+    padding: 10px 10px;
+    border-radius: 5px;
+    background-color: orangered;
+}
+.side{
+    display: none;
+}
+
+/* login */
+*{
+    margin: 0%;
+    font-family: 'Inter', sans-serif;
+}
+body{
+    background-color: rgb(28, 28, 28);
+
+}
+
+/* .right{
+    background-color: black;
+    width: 50%;
+    height: 100vh;
+}
+.left{
+    background-color:rgb(75, 72, 72);
+    width: 50%;
+} */
+.bound{
+    background-color: grey;
+    width: 35%;
+    /* height: auto; */
+    /* position: relative; */
+    margin-top:10%;
+    margin-left: 30%;
+    padding: 2px 0px;
+    left: 33%;
+    border-radius: 5px;
+}
+.container{
+    background-color: grey;
+    /* width: 90%; */
+    /* height: 90%; */
+    margin: 20px 20px;
+    box-shadow: -3px -3px 10px black;
+    border-radius: 5px;
+}
+.contact{
+    font-family: 'Inter', sans-serif;
+    padding-top: 20px;
+    text-align: center;
+    color: rgb(238, 105, 17);
+}
+.email {
+    width: 88%;
+    margin:60px 0px 30px 20px ; 
+}
+.subject{
+    width: 88%;
+    margin: 20px;
+}
+.subject ,.email{
+    padding: 10px 3px;
+    border-style: none;
+    border-radius: 5px;
+}
+
+
+button{
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    width: 88%;
+    padding: 7px;
+    border-style: none;
+    background-color:rgb(238, 105, 17) ;
+    box-shadow: 3px 2px rgb(63, 63, 63);
+    border-radius: 5px;
+}
+
+@media(max-width:800px){
+
+.bound{
+    min-width: 80%;
+margin-left: 13%;
+}
+
+/* navbar */
+nav ul li{
+    display:block;
+   }
+  
+   
+   nav{
+    position: absolute;
+    background: orangered;
+    height: 100vh;
+    top: 0;
+    right: -200px;
+    transition: 1s;
+   }
+   
+   .side{
+    display: block;
+    margin: 10px;
+    font-size: 25px;
+    cursor: pointer;
+    color: white;
+   }
+   nav ul{
+    padding: 10px;
+   }
+   /* .bound{
+    margin: 10%;
+    width: 20%;
+   } */
+}
