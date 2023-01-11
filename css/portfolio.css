@@ -13,19 +13,15 @@ header{
     justify-content: space-between;
     align-items: center;
     position: absolute;
-    /* top: 5px; */
     width: 100%;
 }
 h1{
     margin-left: 30px;
     cursor: pointer;
 }
-.logo{
-    background-color: white;
-border-radius: 50%;
-width: 40px;
-text-align: center;
-color: EE500C;
+#theme{
+    width: 40px;
+    border-radius: 50%;
 }
 nav ul{
 list-style: none;
@@ -42,31 +38,47 @@ nav li a:hover{
 }
 nav li a{
     text-decoration: none;
-    color: rgb(246, 245, 245);
+    color: var(--text-color2);
 }
 .active{
     padding: 10px 10px;
     border-radius: 5px;
-    background-color: orangered;
+    background-color: var(--additional-color);
 }
 .side{
     display: none;
 }
 
+:root{
+    --primary-color:rgb(72, 70, 70);
+    --secondary-color:black;
+    --additional-color:rgb(247, 112, 16);
+    --text-color1:black;
+    --text-color2:white;
+}
+
+.dark-theme{
+    --primary-color:rgb(254, 252, 252);
+    --secondary-color:rgb(148, 124, 124);
+    --additional-color:rgb(191, 103, 30);
+    --text-color1:white;
+    --text-color2:black;
+}
+
 /* portfolio */
 body{
-    background-color: rgb(60, 59, 59);
+    background-color: var(--primary-color);
 
 }
 .heading{
-    color: orangered;
+    color: var(--additional-color);
     text-align: center;
     padding-top: 7%;
     font-family: 'Inter', sans-serif;
     font-size: 50px;
 }
 .container{
-    background-color: rgb(6, 6, 6);
+    background-color: var(--secondary-color);
     padding-bottom: 2%;
     max-width: 20%;
     margin: 0px 40px;
@@ -83,7 +95,7 @@ body{
     justify-content: center;
 }
 h2,p{
-    color: white;
+    color: var(--text-color2);
     margin-left: 15px;
 }
 h2{
@@ -94,7 +106,7 @@ p{
     margin-top: 3%;
     font-size: 13px;
     font-family: "monserrate",sans-serif;
-    color: orangered;
+    color: var(--additional-color);
 }
 img{
     width: 90%;

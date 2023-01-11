@@ -65,3 +65,18 @@ function addclass(){
     },inTimer)
 }
 window.onload= addclass
+
+
+// dark mode section
+function change(){
+    const  changes= document.getElementById("theme");
+    document.body.classList.toggle("dark-theme");
+
+    if(document.body.classList.contains("dark-theme")){
+        changes.src= "../html/images/sun.png";
+    }else{
+        changes.src= "../html/images/moon.png"
+
+    }
+
+}

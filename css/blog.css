@@ -8,7 +8,7 @@
     font-family: "montserrat",sans-serif;
 }
 /* navbar */
-li,a,h1{
+li,li a,h1{
     font-family: "montserrat",sans-serif;
     text-shadow: 2px 2px #42414157}
 header{
@@ -23,12 +23,9 @@ h1{
     margin-left: 30px;
     cursor: pointer;
 }
-.logo{
-    background-color: white;
-border-radius: 50%;
-width: 40px;
-text-align: center;
-color: EE500C;
+#theme{
+    width: 40px;
+    border-radius: 50%;
 }
 nav ul{
 list-style: none;
@@ -45,27 +42,43 @@ nav li a:hover{
 }
 nav li a{
     text-decoration: none;
-    color: rgb(246, 245, 245);
+    color: var(--text-color2);
 }
 .active{
     padding: 10px 10px;
     border-radius: 5px;
-    background-color: orangered;
+    background-color: var(--additional-color);
 }
 .side{
     display: none;
 }
 
+:root{
+    --primary-color:rgb(72, 70, 70);
+    --secondary-color:black;
+    --additional-color:rgb(247, 112, 16);
+    --text-color1:black;
+    --text-color2:white;
+}
+
+.dark-theme{
+    --primary-color:rgb(254, 252, 252);
+    --secondary-color:rgb(148, 124, 124);
+    --additional-color:rgb(191, 103, 30);
+    --text-color1:white;
+    --text-color2:black;
+}
+
 
 /* articles */
 body{
-    background-color: rgb(0, 0, 0);
+    background-color: var(--secondary-color);
 }
 .heading{
     text-align: center;
     margin-top: 90px;
     font-family: 'Poppins', sans-serif;
-    color: rgb(223, 122, 40);
+    color: var(--additional-color);
 
 }
 .container{
@@ -79,14 +92,14 @@ body{
     width: 25%;
     border-radius: 5px;
     overflow: hidden;
-    background-color: rgb(118, 102, 102);
+    background-color: var(--primary-color);
     transition: 0.5s;
 }
 .scale:hover{
-    background-color: rgb(222, 138, 27);
+    background-color: var(--additional-color);
     transform: scale(0.9);
 }
-a{
+.scale a{
     text-decoration: none;
     color: black;
 }

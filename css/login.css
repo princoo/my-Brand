@@ -14,15 +14,12 @@ h1{
     margin-left: 30px;
     cursor: pointer;
 }
-.logo{
-    background-color: white;
-border-radius: 50%;
-width: 40px;
-text-align: center;
-color: EE500C;
+#theme{
+    width: 40px;
+    border-radius: 50%;
 }
 nav ul{
-list-style: none;
+    list-style: none;
 }
 nav li{
     display: inline-block;
@@ -36,15 +33,32 @@ nav li a:hover{
 }
 nav li a{
     text-decoration: none;
-    color: rgb(246, 245, 245);
+    color: var(--text-color2);
 }
 .active{
     padding: 10px 10px;
     border-radius: 5px;
-    background-color: orangered;
+    background-color: var(--additional-color);
 }
+
 .side{
     display: none;
+}
+
+:root{
+    --primary-color:rgb(72, 70, 70);
+    --secondary-color:black;
+    --additional-color:rgb(247, 112, 16);
+    --text-color1:black;
+    --text-color2:white;
+}
+
+.dark-theme{
+    --primary-color:rgb(254, 252, 252);
+    --secondary-color:rgb(148, 124, 124);
+    --additional-color:rgb(191, 103, 30);
+    --text-color1:white;
+    --text-color2:black;
 }
 
 /* login */
@@ -53,21 +67,11 @@ nav li a{
     font-family: 'Inter', sans-serif;
 }
 body{
-    background-color: rgb(28, 28, 28);
+    background-color: var(--secondary-color);
 
 }
-
-/* .right{
-    background-color: black;
-    width: 50%;
-    height: 100vh;
-}
-.left{
-    background-color:rgb(75, 72, 72);
-    width: 50%;
-} */
 .bound{
-    background-color: grey;
+    background-color: var(--primary-color);
     width: 35%;
     /* height: auto; */
     /* position: relative; */
@@ -78,7 +82,7 @@ body{
     border-radius: 5px;
 }
 .container{
-    background-color: grey;
+    background-color: var(--primary-color);
     /* width: 90%; */
     /* height: 90%; */
     margin: 20px 20px;
@@ -89,7 +93,7 @@ body{
     font-family: 'Inter', sans-serif;
     padding-top: 20px;
     text-align: center;
-    color: rgb(238, 105, 17);
+    color: var(--additional-color);
 }
 .email {
     width: 88%;
@@ -105,7 +109,9 @@ body{
     border-radius: 5px;
 }
 
-
+.box{
+    border: 1px  solid black;
+}
 button{
     margin-left: 20px;
     margin-top: 10px;
@@ -113,7 +119,7 @@ button{
     width: 88%;
     padding: 7px;
     border-style: none;
-    background-color:rgb(238, 105, 17) ;
+    background-color:var(--additional-color) ;
     box-shadow: 3px 2px rgb(63, 63, 63);
     border-radius: 5px;
 }

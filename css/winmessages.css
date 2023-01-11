@@ -21,12 +21,11 @@ h1{
     margin-left: 30px;
     cursor: pointer;
 }
-.logo{
-    background-color: white;
-border-radius: 50%;
-width: 40px;
-text-align: center;
-color: EE500C;
+#theme{
+    width: 40px;
+    border-radius: 50%;
+    margin-left: 600%;
+
 }
 nav ul{
 list-style: none;
@@ -43,10 +42,26 @@ nav li:hover{
 }
 nav li a{
     text-decoration: none;
-    color: rgb(246, 245, 245);
+    color: var(--text-color2);
 }
 .side{
     display: none;
+}
+
+:root{
+    --primary-color:rgb(72, 70, 70);
+    --secondary-color:black;
+    --additional-color:rgb(247, 112, 16);
+    --text-color1:black;
+    --text-color2:white;
+}
+
+.dark-theme{
+    --primary-color:rgb(254, 252, 252);
+    --secondary-color:rgb(148, 124, 124);
+    --additional-color:rgb(191, 103, 30);
+    --text-color1:white;
+    --text-color2:black;
 }
 
 
@@ -56,12 +71,12 @@ nav li a{
 }
 .right{
     width: 80%;
-    background-color: rgb(21, 21, 21);
+    background-color: var(--secondary-color);
     height: 100vh;
 }
 .left{
     width: 20%;
-    background-color: rgb(65, 64, 64);
+    background-color: var(--primary-color);
     padding-bottom: 10px;
 }
 .left img{
@@ -73,12 +88,14 @@ nav li a{
     margin-top:0px;
     margin-bottom: 0px;
     text-align: center;
+    color: var(--text-color2);
+
 }
 .email{
-color:white;
+    color:var(--text-color2);
 }
 .box{
-    background-color: rgb(223, 122, 40);
+    background-color: var(--additional-color);
     padding: 10px;
     transition: 0.3s;
     cursor: pointer;
@@ -87,7 +104,7 @@ color:white;
     transform: scale(0.9);
 }
 .blog{
-    background-color: rgb(223, 122, 40);
+    background-color: var(--additional-color);
     margin-top: 50px;
 }
 .drafts{
@@ -109,17 +126,17 @@ color:white;
 .right h1{
     margin-top: 10%;
     margin-bottom: 10px;
-    color: white;
+    color: var(--text-color2);
     font-family: 'Poppins', sans-serif;
 }
 /* DRAFT */
 .empty{
     text-align: center;
-    color: rgb(223, 122, 40);
+    color: var(--additional-color);
 }
 a{
     text-decoration: none;
-    color: black;
+    color: var(--text-color1);
 }
 
 @media (max-width:800px){
@@ -172,5 +189,9 @@ nav ul li{
     .right h1{
         margin-bottom: 10px;
     }
+    #theme{
+        margin-left: 0%;
+    
+      }
   
 }

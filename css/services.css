@@ -17,12 +17,9 @@ h1{
     margin-left: 30px;
     cursor: pointer;
 }
-.logo{
-    background-color: white;
-    border-radius: 50%;
+#theme{
     width: 40px;
-    text-align: center;
-    color: EE500C;
+    border-radius: 50%;
 }
 nav ul{
     list-style: none;
@@ -39,41 +36,59 @@ nav li a:hover{
 }
 nav li a{
     text-decoration: none;
-    color: rgb(246, 245, 245);
+    color: var(--text-color2);
 }
 .active{
     padding: 10px 10px;
     border-radius: 5px;
-    background-color: orangered;
+    background-color: var(--additional-color);
 }
+
 .side{
     display: none;
 }
 
 /* services */
+:root{
+    --primary-color:rgb(72, 70, 70);
+    --secondary-color:black;
+    --additional-color:rgb(247, 112, 16);
+    --text-color1:black;
+    --text-color2:white;
+}
+
+.dark-theme{
+    --primary-color:rgb(254, 252, 252);
+    --secondary-color:rgb(148, 124, 124);
+    --additional-color:rgb(191, 103, 30);
+    --text-color1:white;
+    --text-color2:black;
+}
 body{
-    background-color: rgb(60, 59, 59);
+    background-color: var(--primary-color);
     font-family: "monserrate",sans-serif;
 }
+
 .heading {
     margin-top: 40px;
     text-align: center;
-    color: orangered;
+    color: var(--additional-color);
     margin-top: 7%;
     margin-bottom: 0px;
 }
+
 .headings{
     margin-top: 40px;
     text-align: center;
-    color: white;
+    color: var(--text-color2);
 }
 .mini{
     text-align: center;
-    color: white; 
+    color: var(--text-color2); 
     margin-top: 5px; 
 }
 .box{
-    background-color: black;
+    background-color: var(--secondary-color);
     max-width:25%;
     margin-top: 60px;
     padding-bottom: 15px;
@@ -85,7 +100,7 @@ body{
     transform: scale(1.1);
 }
 h2{
-    color: EE500C;
+    color: var(--additional-color);
     padding-top: 40%;
     padding-left: 30px;
     padding-right: 5px
@@ -95,7 +110,7 @@ h2{
 margin-top: 10px;
 }
 .description{
-    color: white;
+    color: var(--text-color2);
     padding-left: 30px;
     line-height: 1.3;
     letter-spacing: 2;
@@ -108,24 +123,24 @@ margin-top: 10px;
     justify-content: center;
 }
 .skills{
-    background-color: black;
+    background-color: var(--secondary-color);
     margin: 0% 20%;
     margin-top: 3%;
     border-radius: 5px;
 }
 .w3{
-    background-color: grey;
+    background-color: var(--primary-color);
     bottom: 0px;
     border-radius: 20px;
 }
 .grey{
     border-radius: 20px;
     margin-top: 5px;
-    background-color: EE500C;
+    background-color: var(--additional-color);
     height:10px;
 }
 P{
-    color: white;
+    color: var(--text-color2);
     margin-top: 0px;
     margin-bottom: 0px;
 }
