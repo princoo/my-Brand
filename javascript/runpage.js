@@ -7,8 +7,8 @@ const background= document.querySelector(".back")
     function hidemenu(){
         navlinks.style.right="-200px"
         background.style.display="none";
-
     }
+
 // active nav
     const activepath=window.location.pathname;
     const link= document.querySelectorAll('nav a').forEach(a=>{
@@ -18,8 +18,6 @@ const background= document.querySelector(".back")
     })
 
 const contact= document.getElementsByClassName('contact');
-
-
 
 // login
 const a='princeineza@gmail.com';
@@ -34,16 +32,15 @@ if(email==a && password==b){
 else{
     console.log("unmatched")
 }
-// }
-
 }
 
-
+// homepage animation
 const span=document.querySelectorAll("span")
 index=0;
 inTimer=3000
 outTimer=2000;
 function addclass(){
+
     for(let i=0;i<span.length;i++){
         span[i].classList.remove("text-in","text-out");
     }
@@ -53,7 +50,6 @@ function addclass(){
         span[index].classList.add("text-out");
     },outTimer)
 
-   
     setTimeout(function(){
         if(index==(span.length-1)){
             index=0;
@@ -76,7 +72,74 @@ function change(){
         changes.src= "../html/images/sun.png";
     }else{
         changes.src= "../html/images/moon.png"
+    }
+}
 
+
+// token
+const maxAge= 3*24*60*60;
+function createtoken(id){
+    const jwt = require('jsonwebtoken')
+
+    return jwt.sign({id},"secret string",{expiresIn:maxAge})
+}
+
+// signup
+function signup(event){
+    event.preventDefault();
+     let a= localStorage.getItem("Users");
+    //  console.log(a)
+    if(a==null){
+        localStorage.setItem("Users",JSON.stringify([{email:"admin",password:"admin"}]))
+         a= localStorage.getItem("Users");
     }
 
+    let email=document.getElementById("email").value;
+    let password=document.getElementById("subject").value;
+    if(email&&password){
+            const newuser={
+            email:email,
+            password:password
+        }
+        const newarray=JSON.parse(a);
+        console.log(b)
+        newarray.push({email:newuser.email,password:newuser.password});
+        localStorage.setItem("Users",JSON.stringify(newarray)); 
+    }
+    else{
+        console.log("fill all spaces provided")
+    }
+    }
+
+// login
+function login(event){
+    event.preventDefault();
+    let count=0;
+    let a=localStorage.getItem("Users")
+    let users=JSON.parse(a);
+    const email=document.getElementById("email").value;
+    const password=document.getElementById("subject").value;
+    const object={
+        email:email,
+        password:password
+    }
+
+    if(email&&password){
+        const index= users.findIndex(user =>user.email===email);
+        if(index!=(-1)){
+            if(users[index].password===password){
+                console.log("its a match");
+                // const token = createtoken(index);
+                const q=JSON.stringify(object)
+                document.cookie= "jwt:q"
+                console.log(document.cookie)
+            }
+            else{
+                console.log("incorrect password")
+            }
+        }
+        else{
+            console.log("please enter the correct email")
+        }
+     }
 }

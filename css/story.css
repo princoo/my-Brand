@@ -5,7 +5,7 @@
 
 }
 body{
-    background-color: rgb(199, 167, 167);   
+    background-color: rgb(75, 71, 71);   
 }
 /* navbar */
 li,a,h1{
@@ -82,8 +82,8 @@ nav li a{
 }
 .story p{
     margin-left: 10%;
-    margin-right: 10px;
-
+    margin-right: 80px;
+    line-height: 2;
 }
 span{
  font-weight: bold;
@@ -104,12 +104,16 @@ color: rgb(69, 46, 38);
 }
 input[type=text]{
     margin-bottom: 5px;
+    margin-left: 10%;
     padding: 3px;
-    width: 28.5%;
+    width: 80%;
     border: 1px solid chocolate;
 } 
 textarea{
+    width: 80%;
     margin-bottom: 5px;
+    margin-left: 10%;
+
 padding: 3px;
 border: 1px solid chocolate;
 }
@@ -119,6 +123,8 @@ button{
     border-style: none;
     border-radius: 5px;
     margin-bottom: 20px;
+    margin-left: 10%;
+
 }
 @media(max-width:800px){
     /* navbar */
