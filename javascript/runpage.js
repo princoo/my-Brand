@@ -137,7 +137,7 @@ function login(event){
         if(index!=(-1)){
             if(users[index].password===password){
                 console.log("its a match");
-                window.location.href="dashboard.html"
+                window.location.href="/dashboard.html"
             }
             else{
                 console.log("incorrect password")
