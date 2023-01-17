@@ -50,7 +50,7 @@ nav li a{
 }
 
 :root{
-    --primary-color:rgb(72, 70, 70);
+    --primary-color:rgb(46, 45, 45);
     --secondary-color:black;
     --additional-color:rgb(247, 112, 16);
     --text-color1:black;
@@ -68,7 +68,6 @@ nav li a{
 /* portfolio */
 body{
     background-color: var(--primary-color);
-
 }
 .heading{
     color: var(--additional-color);
@@ -79,17 +78,43 @@ body{
 }
 .container{
     background-color: var(--secondary-color);
-    padding-bottom: 2%;
     max-width: 20%;
     margin: 0px 40px;
     border-radius: 5px;
     box-shadow: 10px 10px 10px #605b5b;
     transition: transform .3s;
+    position: relative;
+    overflow: hidden;
+}
+.layer{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0%;
+    background-color: #605b5b49;
+    color: white;
+}
+.layer h3{
+    font-family: 'Inter', sans-serif;
+    position: absolute;
+    font-size: 20px;
+    left: 15%;
+    bottom: -5%;
+    transition: 0.5s;
+    opacity: 0;
+}
+.layer:hover{
+    background-color: rgba(255, 68, 0, 0.546);
+}
+.layer:hover h3{
+    transform: translateY(-200px);
+    opacity: 1;
+
 }
 .container:hover{
     transform: scale(1.1);
-
 }
+
 .flex{
     display: flex;
     justify-content: center;
@@ -110,7 +135,9 @@ p{
 }
 img{
     width: 90%;
+    object-fit: cover;
     margin-left: 12px;
+    margin-bottom: 4px;
 }
 @media(max-width:800px){
     nav ul li{
@@ -143,8 +170,16 @@ img{
         margin: 0px 30px 0px 30px;
         min-width: 90%;
     }
+    .container h2,p{
+        font-size: 5vw;
+    }
     .heading{
         padding-top: 70px;
         font-size: 8vw;
+        padding-bottom: 10px;
+    }
+    .layer h3{
+        font-size: 5vw;
+        left:25%;
     }
 }

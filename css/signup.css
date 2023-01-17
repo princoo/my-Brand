@@ -73,8 +73,6 @@ body{
 .bound{
     background-color: var(--primary-color);
     width: 35%;
-    /* height: auto; */
-    /* position: relative; */
     margin-top:10%;
     margin-left: 30%;
     padding: 2px 0px;
@@ -83,8 +81,6 @@ body{
 }
 .container{
     background-color: var(--primary-color);
-    /* width: 90%; */
-    /* height: 90%; */
     margin: 20px 20px;
     box-shadow: -3px -3px 10px black;
     border-radius: 5px;
@@ -113,8 +109,7 @@ body{
     border: 1px  solid black;
 }
 .signup{
-    margin-left: 40px;
-    /* margin-top: 0px; */
+     margin-left: 37px;
     margin-bottom: 30px;
     width: 80%;
     padding: 7px;
@@ -125,13 +120,13 @@ body{
     transition: 0.3s;
 }
 .login{
-    width: 40%;
-    margin-left: 30%;
-    margin-bottom: 10px;
+    width: 50%;
+    margin-left: 25%;
+    margin-bottom: 5px;
     border-radius: 5px;
     border-style: none;
     color: var(--additional-color);
-    padding: 4px;
+    padding: 4px 20px;
     transition: 0.3s;
     background-color: var(--secondary-color);
 }
@@ -176,8 +171,21 @@ nav ul li{
    nav ul{
     padding: 10px;
    }
-   /* .bound{
-    margin: 10%;
-    width: 20%;
-   } */
+   .bound{
+    margin-top: 20%;
+   }
+   .container h1{
+    font-size: 8vw;
+   }
+   .signup{
+    margin-left: 10%;
+    font-size: 2vw;
+   }
+   .login{
+    margin-left: 25%;
+    font-size: 2vw;
+   }
+   .box{
+    padding: 5px;
+   }
 }

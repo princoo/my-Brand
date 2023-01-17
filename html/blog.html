@@ -34,24 +34,64 @@
     <!-- articles -->
     <h1 class="heading">RECENT ARTICLES</h1>
     <div class="container">
-       <div class="scale box"> <a href="story.html">
-            <img src="../html/images/blog-1.jpg" alt="" srcset="">
-            <p>Aenean eleifend ante maecenas pulvinar montes lorem et pede dis dolor pretium donec dictum. Vici consequat justo enim. Venenatis eget adipiscing luctus lorem.</p>
-        </a>
-        </div>
-    
-        <div class="scale box2">
-            <img src="../html/images/blog-2.jpg" alt="" srcset="">
-            <p>Venenatis eget adipiscing luctus lorem. Adipiscing veni amet luctus enim sem libero tellus viverra venenatis aliquam.</p>
-        </div>
-        <div class="scale box3">
-            <img src="../html/images/blog-3.jpg" alt="" srcset="">
-            <p>Estibulum eu ante sed dui porta porttitor. Nullam a placerat velit. Suspendisse non</p>
-        </div>
+       
     </div>
-   
+    <button class="more" id="more" onclick="more()"><span>READ MORE</span></button>
+
+   <div class="container">
+    
+   </div>
 
     <!-- javascript -->
     <script src="../javascript/runpage.js"></script>
+    <script>
+
+const container= document.querySelector(".container");
+
+
+let a = localStorage.getItem('Blogs')
+if(a==null){
+        localStorage.setItem("Blogs",JSON.stringify([{title:"no blogs yet",body:"not yet",image:"none"}]))
+        a=localStorage.getItem('Blogs')
+    }
+
+    const b = JSON.parse(a)
+    console.log(b.length)
+    if(b.length==1){
+        const header = document.createElement("h2")
+        header.classList.add("none")
+        const content = document.createTextNode("NO BLOGS YET !!!");
+        header.appendChild(content)
+        container.appendChild(header)
+    }
+    else{
+        for (let i = 1; i < b.length; i++) {
+        const div = document.createElement("div");
+        const img = document.createElement("img");
+        const p= document.createElement("p");
+        div.classList.add("scale");
+        div.setAttribute("id",b.indexOf(b[i]))
+        div.addEventListener("click",(e)=>{
+        //    yoo(b.indexOf(b[i]));
+        window.location.href=`story.html?page=${b.indexOf(b[i])}`
+        })
+        if(i>3){
+            div.classList.add("new")
+        }
+        // assignment
+        img.src=b[i].image
+        console.log(img.outerHTML)
+        const textContent=document.createTextNode(b[i].title);
+        p.appendChild(textContent);
+        div.innerHTML= img.outerHTML + p.outerHTML;
+        container.appendChild(div);
+      
+    }
+    }
+
+
+
+
+    </script>
 </body>
 </html>

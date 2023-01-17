@@ -27,25 +27,144 @@
 </header>
 
     <!-- story -->
+    <button class="back" id="back"><a href="blog.html"><span>BACK</span></a> </button>
+
     <div class="story">
-        <img src="../html/images/blog-1.jpg" alt="" srcset="" class="image">
-            <p style="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo omnis maxime laboriosam quidem, minima porro quas doloribus enim reprehenderit. Voluptatum provident, voluptatem aspernatur reiciendis ratione perspiciatis doloremque quas. Neque repudiandae cumque impedit? Atque dolor beatae illum ab optio, recusandae voluptatem totam velit consequuntur magni id in consequatur! Tempora voluptas quis amet, molestiae minus quas expedita eaque quam, ex velit cum. Illo labore animi maxime corporis mollitia quidem earum, delectus expedita tenetur quos doloremque natus. Eaque doloremque iste nostrum vel, accusantium exercitationem doloribus, repudiandae, debitis nam quae nisi suscipit? Blanditiis deleniti itaque numquam aspernatur ullam, mollitia odit saepe. Nam, dolor nihil.</p>
+        <img src="" alt="" srcset="" class="image" id="image">
+        <h3 id="title"></h3>
+            <p id="body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo omnis maxime laboriosam quidem, minima porro quas doloribus enim reprehenderit. Voluptatum provident, voluptatem aspernatur reiciendis ratione perspiciatis doloremque quas. Neque repudiandae cumque impedit? Atque dolor beatae illum ab optio, recusandae voluptatem totam velit consequuntur magni id in consequatur! Tempora voluptas quis amet, molestiae minus quas expedita eaque quam, ex velit cum. Illo labore animi maxime corporis mollitia quidem earum, delectus expedita tenetur quos doloremque natus. Eaque doloremque iste nostrum vel, accusantium exercitationem doloribus, repudiandae, debitis nam quae nisi suscipit? Blanditiis deleniti itaque numquam aspernatur ullam, mollitia odit saepe. Nam, dolor nihil.</p>
             <div class="footer">
-                <i class="like fa fa-heart" aria-hidden="true" style="color: red;" onclick="like()"></i>
-                <span>21</span>
-                <i class="comment fa fa-comment" aria-hidden="true" style="color: chocolate;" onclick="comment()"></i>
-                <span>13</span>
+                <i class="fa fa-thumbs-up" aria-hidden="true" onclick="funcLike()"></i>
+                <span id="likes"></span>
+                <i class="fa fa-thumbs-o-down" aria-hidden="true" onclick="funcDislike()"></i>
+                <span id="dislikes"></span>
 
             </div>
             <form action="">
                 <h3>Leave A Comment</h3>
-                <input type="text" placeholder="EMAIL"><br>
-                <textarea name="" id="" cols="30" rows="5"placeholder="COMMENT"></textarea><br>                
-                <button type="submit">SEND</button>
+                <input type="text" placeholder="EMAIL" id="email"><br>
+                <textarea name="" id="comment" cols="30" rows="5"placeholder="COMMENT"></textarea><br>                
+                <button type="submit" id="send">SEND</button>
             </form>
+            <div class="low-section" id="comments">
+                <h4 id="check"><i class="fa fa-comment" aria-hidden="true"></i>  Comments:</h4>
+                <!-- <div class="user">
+                    <p class="profile"><i class="fa fa-user" aria-hidden="true"></i> YVAN:</p>
+                    <p class="message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, et.</p>
+                </div> -->
+                <!-- <div class="user">
+                    <p class="profile"><i class="fa fa-user" aria-hidden="true"></i> YVAN:</p>
+                    <p class="message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, et.</p>
+                </div> -->
+            </div>
+            
     </div>
 
     <!-- javasript -->
     <script src="../javascript/runpage.js"></script>
+    <script>
+const image= document.getElementById("image")
+const title = document.getElementById("title");
+const body = document.getElementById("body");
+const email = document.getElementById("email");
+const commentSec = document.getElementById("comment");
+const send = document.getElementById("send");
+const container = document.getElementById("comments")
+const check = document.getElementById("check")
+const likes= document.getElementById("likes")
+const dislikes= document.getElementById("dislikes")
+
+
+let parameter= new URLSearchParams(window.location.search)
+let id = parameter.get("page")
+const a= localStorage.getItem("Blogs")
+const b= JSON.parse(a);
+const blog= b.filter(blogid => b.indexOf(blogid)==id);
+image.src=blog[0].image
+title.textContent=blog[0].title;
+body.textContent=blog[0].body
+
+// add comment
+let comment= localStorage.getItem("Comments");
+if(comment==null){
+    localStorage.setItem("Comments",JSON.stringify([{blogid:"none",email:"none",comment:"none"}]))
+    comment=localStorage.getItem("Comments");
+}
+const array=JSON.parse(comment)
+send.addEventListener('click',(e)=>{
+    e.preventDefault();
+    array.push({blogid:id,email:email.value,comment:commentSec.value})
+    localStorage.setItem("Comments",JSON.stringify(array))
+    window.location.href=`story.html?page=${id}`
+})
+// read comments
+const icon=`<i class="fa fa-user" aria-hidden="true"></i>`;
+
+const result = array.filter(blog => blog.blogid==id);
+
+
+for (let i = 0; i < result.length; i++) {
+    const userDiv= document.createElement("div");
+const parag1= document.createElement("p");
+const parag2= document.createElement("p");
+parag1.classList.add("profile");
+parag2.classList.add("message")
+userDiv.classList.add("user");
+
+parag1.innerHTML = icon + " " + result[i].email;
+parag2.innerHTML= result[i].comment;
+userDiv.innerHTML= parag1.outerHTML + parag2.outerHTML;
+container.appendChild(userDiv)
+}
+
+// displaying likes
+let display= localStorage.getItem("Likes")
+if(display==null){
+    localStorage.setItem("Likes",JSON.stringify({blogid:id,likes:"0",dislikes:"0"}));
+    display=localStorage.getItem("Likes");
+}
+const content=JSON.parse(display);
+ likes.textContent=content.likes;
+ dislikes.textContent=content.dislikes;
+ 
+// incrementing likes
+ function funcLike(){
+    // let thumbsUp = localStorage.getItem("Likes")
+    // if (thumbsUp==null){
+    // localStorage.setItem("Likes",JSON.stringify([{blogid:id,likes:"0",dislikes:"0"}]));
+    // thumbsUp=localStorage.getItem("Likes");
+    // }
+
+    //  likecontent=JSON.parse(thumbsUp);
+    // console.log(likecontent)
+    // const Like = parseInt((likecontent[0].likes));
+    // console.log(likecontent[0].likes)
+
+    // let a= Like+1
+
+    // likes.textContent=a;
+
+    // const addDislike = parseInt((likecontent.dislikes));
+    // localStorage.setItem("Likes",JSON.stringify([{blogid:id,likes:a,dislikes:addDislike}]))
+ }
+//  incrementing dislikes
+function funcDislike(){
+    // let thumbsUp = localStorage.getItem("Likes")
+
+    // if (thumbsUp==null){
+    // localStorage.setItem("Likes",JSON.stringify([{blogid:id,likes:"0",dislikes:"0"}]));
+    // thumbsUp=localStorage.getItem("Likes");
+    // }
+    // const grab=JSON.parse(thumbsUp)
+
+    // const Like = parseInt((grab[0].likes));
+    // const addDislike = parseInt((grab[0].dislikes));
+    // let x= addDislike+1
+    // dislikes.textContent=x;
+
+    // localStorage.setItem("Likes",JSON.stringify([{blogid:id,likes:Like,dislikes:x}]))
+}
+
+    </script>
 </body>
 </html>

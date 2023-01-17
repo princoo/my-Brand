@@ -50,7 +50,7 @@ nav li a{
 
 /* services */
 :root{
-    --primary-color:rgb(72, 70, 70);
+    --primary-color:rgb(46, 45, 45);
     --secondary-color:black;
     --additional-color:rgb(247, 112, 16);
     --text-color1:black;
@@ -87,7 +87,45 @@ body{
     color: var(--text-color2); 
     margin-top: 5px; 
 }
+.background{
+    position: absolute;
+    background-color: rgb(243, 217, 184);
+    width: 100%;
+    height: 0%;
+    transition: 1s;
+    opacity: 0;
+}
+.background p{
+    opacity: 0;
+    text-align: center;
+    margin-top: 115%;
+    transition: 1s;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-color1);
+    background-color: var(--additional-color);
+    width: 100px;
+    margin-left: 30%;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.background a{
+    text-decoration: none;
+}
+.box:hover .background{
+    height: 100%;
+    opacity: 0.9;
+}
+.box:hover .background p{
+    opacity: 1;
+    margin-top: 50%;
+}
+.background .fa{
+    font-size: 20px;
+    color: black;
+}
 .box{
+    position: relative;
     background-color: var(--secondary-color);
     max-width:25%;
     margin-top: 60px;
@@ -95,23 +133,35 @@ body{
     border-radius: 5px;
     box-shadow: 10px 10px 10px #605b5b;
     transition: .3s; 
+    overflow: hidden;
+    cursor: pointer;
 }
 .box:hover{
     transform: scale(1.1);
 }
+.box .big{
+color: var(--additional-color);
+font-size: 60px;
+padding-left: 30px;
+margin-top: 20%;
+}
 h2{
     color: var(--additional-color);
-    padding-top: 40%;
+    /* padding-top: 20%; */
     padding-left: 30px;
-    padding-right: 5px
+    padding-right: 5px;
+    font-size: 2vw;
+    font-family: "monserrate",sans-serif;
 
 }
 .mini{
-margin-top: 10px;
+margin-top: 20px;
+font-size: 1vw;
+letter-spacing: 1;
 }
 .description{
     color: var(--text-color2);
-    padding-left: 30px;
+    padding: 30px;
     line-height: 1.3;
     letter-spacing: 2;
     font-size: large;
@@ -119,7 +169,6 @@ margin-top: 10px;
 .flex{
     display: flex;
     gap: 30px;
-    margin: 0px 30px;
     justify-content: center;
 }
 .skills{
@@ -184,10 +233,12 @@ margin: 0% 10% 0% 22%;
        }
        .box{
         min-width: 100%;
+        position: static;
        }
        h2,.description{
         font-size: 6vw;
        }
+       
        .skills{
         margin: 0% 5%;
        }

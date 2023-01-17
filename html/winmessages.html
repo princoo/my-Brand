@@ -44,11 +44,31 @@
     <div class="right">
         <h1>DASHBOARD</h1>  
         <!-- DESIGN WILL BE LIKE THAT OF BLOGLIST -->
-    <p class="empty">NO MESSAGES YET !!<p>
+        <div class="start">
+            <p></p>
+            <h4></h4>
+            <p></p>
+        </div>
+    <!-- <p class="empty">NO MESSAGES YET !!<p> -->
   </div>
 </div>
 
 <!-- javascript -->
 <script src="../javascript/runpage.js"></script>
+
+<script>
+    const p1=document.createElement("p")
+    const h4=document.createElement("h4")
+    const p2=document.createElement("p")
+    const div= document.createElement("div")
+    div.classList.add("start")
+    let a=localStorage.getItem("messages")
+    if(a==null){
+
+    }
+    const b=JSON.parse(a)
+    
+
+</script>
 </body>
 </html>

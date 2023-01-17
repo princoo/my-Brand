@@ -46,11 +46,10 @@
     <h1>DASHBOARD</h1>  
     <h3 style="color: rgb(203, 122, 40);">ADD NEW BLOG</h3>
     <form action="">
-        <input type="text" placeholder="BLOG TITLE" name="title" class="title">
-        <textarea name="body" cols="30" rows="12" placeholder="  BLOG BODY" class="body"></textarea><br>
-        <button class="send file" name="file">CHOOSE PHOTO</button><br>
-        <button type="submit" class="send submit" name="submit">ADD BLOG</button>
-
+        <input type="text" placeholder="BLOG TITLE" name="title" class="title" id="title">
+        <textarea name="body" cols="30" rows="12" placeholder="  BLOG BODY" class="body" id="body"></textarea><br>
+        <input type="file" class="file" name="image" id="image">
+        <button type="submit" class="send submit" name="submit" id="addblog">ADD BLOG</button>
     </form>
   </div>
 </div>
@@ -58,5 +57,49 @@
 <!-- javascript -->
 <script src="../javascript/runpage.js"></script>
 
+<script>
+    const send = document.getElementById('addblog');
+    const title = document.getElementById('title');
+    const body = document.getElementById('body');
+    const image = document.getElementById('image');
+    let url="";
+
+  //    generating image url
+    image.addEventListener('change',()=>{
+        const fr= new FileReader();
+        fr.readAsDataURL(image.files[0]);
+        fr.addEventListener('load',()=>{
+             url= fr.result
+        })
+    })
+
+// storing
+    send.addEventListener('click',(e)=>{
+    e.preventDefault();
+    let a = localStorage.getItem("Blogs");
+    if(a==null){
+        localStorage.setItem("Blogs",JSON.stringify([{title:"no blogs yet",body:"not yet",image:"none"}]))
+        a=localStorage.getItem('Blogs')
+    }
+    const newarray= JSON.parse(a)
+    newarray.push({title:title.value,body:body.value,image:url})
+    localStorage.setItem("Blogs",JSON.stringify(newarray))
+    window.location.reload()
+})
+
+// checking for edit
+const check= window.location.search
+if(check!=""){
+    let parameter= new URLSearchParams(window.location.search)
+let id = parameter.get("page")
+const a= localStorage.getItem("Blogs")
+const b= JSON.parse(a);
+const blog= b.filter(blogid => b.indexOf(blogid)==id);
+title.value= blog[0].title
+body.value= blog[0].body
+
+}
+
+</script>
 </body>
 </html>

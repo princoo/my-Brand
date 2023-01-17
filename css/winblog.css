@@ -4,6 +4,7 @@
 
 *{
     font-family: "montserrat",sans-serif;
+    margin: 0%;
 }
 /* navbar */
 li,li a,h1{
@@ -148,7 +149,8 @@ color:var(--text-color2);
 }
 .parag{
     width: 90%;
-        border-right: 1px dashed black;
+    border-right: 1px dashed black;
+    margin-right: 10px;
 }
 span{
     font-size: 10px;
@@ -179,13 +181,10 @@ a{
     text-decoration: none;
     color: var(--secondary-color);
 }
-.back{
-    width:61%;
-    height: 100%;
-    background-color: rgb(126, 56, 56);
-    display: none;
+.none{
+    color: var(--additional-color);
+    text-align: center;
 }
-
 @media(max-width:800px){
 /* navbar */
 nav ul li{

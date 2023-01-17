@@ -139,6 +139,11 @@ button{
     color:var(--additional-color);
     font-family: 'Inter', sans-serif;
     border-radius: 5px;
+    cursor: pointer;
+}
+button a{
+    text-decoration: none;
+    color: var(--additional-color);
 }
 
 @media(max-width:800px){

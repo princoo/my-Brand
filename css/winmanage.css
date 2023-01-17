@@ -4,6 +4,7 @@
 
 *{
     font-family: "montserrat",sans-serif;
+    margin: 0%;
 }
 /* navbar */
 li,a,h1{
@@ -142,12 +143,12 @@ h3{
 .password{
     background-color: rgba(173, 120, 76, 0.998);
     border-radius: 10px;
-    padding: 5px 10px;
+    padding: 25px 10px;
 }
 .profile{
     background-color: rgb(60, 115, 97);
     border-radius: 10px;
-    padding: 5px 10px;
+    padding: 25px 10px;
 }
 .bound{
     box-shadow: 2px 2px 10px #605b5b;

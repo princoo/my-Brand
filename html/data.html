@@ -1,0 +1,35 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Document</title>
+</head>
+<body>
+    <div class="edit">
+        <!-- <div class="div"><i class="icon1 fa fa-heart" aria-hidden="true" style="color: rgb(0, 221, 255);"></i><br> <span>21</span></div>  -->
+        <!-- <div class="div comment"><i class="icon2 fa fa-comment" aria-hidden="true" style="color: chocolate;"></i><br><span>30</span></div> -->
+        <!-- <div class="div"><i class="change fa fa-edit" style="color: green;"></i><br><span>edit</span></div> -->
+        <div class="div dele" id="delete"><i class="delete fa fa-trash" aria-hidden="true" style="color: red;"></i><br><span>delete</span></div>
+     </div>
+
+     <script src="../javascript/runpage.js"></script>
+     <script>
+const edit = document.querySelector(".edit")
+        const div1= document.createElement("div")
+        const div2= document.createElement("div")
+        const div3= document.createElement("div")
+        const div4= document.createElement("div")
+        const i4 = document.createElement(i)
+        div1.innerHTML="<i class=\"icon1 fa fa-heart\" aria-hidden=\"true\" style=\"color: rgb(0, 221, 255);\"></i><br> <span>21</span>"
+        div2.innerHTML="<i class=\"icon2 fa fa-comment\" aria-hidden=\"true\" style=\"color: chocolate;\"></i><br><span>30</span>"
+        div3.innerHTML="<i class=\"change fa fa-edit\" style=\"color: green;\"></i><br><span>edit</span>"
+        div4.innerHTML="<i class=\"delete fa fa-trash\" aria-hidden=\"true\" style=\"color: red;\"></i>"
+        edit.appendChild(div1);
+
+     </script>
+</body>
+</html>
+

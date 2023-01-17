@@ -31,12 +31,14 @@
     <div class="flex">
     <div class="bound">
         <div class="container">
-            <h1 class="contact">CONTACT US</h1>
+            <h1 class="contact">CONTACT ME</h1>
+            <form action="">
             <input type="text" placeholder="NAME" class="box name">
-            <input type="text" placeholder="EMAIL" class="box email"> <br>
-            <input type="text" placeholder="SUBJECT" class="box subject"> <br>
-            <textarea name="" id="" cols="30" rows="10" placeholder="COMMENT" class="box comment"></textarea> <br>
-            <button><p class="button">SEND YOUR MESSAGE</p> </button>
+            <input type="text" placeholder="EMAIL" class="box email" id="email"> <br>
+            <input type="text" placeholder="SUBJECT" class="box subject" id="subject"> <br>
+            <textarea name="" id="message" cols="30" rows="10" placeholder="MESSAGE" class="box comment" ></textarea> <br>
+            <button id="send"><p class="button">SEND YOUR MESSAGE</p> </button>
+        </form>
         </div>
     </div>
     <div class="main">
@@ -58,6 +60,28 @@
 
     <!-- javascript -->
     <script src="../javascript/runpage.js"></script>
+    <script>
+
+const send= document.getElementById("send")
+
+
+
+send.addEventListener("click",(e)=>{
+    let a= localStorage.getItem("messages")
+        if(a==null){
+            localStorage.setItem("messages",JSON.stringify([{email:"none",subject:"none",msg:"none"}]))
+            a=localStorage.getItem("messages")
+        }
+        const b= JSON.parse(a)
+const mail= document.getElementById("email").value
+const sub= document.getElementById("subject").value
+const message= document.getElementById("message").value
+b.push({email:mail,sub:subject,msg:message})
+console.log(b)
+localStorage.setItem("messages",JSON.stringify(b))
+})
+
+    </script>
 
 </body>
 </html>

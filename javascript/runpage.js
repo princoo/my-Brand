@@ -1,12 +1,19 @@
+
+function yoo(id){
+const a= localStorage.getItem("Blogs");
+const b= JSON.parse(a);
+const result= b.filter(blog =>b.indexOf(blog)==id);
+return result;
+}
+
+
 // fa icons functions
 const navlinks= document.querySelector("nav");
-const background= document.querySelector(".back")
     function showmenu(){
         navlinks.style.right="0";
 }
     function hidemenu(){
         navlinks.style.right="-200px"
-        background.style.display="none";
     }
 
 // active nav
@@ -19,20 +26,20 @@ const background= document.querySelector(".back")
 
 const contact= document.getElementsByClassName('contact');
 
-// login
-const a='princeineza@gmail.com';
-const b= 'test123'
-function login(event){
-    event.preventDefault();
-    const email= document.querySelector('.email').value;
-    const password= document.querySelector('.subject').value;
-if(email==a && password==b){
-    window.location.replace('dashboard.html');
+// read more button
+function more(){
+    const read= document.querySelector("#more");
+    const newblogs= document.querySelectorAll(".new");
+    read.addEventListener('click',()=>{
+        newblogs.forEach(blog =>{
+            blog.style.display="block";
+
+        })
+        read.style.display="none"
+    })
 }
-else{
-    console.log("unmatched")
-}
-}
+// story page
+
 
 // homepage animation
 const span=document.querySelectorAll("span")
@@ -113,6 +120,7 @@ function signup(event){
 
 // login
 function login(event){
+    const redirect= document.getElementById("next");
     event.preventDefault();
     let count=0;
     let a=localStorage.getItem("Users")
@@ -129,10 +137,7 @@ function login(event){
         if(index!=(-1)){
             if(users[index].password===password){
                 console.log("its a match");
-                // const token = createtoken(index);
-                const q=JSON.stringify(object)
-                document.cookie= "jwt:q"
-                console.log(document.cookie)
+                window.location.href="dashboard.html"
             }
             else{
                 console.log("incorrect password")
