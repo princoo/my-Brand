@@ -69,7 +69,7 @@ const err= document.getElementById("error")
 
 
 send.addEventListener("click",(e)=>{  
-    // e.preventDefault(); 
+    e.preventDefault(); 
     let a= localStorage.getItem("messages")
         if(a==null){
             localStorage.setItem("messages",JSON.stringify([{email:"none",subject:"none",msg:"none"}]))
