@@ -46,10 +46,13 @@
     <h1>DASHBOARD</h1>  
     <h3 style="color: rgb(203, 122, 40);">ADD NEW BLOG</h3>
     <form action="">
-        <input type="text" placeholder="BLOG TITLE" name="title" class="title" id="title">
-        <textarea name="body" cols="30" rows="12" placeholder="  BLOG BODY" class="body" id="body"></textarea><br>
-        <input type="file" class="file" name="image" id="image">
+        <input type="text" placeholder="BLOG TITLE" name="title" class="title" id="title" >
+        <textarea name="body" cols="30" rows="12" placeholder="  BLOG BODY" class="body" id="body" ></textarea><br>
+        <input type="file" class="file" name="image" id="image" >
+        <h4 id="error" class="error"></h4>
         <button type="submit" class="send submit" name="submit" id="addblog">ADD BLOG</button>
+        <button class="edit" name="submit" id="edit">SAVE BLOG</button>
+
     </form>
   </div>
 </div>
@@ -62,6 +65,8 @@
     const title = document.getElementById('title');
     const body = document.getElementById('body');
     const image = document.getElementById('image');
+    const err= document.getElementById("error")
+    const edit= document.getElementById("edit")
     let url="";
 
   //    generating image url
@@ -82,23 +87,47 @@
         a=localStorage.getItem('Blogs')
     }
     const newarray= JSON.parse(a)
+        console.log(title.value)
+    if(title.value && body.value && url){
     newarray.push({title:title.value,body:body.value,image:url})
     localStorage.setItem("Blogs",JSON.stringify(newarray))
     window.location.reload()
+    }
+    else{
+    err.innerHTML="Please fill all the fields"
+    }
+   
 })
+// save in draft 
+     edit.addEventListener('click',(e)=>{
+        e.preventDefault();
+        console.log("yoo")
+        let a = localStorage.getItem("Drafts");
+    if(a==null){
+        localStorage.setItem("Drafts",JSON.stringify([{title:"no blogs yet",body:"not yet",image:"none"}]))
+        a=localStorage.getItem('Blogs')
+    }
+    const newarray= JSON.parse(a)
+    newarray.push({title:title.value,body:body.value,image:url})
+    localStorage.setItem("Blogs",JSON.stringify(newarray))
+    window.location.reload()
+
+     })
+
 
 // checking for edit
 const check= window.location.search
 if(check!=""){
-    let parameter= new URLSearchParams(window.location.search)
+let parameter= new URLSearchParams(window.location.search)
 let id = parameter.get("page")
 const a= localStorage.getItem("Blogs")
 const b= JSON.parse(a);
 const blog= b.filter(blogid => b.indexOf(blogid)==id);
 title.value= blog[0].title
 body.value= blog[0].body
-
 }
+
+
 
 </script>
 </body>

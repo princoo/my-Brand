@@ -50,8 +50,8 @@
 <!-- javascript -->
 <script src="../javascript/runpage.js"></script>
 <script>
-// div data
 
+// div data
 const like="<i class=\"icon1 fa fa-heart\" id=\"like\" aria-hidden=\"true\" style=\"color: rgb(0, 221, 255);\"></i> <br>"           
 const comment="<i class=\"icon2 fa fa-comment\" aria-hidden=\"true\" style=\"color: chocolate;\"></i> <br>"
 const right = document.querySelector(".right");
@@ -59,16 +59,11 @@ const right = document.querySelector(".right");
 
     const editdiv =  document.querySelector(".edit");
     let a = localStorage.getItem('Blogs');
-if(a==null){
+    if(a==null){
         localStorage.setItem("Blogs",JSON.stringify([{title:"no blogs yet",body:"not yet",image:"none"}]))
         a=localStorage.getItem('Blogs')
     }
     const b = JSON.parse(a)
-    // const result = b.filter(check)
-    // function check(blog){
-    // return blog.title!="biibiub"
-    // }
-// console.log(result)
     if(b.length==1){
         const header = document.createElement("h2")
         header.classList.add("none")
@@ -94,6 +89,7 @@ if(a==null){
             const changeDiv = document.createElement("div")
             const deleteDiv = document.createElement("div")
             likeDiv.classList.add("div")
+            img.classList.add("image")
             commentDiv.classList.add("div")
             changeDiv.classList.add("div")
             changeDiv.classList.add("green")
@@ -118,20 +114,29 @@ if(a==null){
          // ----------------------------------------------
 
         //  number of likes
-        // let likes= localStorage.getItem("Likes");
-        // if(likes==null){
-        //     localStorage.setItem("Likes", JSON.stringify([{likes:"0",dislikes:"0"}]))
-        //     likes= localStorage.getItem("Likes")
-        // }
-        // const heart= JSON.parse(likes)
-        // const likefilter= heart.filter(thumpUp=>thumpUp.likes==i)
-        // console.log(likefilter[0].likes)
-        // likeSpan.textContent= likefilter[0].likes
+        let liki= localStorage.getItem("Likes");
+        if(liki==null){
+            localStorage.setItem("Likes", JSON.stringify([{blogid:"none",likes:0,dislikes:0}]))
+            liki= localStorage.getItem("Likes")
+        }
+        const heart= JSON.parse(liki)
+        console.log(heart)
+        const likefilter= heart.filter(thumpUp=>thumpUp.blogid==i)
+        if(likefilter.length==0){
+            likeSpan.textContent="0"
+        }
+        else{
+            console.log(likefilter)
+        likeSpan.textContent= likefilter[0].likes
+        }
+           
+        
+        
+        
         // ---------------------------------
 
 
         // edit section
-
             likeDiv.innerHTML= like + likeSpan.outerHTML
             commentDiv.innerHTML= comment + commentSpan.outerHTML
             changeDiv.innerHTML=  modify + changeSpan.outerHTML
@@ -153,7 +158,16 @@ if(a==null){
         function erase(id){
             let array= b.filter(blog => b.indexOf(blog)!=id)
             localStorage.setItem("Blogs",JSON.stringify(array))
-            console.log("done")
+            // console.log("done")
+          let comments= localStorage.getItem("Comments")
+            const result= JSON.parse(comments);
+            const com= result.filter(each=>each.blogid!=id);
+            localStorage.setItem("Comments",JSON.stringify(com))
+
+            let likes= localStorage.getItem("Likes")
+            const filt= JSON.parse(likes);
+            const erase= filt.filter(each=>each.blogid!=id);
+            localStorage.setItem("Likes",JSON.stringify(erase))
             window.location.reload()
            }
            function modify(id){

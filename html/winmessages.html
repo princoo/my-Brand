@@ -34,22 +34,17 @@
     <div class="left">
         <img src="../html/images/cover.jpg" alt="">
         <p style="color: rgb(223, 122, 40);"><b>INEZA PRINCE</b> </p>
-        <p class="email" >princeineza@gmail.com</p>
+        <p>princeineza@gmail.com</p>
         <a href="winblog.html"><div class="box blog"><p>BLOGS</p></div></a>
         <a href="windraft.html"><div class="box drafts"><p>DRAFTS</p></div></a>
         <a href="winmessages.html"><div class="box messages"><p>MESSAGES</p></div></a> 
         <a href="dashboard.html"><div class="box add"><p>ADD BLOG</p></div></a>
         <a href="winmanage.html"><div class="box manage"><p>MANAGE</p></div></a>
     </div>
-    <div class="right">
+    <div class="right" id="right">
         <h1>DASHBOARD</h1>  
         <!-- DESIGN WILL BE LIKE THAT OF BLOGLIST -->
-        <div class="start">
-            <p></p>
-            <h4></h4>
-            <p></p>
-        </div>
-    <!-- <p class="empty">NO MESSAGES YET !!<p> -->
+        
   </div>
 </div>
 
@@ -57,17 +52,39 @@
 <script src="../javascript/runpage.js"></script>
 
 <script>
-    const p1=document.createElement("p")
+        const right = document.getElementById("right")
+    let a=localStorage.getItem("messages")
+    let b=JSON.parse(a);
+    if(a==null ||b.length==1){
+        const h2=document.createElement("h2")
+        h2.classList.add("empty")
+        h2.innerHTML="NO MESSAGES YET !!"
+        right.appendChild(h2)
+    }
+     b=JSON.parse(a);
+
+    for (let i = 1; i < b.length; i++) {
+     const p1=document.createElement("p")
     const h4=document.createElement("h4")
     const p2=document.createElement("p")
+    const button=`<button class="delete" id="${i}" onclick="remove(${i})">DELETE<DELETE>`
     const div= document.createElement("div")
-    div.classList.add("start")
-    let a=localStorage.getItem("messages")
-    if(a==null){
 
+    p1.classList.add("email")
+    h4.classList.add("heading")
+    p2.classList.add("body")
+    div.classList.add("start")
+        p1.innerHTML=b[i].email
+        h4.innerHTML=b[i].subject
+        p2.innerHTML=b[i].msg
+        div.innerHTML=p1.outerHTML + h4.outerHTML + p2.outerHTML + button;
+        right.appendChild(div)
     }
-    const b=JSON.parse(a)
-    
+    function remove(id){
+        const result=b.filter(msg=>b.indexOf(msg)!=id )
+        localStorage.setItem("messages",JSON.stringify(result))
+        window.location.reload()
+    }
 
 </script>
 </body>

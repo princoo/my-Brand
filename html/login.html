@@ -23,7 +23,7 @@
                 <li><a href="portfolio.html">PORTFOLIO</a></li>
                 <li><a href="blog.html">BLOG</a></li>
                 <li><a href="contact.html">CONTACT</a></li>
-                <li><a href="login.html">LOGIN</a></li>
+                <li onclick="dashboard(event)" ><a href="login.html" id="a">LOGIN</a></li>
             </ul>
         </nav>
         <i class="side fa fa-bars" onclick="showmenu()"></i>
@@ -34,9 +34,10 @@
         <div class="container">
             <form action="">
             <h1 class="contact">LOGIN</h1>
-            <input type="text" placeholder="EMAIL" class="box email" id="email"> <br>
-            <input type="password" placeholder="PASSWORD" class="box subject" id="subject"> <br>
-            <button class="login"><a href="dashboard.html" id="next">LOGIN</a></button>
+            <h4 class="error" id="error"></h4>
+            <input type="text" placeholder="EMAIL" class="box email" id="email" required> <br>
+            <input type="password" placeholder="PASSWORD" class="box subject" id="subject" required> <br>
+            <button class="login" onclick="login(event)">LOGIN</button>
             <button class="signup"><a href="signup.html">CREATE ACCOUNT</a></button>
         </form>
         </div>
@@ -44,9 +45,73 @@
 
 
     <!-- javascript -->
-    <script src="../javascript/runpage.js">
+    <script src="../javascript/runpage.js"></script>
+    <script>
+        // login
+    function login(event){
+    event.preventDefault();
+    const redirect= document.getElementById("next");
+    const email=document.getElementById("email").value;
+    const password=document.getElementById("subject").value;
+    const err=document.getElementById("error")
+    let a=localStorage.getItem("Users")
+    let users=JSON.parse(a);
+    const object={
+        email:email,
+        password:password
+    }
+    if(email&&password){
+        err.innerHTML=""
+        if(!ValidateEmail(email)){
+            err.innerHTML="Email is not valid"
+        }else{
+            const index= users.findIndex(user =>user.email==email);
+             if(index!=(-1)){
+            if(email=="admin@gmail.com"){
+                if (password=="admin"){
+                localStorage.setItem("Active",JSON.stringify([{activeuser:email}]))
+                window.location.href="dashboard.html"
+                 }
+                 else{
+                    err.innerHTML="Incorrect Password"
+                }
+                }
+                else{
+                    if(users[index].password==password){
+                        localStorage.setItem("Active",JSON.stringify([{activeuser:users[index].email}]))
+                        window.location.href="blog.html"
+                    }
+                    else{
+                        err.innerHTML="Incorrect Password"
+                    }
+                }}
+        }
+        }
+        else{
+            err.innerHTML="Please fill all fields"
+        }
+            }
+            // email validation
+            function ValidateEmail(mail) {
+                    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)
+            }
 
+
+
+            // direct login
+            // function dashboard(event){
+            //     const link= document.getElementById("a")
+            //     event.preventDefault()
+            //     let a=localStorage.getItem("Active")
+            //     if(a!=null){
+            //         const b = JSON.parse(a);
+            //         if(b[0].activeuser=="admin"){
+            //             console.log("here")
+            //             link.textContent="dash"
+            //             window.location.href="dashboard.html"
+            //         }
+            //     }
+            // }
     </script>
-
 </body>
 </html>

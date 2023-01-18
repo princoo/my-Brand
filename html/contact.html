@@ -32,11 +32,12 @@
     <div class="bound">
         <div class="container">
             <h1 class="contact">CONTACT ME</h1>
+            <h4 id="error"></h4>
             <form action="">
-            <input type="text" placeholder="NAME" class="box name">
-            <input type="text" placeholder="EMAIL" class="box email" id="email"> <br>
-            <input type="text" placeholder="SUBJECT" class="box subject" id="subject"> <br>
-            <textarea name="" id="message" cols="30" rows="10" placeholder="MESSAGE" class="box comment" ></textarea> <br>
+            <input type="text" placeholder="NAME" class="box name" required="please fill">
+            <input type="text" placeholder="EMAIL" class="box email" id="email" required="please fill"> <br>
+            <input type="text" placeholder="SUBJECT" class="box subject" id="subject" required="please fill"> <br>
+            <textarea name="" id="message" cols="30" rows="10" placeholder="MESSAGE" class="box comment" required="please fill"></textarea> <br>
             <button id="send"><p class="button">SEND YOUR MESSAGE</p> </button>
         </form>
         </div>
@@ -63,24 +64,42 @@
     <script>
 
 const send= document.getElementById("send")
+const err= document.getElementById("error")
 
 
 
-send.addEventListener("click",(e)=>{
+send.addEventListener("click",(e)=>{  
+    // e.preventDefault(); 
     let a= localStorage.getItem("messages")
         if(a==null){
             localStorage.setItem("messages",JSON.stringify([{email:"none",subject:"none",msg:"none"}]))
             a=localStorage.getItem("messages")
         }
         const b= JSON.parse(a)
-const mail= document.getElementById("email").value
-const sub= document.getElementById("subject").value
-const message= document.getElementById("message").value
-b.push({email:mail,sub:subject,msg:message})
-console.log(b)
-localStorage.setItem("messages",JSON.stringify(b))
-})
+        const mail= document.getElementById("email").value.trim()
+        const sub= document.getElementById("subject").value.trim()
+        const message= document.getElementById("message").value.trim()
 
+if(mail && sub && message){
+    if(!ValidateEmail(mail)){
+        err.innerHTML="Email is not valid"
+        }
+        else{
+            err.innerHTML=""
+        b.push({email:mail,subject:sub,msg:message})
+        console.log(b)
+        localStorage.setItem("messages",JSON.stringify(b))
+        }
+    }else{
+        err.innerHTML="Please fill all fields"
+
+    }
+        
+        })
+
+        function ValidateEmail(mail) {
+                    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)
+        }
     </script>
 
 </body>

@@ -34,8 +34,10 @@
         <div class="container">
             <form action="">
             <h1 class="contact">SIGN UP</h1>
-            <input type="text" placeholder="EMAIL" class="box email" id="email"> <br>
-            <input type="password" placeholder="PASSWORD" class="box subject" id="subject"> <br>
+            <h4 id="error"></h4>
+            <input type="text" placeholder="EMAIL" class="box email" id="email" required> <br>
+            <input type="password" placeholder="PASSWORD" class="box subject" id="subject1" required> <br>
+            <input type="password" placeholder="CONFIRM PASSWORD" class="box subject" id="subject2" required> <br>
             <button onclick="signup(event)" class="signup">CREATE</button>
             <button class="login"><a href="login.html">LOG IN</a></button>
         </form>
@@ -45,6 +47,13 @@
 
     <!-- javascript -->
     <script src="../javascript/runpage.js"></script>
+    <script>
+        let a= localStorage.getItem("Users");
+        let count=0;
+        if(a==null){
+        localStorage.setItem("Users",JSON.stringify([{email:"admin@gmail.com",password:"admin"}]))
+    }
+    </script>
 
 </body>
 </html>

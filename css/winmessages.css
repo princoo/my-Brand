@@ -67,13 +67,17 @@ nav li a{
 
 
 /* dashboard */
+body{
+    background-color: var(--secondary-color);
+}
 .flex{
     display: flex;
 }
 .right{
     width: 80%;
     background-color: var(--secondary-color);
-    height: 100vh;
+    /* height: 100vh; */
+    /* height: 100%; */
 }
 .left{
     width: 20%;
@@ -91,9 +95,6 @@ nav li a{
     text-align: center;
     color: var(--text-color2);
 
-}
-.email{
-    color:var(--text-color2);
 }
 .box{
     background-color: var(--additional-color);
@@ -131,12 +132,35 @@ nav li a{
     font-family: 'Poppins', sans-serif;
 }
 .start{
-    background-color: aquamarine;
+    width: 60%;
+    background-color: rgba(58, 70, 72, 0.573);
     margin: 0% 20%;
     padding-bottom: 10px;
+    margin-top: 2%;
+    overflow-wrap: break-word;
+    border-radius: 5px;
+
+}
+.start:nth-child(4){
+    margin-bottom: 3%;
 }
 .start p, .start h4{
-    color: white;
+    /* width: 10%; */
+    padding: 2px  10px;
+    color: var(--text-color2);
+}
+
+.start .email{
+    color: var(--additional-color);
+}
+.delete{
+    margin-top: 1%;
+    margin-left: 85%;
+    border-radius: 5px;
+    border-style: none;
+    padding: 5px;
+    cursor: pointer;
+    background-color: rgba(215, 78, 78, 0.63); 
 }
 /* DRAFT */
 .empty{
@@ -200,7 +224,11 @@ nav ul li{
     }
     #theme{
         margin-left: 0%;
-    
       }
+      .delete{
+        margin-top: 1%;
+       margin-left: 2%; 
+       max-width: 80px;
+    }
   
 }

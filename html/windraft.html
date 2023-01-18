@@ -52,5 +52,14 @@
 
 <!-- javascript -->
 <script src="../javascript/runpage.js"></script>
+<script>
+    let a=localStorage.getItem("Drafts");
+    if(a=null){
+        localStorage.setItem("Drafts",JSON.stringify([{title:"none",body:"none",image:"none"}]))
+        a=localStorage.getItem("Drafts");
+    }
+    const b= JSON.parse(a)
+    
+</script>
 </body>
 </html>

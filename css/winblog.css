@@ -185,6 +185,8 @@ a{
     color: var(--additional-color);
     text-align: center;
 }
+
+
 @media(max-width:800px){
 /* navbar */
 nav ul li{

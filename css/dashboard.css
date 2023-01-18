@@ -149,7 +149,7 @@ color:var(--text-color2);
 }
 .submit{
     padding: 10px;
-    width: 60%;
+    width: 50%;
     margin-left: 20%;
     margin-top: 10px;
     border-radius: 5px;
@@ -158,14 +158,28 @@ color:var(--text-color2);
     cursor: pointer;
     background-color: var(--additional-color);
 }
-.send:hover, .file:hover{
+.edit{
+    padding: 10px;
+    cursor: pointer;
+    margin-left:10px;
+    border-radius: 5px;
+    border-style: none;
+    background-color: rgb(25, 209, 99);
+    transition: 0.5s;
+
+}
+.send:hover, .file:hover, .edit:hover{
     transform:scale(0.91);
 }
 a{
     text-decoration: none;
     color: var(--text-color1);
 }
-
+h4{
+    text-align: center;
+    font-family: 'monserrat', sans-serif;
+    color: rgb(229, 54, 54);
+}
 @media(max-width:800px){
     *{
         font-family: "montserrat",sans-serif;

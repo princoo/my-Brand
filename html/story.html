@@ -40,22 +40,15 @@
                 <span id="dislikes"></span>
 
             </div>
-            <form action="">
+            <form action="" id="form">
                 <h3>Leave A Comment</h3>
-                <input type="text" placeholder="EMAIL" id="email"><br>
-                <textarea name="" id="comment" cols="30" rows="5"placeholder="COMMENT"></textarea><br>                
+                <textarea name="" id="comment" cols="30" rows="5"placeholder="COMMENT"></textarea><br>  
+                <div class="error" id="error"></div>              
                 <button type="submit" id="send">SEND</button>
             </form>
             <div class="low-section" id="comments">
                 <h4 id="check"><i class="fa fa-comment" aria-hidden="true"></i>  Comments:</h4>
-                <!-- <div class="user">
-                    <p class="profile"><i class="fa fa-user" aria-hidden="true"></i> YVAN:</p>
-                    <p class="message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, et.</p>
-                </div> -->
-                <!-- <div class="user">
-                    <p class="profile"><i class="fa fa-user" aria-hidden="true"></i> YVAN:</p>
-                    <p class="message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, et.</p>
-                </div> -->
+              
             </div>
             
     </div>
@@ -66,15 +59,19 @@
 const image= document.getElementById("image")
 const title = document.getElementById("title");
 const body = document.getElementById("body");
-const email = document.getElementById("email");
 const commentSec = document.getElementById("comment");
 const send = document.getElementById("send");
 const container = document.getElementById("comments")
 const check = document.getElementById("check")
 const likes= document.getElementById("likes")
 const dislikes= document.getElementById("dislikes")
+const form= document.getElementById("form");
+const err= document.getElementById("error");
 
-
+form.addEventListener('submit',(e)=>{
+    e.preventDefault()
+  
+})
 let parameter= new URLSearchParams(window.location.search)
 let id = parameter.get("page")
 const a= localStorage.getItem("Blogs")
@@ -91,20 +88,37 @@ if(comment==null){
     comment=localStorage.getItem("Comments");
 }
 const array=JSON.parse(comment)
+
+
 send.addEventListener('click',(e)=>{
     e.preventDefault();
-    array.push({blogid:id,email:email.value,comment:commentSec.value})
+    if(commentSec.value.trim()==='' || commentSec.value.trim()==null){
+        console.log("fill")
+        err.innerHTML="Please add comment"
+    }
+    else{
+        console.log(commentSec.value)
+        err.innerHTML=""
+        let user=localStorage.getItem("Active")
+    if(user==null){
+    alert("please login first")
+    }
+    else{
+    const active=JSON.parse(user);
+    const z=active[0].activeuser
+    array.push({blogid:id,email:z,comment:commentSec.value})
     localStorage.setItem("Comments",JSON.stringify(array))
     window.location.href=`story.html?page=${id}`
+    }
+    }
+  
 })
 // read comments
 const icon=`<i class="fa fa-user" aria-hidden="true"></i>`;
-
 const result = array.filter(blog => blog.blogid==id);
 
-
 for (let i = 0; i < result.length; i++) {
-    const userDiv= document.createElement("div");
+const userDiv= document.createElement("div");
 const parag1= document.createElement("p");
 const parag2= document.createElement("p");
 parag1.classList.add("profile");
@@ -119,50 +133,67 @@ container.appendChild(userDiv)
 
 // displaying likes
 let display= localStorage.getItem("Likes")
+
 if(display==null){
-    localStorage.setItem("Likes",JSON.stringify({blogid:id,likes:"0",dislikes:"0"}));
+    localStorage.setItem("Likes",JSON.stringify([{blogid:id,likes:"0",dislikes:"0"}]));
     display=localStorage.getItem("Likes");
 }
 const content=JSON.parse(display);
- likes.textContent=content.likes;
- dislikes.textContent=content.dislikes;
+const single= content.filter(blog=>blog.blogid==id)
+ likes.textContent=single[0].likes;
+ dislikes.textContent=single[0].dislikes;
  
 // incrementing likes
  function funcLike(){
-    // let thumbsUp = localStorage.getItem("Likes")
-    // if (thumbsUp==null){
-    // localStorage.setItem("Likes",JSON.stringify([{blogid:id,likes:"0",dislikes:"0"}]));
-    // thumbsUp=localStorage.getItem("Likes");
-    // }
-
-    //  likecontent=JSON.parse(thumbsUp);
-    // console.log(likecontent)
-    // const Like = parseInt((likecontent[0].likes));
-    // console.log(likecontent[0].likes)
-
-    // let a= Like+1
-
-    // likes.textContent=a;
-
-    // const addDislike = parseInt((likecontent.dislikes));
-    // localStorage.setItem("Likes",JSON.stringify([{blogid:id,likes:a,dislikes:addDislike}]))
+    
+    let thumbsUp = localStorage.getItem("Likes")
+    if (thumbsUp==null){
+    localStorage.setItem("Likes",JSON.stringify([{blogid:id,likes:"0",dislikes:"0"}]));
+    thumbsUp=localStorage.getItem("Likes");
+    }
+    let g=JSON.parse(thumbsUp)
+    const single=g.filter(blog=>blog.blogid==id)
+    if(single.length==0){
+        g.push({blogid:id,likes:"0",dislikes:"0"})
+        console.log(g)
+        localStorage.setItem("Likes",JSON.stringify(g));
+    }
+    for (let i = 0; i < g.length; i++) {
+        if(g[i].blogid==id){
+            let h =parseInt(g[i].likes)+1
+            let y= parseInt(g[i].dislikes)
+            g[i].likes=h
+            g[i].dislikes=y  
+            likes.textContent=g[i].likes;
+        }      
+    }
+    localStorage.setItem("Likes",JSON.stringify(g))
  }
+
 //  incrementing dislikes
 function funcDislike(){
-    // let thumbsUp = localStorage.getItem("Likes")
-
-    // if (thumbsUp==null){
-    // localStorage.setItem("Likes",JSON.stringify([{blogid:id,likes:"0",dislikes:"0"}]));
-    // thumbsUp=localStorage.getItem("Likes");
-    // }
-    // const grab=JSON.parse(thumbsUp)
-
-    // const Like = parseInt((grab[0].likes));
-    // const addDislike = parseInt((grab[0].dislikes));
-    // let x= addDislike+1
-    // dislikes.textContent=x;
-
-    // localStorage.setItem("Likes",JSON.stringify([{blogid:id,likes:Like,dislikes:x}]))
+    let thumbsUp = localStorage.getItem("Likes")
+    if (thumbsUp==null){
+    localStorage.setItem("Likes",JSON.stringify([{blogid:id,likes:"0",dislikes:"0"}]));
+    thumbsUp=localStorage.getItem("Likes");
+    }
+    let g=JSON.parse(thumbsUp)
+    const single=g.filter(blog=>blog.blogid==id)
+    if(single.length==0){
+        g.push({blogid:id,likes:"0",dislikes:"0"})
+        console.log(g)
+        localStorage.setItem("Likes",JSON.stringify(g));
+    }
+    for (let i = 0; i < g.length; i++) {
+        if(g[i].blogid==id){
+            let h =parseInt(g[i].likes)
+            let y= parseInt(g[i].dislikes)+1
+            g[i].likes=h
+            g[i].dislikes=y 
+            dislikes.textContent=g[i].dislikes;
+        }        
+    }
+    localStorage.setItem("Likes",JSON.stringify(g))
 }
 
     </script>

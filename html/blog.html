@@ -56,7 +56,6 @@ if(a==null){
     }
 
     const b = JSON.parse(a)
-    console.log(b.length)
     if(b.length==1){
         const header = document.createElement("h2")
         header.classList.add("none")
@@ -72,7 +71,6 @@ if(a==null){
         div.classList.add("scale");
         div.setAttribute("id",b.indexOf(b[i]))
         div.addEventListener("click",(e)=>{
-        //    yoo(b.indexOf(b[i]));
         window.location.href=`story.html?page=${b.indexOf(b[i])}`
         })
         if(i>3){
@@ -80,7 +78,6 @@ if(a==null){
         }
         // assignment
         img.src=b[i].image
-        console.log(img.outerHTML)
         const textContent=document.createTextNode(b[i].title);
         p.appendChild(textContent);
         div.innerHTML= img.outerHTML + p.outerHTML;

@@ -84,67 +84,67 @@ function change(){
 
 
 // token
-const maxAge= 3*24*60*60;
-function createtoken(id){
-    const jwt = require('jsonwebtoken')
+// const maxAge= 3*24*60*60;
+// function createtoken(id){
+//     const jwt = require('jsonwebtoken')
 
-    return jwt.sign({id},"secret string",{expiresIn:maxAge})
-}
+//     return jwt.sign({id},"secret string",{expiresIn:maxAge})
+// }
 
 // signup
 function signup(event){
     event.preventDefault();
      let a= localStorage.getItem("Users");
-    //  console.log(a)
+let count=0;
     if(a==null){
-        localStorage.setItem("Users",JSON.stringify([{email:"admin",password:"admin"}]))
+        localStorage.setItem("Users",JSON.stringify([{email:"admin@gmail.com",password:"admin"}]))
          a= localStorage.getItem("Users");
     }
-
     let email=document.getElementById("email").value;
-    let password=document.getElementById("subject").value;
-    if(email&&password){
-            const newuser={
-            email:email,
-            password:password
-        }
-        const newarray=JSON.parse(a);
-        console.log(b)
-        newarray.push({email:newuser.email,password:newuser.password});
-        localStorage.setItem("Users",JSON.stringify(newarray)); 
-    }
-    else{
-        console.log("fill all spaces provided")
-    }
-    }
+    let password=document.getElementById("subject1").value;
+    let confirm= document.getElementById("subject2").value;
+    const err= document.getElementById('error');
+    const newarray=JSON.parse(a);
 
-// login
-function login(event){
-    const redirect= document.getElementById("next");
-    event.preventDefault();
-    let count=0;
-    let a=localStorage.getItem("Users")
-    let users=JSON.parse(a);
-    const email=document.getElementById("email").value;
-    const password=document.getElementById("subject").value;
-    const object={
-        email:email,
-        password:password
-    }
 
-    if(email&&password){
-        const index= users.findIndex(user =>user.email===email);
-        if(index!=(-1)){
-            if(users[index].password===password){
-                console.log("its a match");
-                window.location.href="/dashboard.html"
-            }
-            else{
-                console.log("incorrect password")
-            }
+    if(email&&password&&confirm){
+        err.innerHTML=""
+        if(!ValidateEmail(email)){
+            err.innerHTML="Email is not valid"
         }
         else{
-            console.log("please enter the correct email")
+            if(password!=confirm){
+                err.innerHTML="Passwords do not match !!"
+             }
+             else{
+                 const result= newarray.forEach(user=>{
+                     if(user.email==email){
+                          count++;
+                    }})
+                    if(count==0){
+                     const newuser={
+                         email:email,
+                         password:password
+                     }
+                     newarray.push({email:newuser.email,password:newuser.password});
+                     localStorage.setItem("Users",JSON.stringify(newarray));
+             
+                     window.location.href="login.html";
+                    }
+                    else{
+                err.innerHTML="Email exists"         
+                    }
+             }
         }
-     }
+   
+    }
+            else{
+                err.innerHTML="Please fill all fields !!"
+            }   
+    }
+    // email validation
+    function ValidateEmail(mail) {
+        return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)
 }
+
+
