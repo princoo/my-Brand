@@ -171,7 +171,7 @@ textarea{
     padding: 3px;
     border: none;
     border-bottom: 1px solid  chocolate;}
-button{
+#form button{
     padding: 5px 80px;
     background-color: var(--additional-color);
     border-style: none;
@@ -183,6 +183,37 @@ button{
     text-align: center;
     color: red;
     font-weight: bold;
+}
+.loader{
+    top: 0%;
+    display: none;
+    width:100%;
+    height:100vw;
+    background-color: rgba(244, 241, 241, 0.639);
+    position: absolute;
+}
+.loading{
+background-color: rgb(210, 205, 205);
+width: 20%;
+margin-left: 40%;
+margin-top: 15%;
+margin-bottom: 10px;
+border-radius: 7px;
+position: fixed;
+box-shadow: 5px 8px 10px #888888;
+padding-bottom:10px ;
+}
+.loading p{
+    text-align: center;
+}
+.loading button{
+    width: 70%;
+    margin-left: 40px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-style: none;
+    padding: 5px;
+    cursor: pointer;
 }
 @media(max-width:800px){
     /* navbar */

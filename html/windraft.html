@@ -46,20 +46,71 @@
     <div class="right">
         <h1>DASHBOARD</h1>  
         <!-- DESIGN WILL BE LIKE THAT OF BLOGLIST -->
-    <p class="empty">NO DRAFTS YET !!<p>
+    <p class="empty"><p>
+       
   </div>
 </div>
 
 <!-- javascript -->
 <script src="../javascript/runpage.js"></script>
 <script>
+    const right = document.querySelector(".right");
+const empty =document.querySelector(".empty")
+          
+
+
+
     let a=localStorage.getItem("Drafts");
-    if(a=null){
+    if(a==null){
         localStorage.setItem("Drafts",JSON.stringify([{title:"none",body:"none",image:"none"}]))
         a=localStorage.getItem("Drafts");
     }
     const b= JSON.parse(a)
-    
+    if (b.length==1) {
+       empty.textContent="NO DRAFTS YET !!" 
+    }
+    else{
+        for (let i = 1; i < b.length; i++) {
+    const img = document.createElement("img");
+            const div =  document.createElement("div");
+            const parent = document.createElement("div");
+            const container=document.createElement("div");
+
+            const p = document.createElement("p");
+            const button=`<button class="edit" id="${i}" onclick="modify(${i})">EDIT<DELETE>`
+            const edit=`<button class="delete" id="${i}" onclick="remove(${i})">DELETE<DELETE>`
+
+            img.classList.add("image");
+            parent.classList.add("blogs");
+            div.classList.add("parag");
+
+            img.src= b[i].image ;
+            const content= document.createTextNode(b[i].title);
+            p.appendChild(content);
+            div.appendChild(p)
+            parent.innerHTML= img.outerHTML + div.outerHTML;
+            container.innerHTML= button + edit;
+            right.appendChild(parent)
+            right.appendChild(container)
+
+        
+} 
+    }
+    // delete draft
+    function remove(id){
+        const result=b.filter(msg=>b.indexOf(msg)!=id)
+        localStorage.setItem("Drafts",JSON.stringify(result))
+        window.location.reload()
+    }
+
+    // edit draft
+    function modify(id){
+            window.location.href=`dashboard.html?draft=${id}`
+           }
+       
+
+
+   
 </script>
 </body>
 </html>

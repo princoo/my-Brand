@@ -38,8 +38,9 @@
             <input type="text" placeholder="EMAIL" class="box email" id="email" required> <br>
             <input type="password" placeholder="PASSWORD" class="box subject" id="subject" required> <br>
             <button class="login" onclick="login(event)">LOGIN</button>
-            <button class="signup"><a href="signup.html">CREATE ACCOUNT</a></button>
         </form>
+       <a href="signup.html"> <button class="signup">CREATE ACCOUNT</button></a>
+
         </div>
     </div>
 
@@ -69,7 +70,7 @@
              if(index!=(-1)){
             if(email=="admin@gmail.com"){
                 if (password=="admin"){
-                localStorage.setItem("Active",JSON.stringify([{activeuser:email}]))
+                localStorage.setItem("Active",JSON.stringify([{activeuser:email,likeaction:"0",dislikeaction:"0"}]))
                 window.location.href="dashboard.html"
                  }
                  else{
@@ -78,7 +79,7 @@
                 }
                 else{
                     if(users[index].password==password){
-                        localStorage.setItem("Active",JSON.stringify([{activeuser:users[index].email}]))
+                        localStorage.setItem("Active",JSON.stringify([{activeuser:users[index].email,likeaction:"0",dislikeaction:"0"}]))
                         window.location.href="blog.html"
                     }
                     else{

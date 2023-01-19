@@ -137,6 +137,49 @@ a{
     text-decoration: none;
     color: var(--text-color1);
 }
+.blogs{
+    display: flex;
+    width: 80%;
+    background-color: var(--primary-color);
+    margin-left: 10%;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.blogs img{
+    width: 15%;
+    object-fit: cover;
+}
+.blogs p{
+    margin-left: 5%;
+    margin-bottom: 0%;
+}
+.parag{
+    /* background-color: aquamarine; */
+    width: 80%;
+    margin-right: 10px;
+    overflow-wrap: break-word;
+}
+.delete{
+    margin-left: 10px;
+    margin-bottom: 3%;
+    border-radius: 5px;
+    border-style: none;
+    cursor: pointer;
+    padding: 5px;
+    background-color: rgba(215, 78, 78, 0.63); 
+}
+.edit{
+    margin-bottom: 3%;
+    margin-left: 77%;
+    border-radius: 5px;
+    border-style: none;
+    padding: 5px 10px;
+
+    cursor: pointer;
+    background-color: rgb(25, 209, 99);
+
+}
 @media(max-width:800px){
     /* navbar */
 nav ul li{
@@ -186,4 +229,7 @@ nav ul li{
         margin-left: 0%;
     
       }
+      .edit{
+        margin-left: 10%;
+    }
 }
