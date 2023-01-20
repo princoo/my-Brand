@@ -22,7 +22,7 @@
                 <li><a href="portfolio.html">PORTFOLIO</a></li>
                 <li><a href="blog.html">BLOG</a></li>
                 <li><a href="contact.html">CONTACT</a></li>
-                <li><a href="login.html">LOGIN</a></li>
+                <li><a href="login.html" id="text">LOGIN</a></li>
             </ul>
         </nav>
         <i class="side fa fa-bars" onclick="showmenu()"></i>
@@ -37,24 +37,28 @@
        
     </div>
     <button class="more" id="more" onclick="more()"><span>READ MORE</span></button>
-
    <div class="container">
-    
    </div>
+<!-- popup div -->
+<div class="allcontainer">
+    <div class="all">
+     <p>WANT TO LOG OUT ?</p>
+     <button style="background-color: rgb(249, 154, 131);" id="logout">LOG OUT</button>
+     <button id="cancel">CANCEL</button>
+    </div>
+  </div>
 
     <!-- javascript -->
     <script src="../javascript/runpage.js"></script>
     <script>
-
+ window.onload=popup()
 const container= document.querySelector(".container");
-
 
 let a = localStorage.getItem('Blogs')
 if(a==null){
         localStorage.setItem("Blogs",JSON.stringify([{title:"no blogs yet",body:"not yet",image:"none"}]))
         a=localStorage.getItem('Blogs')
     }
-
     const b = JSON.parse(a)
     if(b.length==1){
         const header = document.createElement("h2")

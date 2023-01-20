@@ -119,19 +119,19 @@ body{
     display: flex;
     justify-content: center;
 }
-h2,p{
-    color: var(--text-color2);
-    margin-left: 15px;
-}
 h2{
+    color: var(--text-color2);
     margin-bottom: 0%;
     font-family: 'Inter', sans-serif;
+    margin-left: 15px;
 }
-p{
+.container p{
     margin-top: 3%;
     font-size: 13px;
     font-family: "monserrate",sans-serif;
     color: var(--additional-color);
+    margin-left: 15px;
+
 }
 img{
     width: 90%;
@@ -139,6 +139,42 @@ img{
     margin-left: 12px;
     margin-bottom: 4px;
 }
+/* popup div */
+.allcontainer{
+    font-family: "montserrat",sans-serif;
+    top: 0%;
+    display: none;
+    width:100%;
+    height:100vw;
+    background-color: rgba(244, 241, 241, 0.639);
+    position: absolute;
+}
+.all{
+    background-color: rgb(210, 205, 205);
+    width: 20%;
+    margin-left: 40%;
+    margin-top: 15%;
+    margin-bottom: 10px;
+    border-radius: 7px;
+    position: fixed;
+    box-shadow: 5px 8px 10px #888888;
+    padding-bottom:10px ;
+    }
+    .all p{
+        text-align: center;
+        margin-top: 5px;
+        margin-bottom: 15px;
+    }
+    .all button{
+        width: 70%;
+        margin-left: 40px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border-style: none;
+        padding: 5px;
+        cursor: pointer;
+    }
+
 @media(max-width:800px){
     nav ul li{
         display:block;

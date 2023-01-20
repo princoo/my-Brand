@@ -142,6 +142,35 @@ let count=0;
                 err.innerHTML="Please fill all fields !!"
             }   
     }
+
+
+    // pop up div
+function popup(){
+    const text=document.getElementById("text")
+  const active= localStorage.getItem("Active")
+  const logout=document.getElementById("logout")
+  const cancel= document.getElementById("cancel")
+  const all=document.querySelector(".allcontainer")
+ const b=JSON.parse(active)
+  if (b.length>=1){
+    text.innerHTML="LOG OUT"
+    text.addEventListener('click',(e)=>{
+      e.preventDefault()
+      text.setAttribute("href","");
+      all.style.display="block";
+      logout.addEventListener('click',(e)=>{
+      e.preventDefault()
+      b.splice(0,1)
+      localStorage.setItem("Active",JSON.stringify(b))
+      window.location.href="../index.html"
+    })
+   cancel.addEventListener('click',(e)=>{
+    all.style.display="none"
+   })
+    })
+  }
+}
+
     // email validation
     function ValidateEmail(mail) {
         return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)

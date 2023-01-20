@@ -20,7 +20,7 @@
                 <li><a href="portfolio.html">PORTFOLIO</a></li>
                 <li><a href="blog.html">BLOG</a></li>
                 <li><a href="contact.html">CONTACT</a></li>
-                <li><a href="login.html">LOGIN</a></li>
+                <li><a href="login.html" id="text">LOGIN</a></li>
             </ul>
         </nav>
         <i class="side fa fa-bars" onclick="showmenu()"></i>
@@ -46,11 +46,18 @@
         <h1>DASHBOARD</h1>  
   </div>
 </div>
-
+<!-- popup div -->
+<div class="allcontainer">
+    <div class="all">
+     <p>WANT TO LOG OUT ?</p>
+     <button style="background-color: rgb(249, 154, 131);" id="logout">LOG OUT</button>
+     <button id="cancel">CANCEL</button>
+    </div>
+  </div>
 <!-- javascript -->
 <script src="../javascript/runpage.js"></script>
 <script>
-
+window.onload=popup()
 // div data
 const like="<i class=\"icon1 fa fa-heart\" id=\"like\" aria-hidden=\"true\" style=\"color: rgb(0, 221, 255);\"></i> <br>"           
 const comment="<i class=\"icon2 fa fa-comment\" aria-hidden=\"true\" style=\"color: chocolate;\"></i> <br>"

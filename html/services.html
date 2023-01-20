@@ -21,7 +21,7 @@
             <li><a href="portfolio.html">PORTFOLIO</a></li>
             <li><a href="blog.html">BLOG</a></li>
             <li><a href="contact.html">CONTACT</a></li>
-            <li><a href="login">LOGIN</a></li>
+            <li><a href="login" id="text">LOGIN</a></li>
         </ul>
     </nav>
     <i class="side fa fa-bars" onclick="showmenu()"></i>
@@ -76,8 +76,18 @@
             <div class=" grey w3-grey"style="width:60%;"></div>
           </div><br>
     </div>
-
+<!-- popup div -->
+    <div class="allcontainer">
+        <div class="all">
+         <p>WANT TO LOG OUT ?</p>
+         <button style="background-color: rgb(249, 154, 131);" id="logout">LOG OUT</button>
+         <button id="cancel">CANCEL</button>
+        </div>
+      </div>
     <!-- javascript -->
     <script src="../javascript/runpage.js"></script>
+<script>
+    window.onload= popup()
+</script>
 </body>
 </html>

@@ -20,7 +20,7 @@
                 <li><a href="portfolio.html">PORTFOLIO</a></li>
                 <li><a href="blog.html">BLOG</a></li>
                 <li><a href="contact.html">CONTACT</a></li>
-                <li><a href="login.html">LOGIN</a></li>
+                <li><a href="login.html" id="text">LOGIN</a></li>
             </ul>
         </nav>
         <i class="side fa fa-bars" onclick="showmenu()"></i>
@@ -61,10 +61,20 @@
             <span id="wait"></span>
         </div>
     </div>
+    <!-- popup div -->
+    <div class="allcontainer">
+        <div class="all">
+         <p>WANT TO LOG OUT ?</p>
+         <button style="background-color: rgb(249, 154, 131);" id="logout">LOG OUT</button>
+         <button id="cancel">CANCEL</button>
+        </div>
+      </div>
 
     <!-- javasript -->
     <script src="../javascript/runpage.js"></script>
     <script>
+window.onload=popup()
+
 const image= document.getElementById("image")
 const title = document.getElementById("title");
 const body = document.getElementById("body");
@@ -79,12 +89,40 @@ const err= document.getElementById("error");
 const cancel= document.getElementById("cancel");
 const loader= document.querySelector(".loader");
 
-form.addEventListener('submit',(e)=>{
-    e.preventDefault()
-  
-})
 let parameter= new URLSearchParams(window.location.search)
 let id = parameter.get("page")
+
+//--- initialising Bridge  storage
+let add=localStorage.getItem("Bridge")
+if(add==null){
+localStorage.setItem("Bridge",JSON.stringify([{blogid:"none",user:"none",likes:"none",dislikes:"none"}]))
+add=localStorage.getItem("Bridge")
+}
+const add_Array=JSON.parse(add) 
+let user=localStorage.getItem("Active");
+const client=JSON.parse(user)
+if(client.length!=0){
+     const user_Array=JSON.parse(user)
+     const add_blogs= add_Array.filter(blog =>blog.blogid==id);
+     if(add_blogs.length!=0){
+      const verifie= add_blogs.filter(blog=> blog.user==user_Array[0].activeuser)
+        if(verifie.length==0){
+            const add_new={blogid:id,user:user_Array[0].activeuser,likes:"0",dislikes:"0"}
+            add_Array.push(add_new)
+            localStorage.setItem("Bridge",JSON.stringify(add_Array))
+        }
+     }
+     else{
+     const add_new={blogid:id,user:user_Array[0].activeuser,likes:"0",dislikes:"0"}
+    add_Array.push(add_new)
+    localStorage.setItem("Bridge",JSON.stringify(add_Array))
+     }
+}
+// --------------------------------------------------------------------
+
+form.addEventListener('submit',(e)=>{
+    e.preventDefault()
+})
 const a= localStorage.getItem("Blogs")
 const b= JSON.parse(a);
 const blog= b.filter(blogid => b.indexOf(blogid)==id);
@@ -108,7 +146,8 @@ send.addEventListener('click',(e)=>{
     else{
         err.innerHTML=""
         let user=localStorage.getItem("Active")
-    if(user==null){
+
+    if(client.length==0){
         loader.style.display="block";
         cancel.addEventListener('click',(e)=>{
             loader.style.display="none"
@@ -122,12 +161,11 @@ send.addEventListener('click',(e)=>{
     window.location.href=`story.html?page=${id}`
     }
     }
-  
+
 })
 // read comments
 const icon=`<i class="fa fa-user" aria-hidden="true"></i>`;
 const result = array.filter(blog => blog.blogid==id);
-
 for (let i = 0; i < result.length; i++) {
 const userDiv= document.createElement("div");
 const parag1= document.createElement("p");
@@ -144,49 +182,60 @@ container.appendChild(userDiv)
 
 // displaying likes
 let display= localStorage.getItem("Likes")
-
 if(display==null){
     localStorage.setItem("Likes",JSON.stringify([{blogid:id,likes:"0",dislikes:"0"}]));
     display=localStorage.getItem("Likes");
 }
 const content=JSON.parse(display);
 const single= content.filter(blog=>blog.blogid==id)
+if(single.length==0){
+    const new_Array={blogid:id,likes:"0",dislikes:"0"}
+    content.push(new_Array)
+    localStorage.setItem("Likes",JSON.stringify(content));
+}
  likes.textContent=single[0].likes;
  dislikes.textContent=single[0].dislikes;
  
 // incrementing likes
  function funcLike(){
-    let action=localStorage.getItem("Active")
-    if(action){
-        const record=JSON.parse(action)
-        if(record[0].dislikeaction==0){
-            if(record[0].likeaction==0){
-            let thumbsUp = localStorage.getItem("Likes")
-    if (thumbsUp==null){
-    localStorage.setItem("Likes",JSON.stringify([{blogid:id,likes:"0",dislikes:"0"}]));
-    thumbsUp=localStorage.getItem("Likes");
-    }
-    let g=JSON.parse(thumbsUp)
-    const single=g.filter(blog=>blog.blogid==id)
-    if(single.length==0){
-        g.push({blogid:id,likes:"0",dislikes:"0"})
-        console.log(g)
-        localStorage.setItem("Likes",JSON.stringify(g));
-    }
-    for (let i = 0; i < g.length; i++) {
-        if(g[i].blogid==id){
-            let h =parseInt(g[i].likes)+1
-            let y= parseInt(g[i].dislikes)
-            let r=parseInt(record[0].likeaction)+1;
-            g[i].likes=h
-            g[i].dislikes=y  
-            record[0].likeaction=r
-            likes.textContent=g[i].likes;
-        }      
-    }
+    let user=localStorage.getItem("Active")
+     const user_Array=JSON.parse(user)
+     const add_blogs= add_Array.filter(blog =>blog.blogid==id);
+
+    if(user_Array.length!=0 && user==null){
+        const add_filter=add_blogs.filter(blog =>blog.user==user_Array[0].activeuser);
+        
+        if(add_filter){
+          if(add_filter[0].dislikes==0){
+             if(add_filter[0].likes==0){
+                let thumbsUp = localStorage.getItem("Likes")
+                if (thumbsUp==null){
+                    localStorage.setItem("Likes",JSON.stringify([{blogid:id,likes:"0",dislikes:"0"}]));
+                    thumbsUp=localStorage.getItem("Likes");
+                }
+        let g=JSON.parse(thumbsUp)
+        const single=g.filter(blog=>blog.blogid==id)
+            if(single.length==0){
+                g.push({blogid:id,likes:"0",dislikes:"0"})
+                console.log(g)
+                localStorage.setItem("Likes",JSON.stringify(g));
+                }
+         for (let i = 0; i < g.length; i++) {
+            if(g[i].blogid==id){
+                let h =parseInt(g[i].likes)+1
+                let y= parseInt(g[i].dislikes)
+                let r=parseInt(add_filter[0].likes)+1;
+                g[i].likes=h
+                g[i].dislikes=y  
+                add_filter[0].likes=r
+                add_filter[0].user=user_Array[0].activeuser
+                likes.textContent=g[i].likes;
+                }
+         }
     localStorage.setItem("Likes",JSON.stringify(g))
-    localStorage.setItem("Active",JSON.stringify(record))
-        }
+    localStorage.setItem("Bridge",JSON.stringify(add_Array))
+            }
+
         else{
             let thumbsUp = localStorage.getItem("Likes")
              if (thumbsUp==null){
@@ -204,21 +253,19 @@ const single= content.filter(blog=>blog.blogid==id)
                 if(g[i].blogid==id){
                     let j =parseInt(g[i].likes)-1
                     let u= parseInt(g[i].dislikes)
-                    let t=parseInt(record[0].likeaction)-1;
+                    let t=parseInt(add_filter[0].likes)-1;
                     g[i].likes=j
                     g[i].dislikes=u  
-                    record[0].likeaction=t
+                    add_filter[0].likes=t
+                    add_filter[0].user=user_Array[0].activeuser
                     likes.textContent=g[i].likes;
                 }      
             }
             localStorage.setItem("Likes",JSON.stringify(g))
-            localStorage.setItem("Active",JSON.stringify(record))
+            localStorage.setItem("Bridge",JSON.stringify(add_Array))
         }
-        }
-        else{
-            console.log("you have liked first")
-        }
-
+        }}
+       
     }
     else{
         loader.style.display="block";
@@ -226,42 +273,50 @@ const single= content.filter(blog=>blog.blogid==id)
             loader.style.display="none"
         })
     }
-
  }
 
 //  incrementing dislikes
 function funcDislike(){
-    let action=localStorage.getItem("Active")
-    if(action){
-        const record=JSON.parse(action)
-        if(record[0].likeaction==0){
-            if(record[0].dislikeaction==0){
-            let thumbsUp = localStorage.getItem("Likes")
-    if (thumbsUp==null){
-    localStorage.setItem("Likes",JSON.stringify([{blogid:id,likes:"0",dislikes:"0"}]));
-    thumbsUp=localStorage.getItem("Likes");
-    }
-    let g=JSON.parse(thumbsUp)
-    const single=g.filter(blog=>blog.blogid==id)
-    if(single.length==0){
-        g.push({blogid:id,likes:"0",dislikes:"0"})
-        console.log(g)
-        localStorage.setItem("Likes",JSON.stringify(g));
-    }
-    for (let i = 0; i < g.length; i++) {
-        if(g[i].blogid==id){
-            let h =parseInt(g[i].likes)
-            let y= parseInt(g[i].dislikes)+1
-            let r=parseInt(record[0].dislikeaction)+1;
-            g[i].likes=h
-            g[i].dislikes=y  
-            record[0].dislikeaction=r
-            dislikes.textContent=g[i].dislikes;
-        }      
-    }
+
+
+    let user=localStorage.getItem("Active")
+     const user_Array=JSON.parse(user)
+     const add_blogs= add_Array.filter(blog =>blog.blogid==id);
+
+    if(user_Array.length!=0){
+        const add_filter=add_blogs.filter(blog =>blog.user==user_Array[0].activeuser);
+        
+        if(add_filter){
+          if(add_filter[0].likes==0){
+             if(add_filter[0].dislikes==0){
+                let thumbsUp = localStorage.getItem("Likes")
+                if (thumbsUp==null){
+                    localStorage.setItem("Likes",JSON.stringify([{blogid:id,likes:"0",dislikes:"0"}]));
+                    thumbsUp=localStorage.getItem("Likes");
+                }
+        let g=JSON.parse(thumbsUp)
+        const single=g.filter(blog=>blog.blogid==id)
+            if(single.length==0){
+                g.push({blogid:id,likes:"0",dislikes:"0"})
+                console.log(g)
+                localStorage.setItem("Likes",JSON.stringify(g));
+                }
+         for (let i = 0; i < g.length; i++) {
+            if(g[i].blogid==id){
+                let h =parseInt(g[i].likes)
+                let y= parseInt(g[i].dislikes)+1
+                let r=parseInt(add_filter[0].dislikes)+1;
+                g[i].likes=h
+                g[i].dislikes=y  
+                add_filter[0].dislikes=r
+                add_filter[0].user=user_Array[0].activeuser
+                dislikes.textContent=g[i].dislikes;
+                }
+         }
     localStorage.setItem("Likes",JSON.stringify(g))
-    localStorage.setItem("Active",JSON.stringify(record))
-        }
+    localStorage.setItem("Bridge",JSON.stringify(add_Array))
+            }
+
         else{
             let thumbsUp = localStorage.getItem("Likes")
              if (thumbsUp==null){
@@ -277,23 +332,21 @@ function funcDislike(){
             }
             for (let i = 0; i < g.length; i++) {
                 if(g[i].blogid==id){
-                    let j =parseInt(g[i].likes)
-                    let u= parseInt(g[i].dislikes)-1
-                    let t=parseInt(record[0].dislikeaction)-1;
-                    g[i].likes=j
-                    g[i].dislikes=u  
-                    record[0].dislikeaction=t
+                    let k =parseInt(g[i].likes)
+                    let e= parseInt(g[i].dislikes)-1
+                    let y=parseInt(add_filter[0].dislikes)-1;
+                    g[i].likes=k
+                    g[i].dislikes=e 
+                    add_filter[0].dislikes=y
+                    add_filter[0].user=user_Array[0].activeuser
                     dislikes.textContent=g[i].dislikes;
                 }      
             }
             localStorage.setItem("Likes",JSON.stringify(g))
-            localStorage.setItem("Active",JSON.stringify(record))
+            localStorage.setItem("Bridge",JSON.stringify(add_Array))
         }
-        }
-        else{
-            console.log("you have liked first")
-        }
-
+        }}
+       
     }
     else{
         loader.style.display="block";
@@ -303,7 +356,6 @@ function funcDislike(){
     }
 
 }
-
     </script>
 </body>
 </html>

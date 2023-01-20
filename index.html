@@ -20,7 +20,7 @@
                 <li><a href="./html/portfolio.html">PORTFOLIO</a></li>
                 <li><a href="./html/blog.html">BLOG</a></li>
                 <li><a href="./html/contact.html">CONTACT</a></li>
-                <li><a href="./html/login.html">LOGIN</a></li>
+                <li><a href="./html/login.html" id="text">LOGIN</a></li>
             </ul>
         </nav>
         <i class="side fa fa-bars" onclick="showmenu()"></i>
@@ -40,11 +40,40 @@
     <a href="https://www.linkedin.com/in/ineza-prince-9391ba15b/"><p class="fav linked"><i class="fa fa-linkedin"></i></p></a>
 
   </div>
+  <div class="allcontainer">
+    <div class="all">
+     <p>WANT TO LOG OUT ?</p>
+     <button style="background-color: rgb(249, 154, 131);" id="logout">LOG OUT</button>
+     <button id="cancel">CANCEL</button>
+    </div>
+  </div>
 
 <!-- js file -->
-<script src="./javascript/runpage.js">
-
-  
+<script src="./javascript/runpage.js"></script>
+<script>
+  const text=document.getElementById("text")
+  const active= localStorage.getItem("Active")
+  const logout=document.getElementById("logout")
+  const cancel= document.getElementById("cancel")
+  const all=document.querySelector(".allcontainer")
+ const b=JSON.parse(active)
+  if (b.length>=1){
+    text.innerHTML="LOG OUT"
+    text.addEventListener('click',(e)=>{
+      e.preventDefault()
+      text.setAttribute("href","");
+      all.style.display="block";
+      logout.addEventListener('click',(e)=>{
+      e.preventDefault()
+      b.splice(0,1)
+      localStorage.setItem("Active",JSON.stringify(b))
+      window.location.reload()
+    })
+   cancel.addEventListener('click',(e)=>{
+    all.style.display="none"
+   })
+    })
+  }
 </script>
 
 
