@@ -202,7 +202,7 @@ if(single.length==0){
      const user_Array=JSON.parse(user)
      const add_blogs= add_Array.filter(blog =>blog.blogid==id);
 
-    if(user_Array.length!=0 && user==null){
+    if(user_Array.length!=0){
         const add_filter=add_blogs.filter(blog =>blog.user==user_Array[0].activeuser);
         
         if(add_filter){
