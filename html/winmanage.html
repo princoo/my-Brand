@@ -55,10 +55,26 @@
             </p>
             <h2> EDIT PROFILE</h2>
         </div>
+        <div class="bound Accounts">
+            <p><i class="fa fa-cog" aria-hidden="true"></i>
+            </i>
+            </p>
+            <h2> ACCOUNTS</h2>
+        </div>
         </div>
         
   </div>
-</div>
+</div> 
+
+<!-- display account -->
+<div class="cont">
+    <div class="allaccounts">
+     <a href="winmanage.html"><button id="back">BACK</button></a>
+    <p style="font-weight: bold; border-bottom: 1px  double black;
+    " >ACCOUNTS</p>
+    </div>
+  </div>
+
 <!-- popup div -->
 <div class="allcontainer">
     <div class="all">
@@ -72,6 +88,50 @@
 <script src="../javascript/runpage.js"></script>
 <script>
     window.onload=popup()
+    const cont = document.querySelector(".cont")
+    const accounts = document.querySelector(".Accounts")
+    const all=document.querySelector(".cont")
+    const container= document.querySelector(".allaccounts")
+    const yii =document.querySelectorAll(".delete")
+
+    accounts.addEventListener("click",(e)=>{
+        cont.style.display="block" 
+    })
+    let a=localStorage.getItem("Users")
+    if(a==null){
+        localStorage.setItem("Users",JSON.stringify([{email:"none",password:"none"}]))
+        a=localStorage.getItem("Users");
+    }
+    const b=JSON.parse(a)
+    for (let i = 0; i < b.length; i++) {
+        
+        const parag=document.createElement("p")
+        const button=`<button class="delete" onclick="erase(${i})">DELETE ACCOUNT</button>`
+        const section= document.createElement("div")
+        section.classList.add("section")
+        parag.classList.add("acc")
+
+        let text=document.createTextNode(b[i].email)
+        parag.appendChild(text) 
+        if (b[i].email=="admin@gmail.com") {
+            section.innerHTML= parag.outerHTML;
+        container.innerHTML += section.outerHTML
+        all.appendChild(container) 
+        }
+        else{
+        section.innerHTML= parag.outerHTML + button;
+        container.innerHTML += section.outerHTML
+        all.appendChild(container) 
+    
+        }  
+    }
+
+function erase(id){
+    const filtered= b.filter(acc => b.indexOf(acc)!=id)
+    localStorage.setItem("Users",JSON.stringify(filtered))
+    window.location.reload()
+    
+}
 </script>
 </body>
 </html>

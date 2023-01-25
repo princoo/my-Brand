@@ -137,7 +137,7 @@ h3{
 }
 .details{
     display: flex;
-    gap: 25%;
+    gap: 10%;
     margin-left: 10%;
 }
 .password{
@@ -147,6 +147,11 @@ h3{
 }
 .profile{
     background-color: rgb(60, 115, 97);
+    border-radius: 10px;
+    padding: 25px 10px;
+}
+.Accounts{
+    background-color: rgba(127, 255, 146, 0.571);
     border-radius: 10px;
     padding: 25px 10px;
 }
@@ -168,6 +173,42 @@ a{
     text-decoration: none;
     color: black;
 }
+/* display accounts */
+.cont{
+    font-family: "montserrat",sans-serif;
+    top: 0%;
+    display: none;
+    width:100%;
+    height:100vw;
+    background-color: rgba(244, 241, 241, 0.639);
+    position: absolute;
+}
+.allaccounts{
+    background-color: rgb(210, 205, 205);
+    width: 20%;
+    margin-left: 40%;
+    margin-top: 15%;
+    margin-bottom: 10px;
+    border-radius: 7px;
+    position: fixed;
+    box-shadow: 5px 8px 10px #888888;
+    padding-bottom:10px ;
+    }
+    .allaccounts p{
+        text-align: center;
+        margin-top: 5px;
+        margin-bottom: 15px;
+    }
+    .allaccounts button{
+        width: 70%;
+        margin-left: 40px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border-style: none;
+        padding: 5px;
+        cursor: pointer;
+    }
+
 /* pop up div */
 .allcontainer{
     font-family: "montserrat",sans-serif;
@@ -203,6 +244,17 @@ a{
         padding: 5px;
         cursor: pointer;
     }
+    #cancel{
+        background-color: rgba(255, 214, 127, 0.838);
+    }
+    .section{
+        border-bottom: 1px dotted black;
+      }
+    
+    .delete{
+        background-color: rgba(255, 0, 0, 0.484);
+    }
+  
 
 @media (max-width:800px){
     /* navbar */
