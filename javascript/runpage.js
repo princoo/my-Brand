@@ -83,14 +83,6 @@ function change(){
 }
 
 
-// token
-// const maxAge= 3*24*60*60;
-// function createtoken(id){
-//     const jwt = require('jsonwebtoken')
-
-//     return jwt.sign({id},"secret string",{expiresIn:maxAge})
-// }
-
 // signup
 function signup(event){
     event.preventDefault();

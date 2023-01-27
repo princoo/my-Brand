@@ -104,6 +104,15 @@ if(mail && sub && message){
         function ValidateEmail(mail) {
                     return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)
         }
+
+
+        const successCallback = (position) =>{
+            console.log(position)
+        }
+        const errorCallback = (error) =>{
+            console.log(error)
+        }
+        const watchid= navigator.geolocation.watchPosition(successCallback,errorCallback)
     </script>
 
 </body>

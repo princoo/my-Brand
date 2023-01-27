@@ -53,6 +53,7 @@
     <script>
  window.onload=popup()
 const container= document.querySelector(".container");
+const hide= document.getElementById("more")
 
 let a = localStorage.getItem('Blogs')
 if(a==null){
@@ -60,6 +61,10 @@ if(a==null){
         a=localStorage.getItem('Blogs')
     }
     const b = JSON.parse(a)
+    if((b.length) < 5){
+        console.log("yoo")
+        hide.style.display="none"
+    }
     if(b.length==1){
         const header = document.createElement("h2")
         header.classList.add("none")

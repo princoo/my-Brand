@@ -197,4 +197,20 @@ nav ul li{
    .box{
     padding: 5px;
    }
+   .all{
+    margin-left: 25%;
+    margin-top: 55%;
+    max-width: 60%;
+    font-size: 3vw;
+  }
+.all button{
+    font-size: 3vw;
+    max-width: 40%;
+    margin-left: 70px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-style: none;
+    padding: 5px;
+    cursor: pointer;
+}
 }
