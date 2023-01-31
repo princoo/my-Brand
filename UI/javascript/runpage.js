@@ -154,7 +154,7 @@ function popup(){
       e.preventDefault()
       b.splice(0,1)
       localStorage.setItem("Active",JSON.stringify(b))
-      window.location.href="../index.html"
+      window.location.href="../../index.html"
     })
    cancel.addEventListener('click',(e)=>{
     all.style.display="none"
