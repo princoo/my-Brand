@@ -10,8 +10,20 @@ const blogschema = new Schema({
     body:{
         type:String,
         required:true
-    }
-})
+    },
+    imageUrl:{
+        type:Object,
+        required:true
+    },
+    comments:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"Comments"
+    }],
+    likes:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"Bloglikes"
+    }]
+},{timestamps:true});
 const blogs= mongoose.model('Blogs',blogschema)
 
 module.exports=blogs

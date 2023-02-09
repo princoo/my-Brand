@@ -91,17 +91,21 @@ body{
     text-align: center;
     color: var(--additional-color);
 }
-.email {
+.name{
     width: 88%;
     margin:60px 0px 20px 20px ; 
 }
-.subject{
+.email {
     width: 88%;
-    /* margin: 20px; */
     margin-left: 20px;
     margin-bottom: 20px;
 }
-.subject ,.email{
+.subject{
+    width: 88%;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+.subject ,.email ,.name{ 
     padding: 10px 3px;
     border-style: none;
     border-radius: 5px;
