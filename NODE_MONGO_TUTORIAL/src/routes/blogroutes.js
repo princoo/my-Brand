@@ -13,6 +13,283 @@ Router.get('/auth/google',passport.authenticate('google',{
 }))
 Router.get('/auth/google/redirect',passport.authenticate('google'),controller.callback)
 
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *      blog:
+ *          type: object
+ *          properties:
+ *              id:
+ *                  type: string
+ *                  description: blog id
+ *              title:
+ *                  type: string
+ *                  description: blog title
+ *              body:
+ *                  type: string
+ *                  description: blog body
+ *              imageUrl:
+ *                  type: object
+ *                  description: blog image
+ *              comments:
+ *                  type: array
+ *                  description: blog comments
+ *              likes:
+ *                  type: array
+ *                  description: blog likes
+ *          required:
+ *              - title
+ *              - body
+ *              - imageUrl
+ * 
+ */
+
+/**
+ * @swagger
+ * tags:
+ *      name: Blogs
+ *      name: Login/Signup
+ *      name: Messages
+ *      name: Likes
+ *      name: Comments
+ *  
+ */
+
+/**
+ * @swagger
+ * /blogs:
+ *  get:
+ *      summary: this API should return all blogs
+ *      tags: [Blogs]
+ *      description: all blogs are retrieved
+ *      responses:
+ *          200:
+ *              description: GET all blogs
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref: '#/components/schemas/blog'
+ * 
+ * /blogs/{id}:
+ *  get:
+ *      summary: get blog by id
+ *      tags: [Blogs]
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            schema:
+ *              type: string
+ *            required: true
+ *            description: the blog id
+ *      responses:
+ *          200:
+ *              description: blog by id 
+ *              content:
+ *                  application/json: 
+ *                        schema:
+ *                          type: array
+ *                          items:
+ *                              $ref: '#/components/schemas/blog'
+ * 
+ *          404:
+ *              description: the blog does not exist
+ */
+
+/** 
+ * @swagger 
+ * /blogs/{id}:
+ *  delete:
+ *      summary: Deleting a blog
+ *      tags: [Blogs]
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            schema:
+ *              type: string
+ *            required: true
+ *            description: the blog id
+ *      responses:
+ *          200:
+ *              description: Successfully deleted the blog
+ *          400:
+ *              description: Action not made
+ */
+
+
+/** 
+ * @swagger 
+ * /add:
+ *  post:
+ *      summary: adding new blog
+ *      tags: [Blogs]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              multipart/form-data:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          title:
+ *                              type: string
+ *                              description: add blog title
+ *                          body:
+ *                              type: string
+ *                              description: add blog body
+ *                          image:
+ *                              type: string
+ *                              format: binary
+ *                              description: blog image
+ *      
+ *      responses:
+ *          200:
+ *              description: adding new blog
+ */
+
+/** 
+ * @swagger 
+ * /login:
+ *  post:
+ *      summary: Log in a user
+ *      tags: [Login/Signup]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          email:
+ *                              type: string
+ *                              description: your email
+ *                          password:
+ *                              type: string
+ *                              description: your password
+ *      
+ *      responses:
+ *          200:
+ *              description: Loged in
+ *              headers:
+ *                  set-cookie:
+ *                      type: string
+ *                      example: jwt= procces.env.ADMIN_TOKEN
+ */
+
+/** 
+ * @swagger 
+ * /signup:
+ *  post:
+ *      summary: Creating a new user
+ *      tags: [Login/Signup]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          username:
+ *                              type: string
+ *                              description: your name
+ *                          email:
+ *                              type: string
+ *                              description: your email
+ *                          password:
+ *                              type: string
+ *                              description: your password
+ *      
+ *      responses:
+ *          200:
+ *              description: Successfully created account
+ *          403:
+ *              description: email used
+ *              headers:
+ *                  set-cookie:
+ *                      type: string
+ *                      example: jwt=proccess.env.ADMIN_TOKEN; path=/; httpOnly
+ */
+
+/** 
+ * @swagger 
+ * /messages:
+ *  post:
+ *      summary: sending messages
+ *      tags: [Messages]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          email:
+ *                              type: string
+ *                              description: your email
+ *                          message:
+ *                              type: string
+ *                              description: your message
+ *      
+ *      responses:
+ *          201:
+ *              description: Successfully send a message
+ *          400:
+ *              description: Message not sent
+ */
+
+/** 
+ * @swagger 
+ * /blogs/like/{id}:
+ *  post:
+ *      summary: sending messages
+ *      tags: [Likes]
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            schema:
+ *              type: string
+ *            required: true
+ *            description: the blog id
+ *      responses:
+ *          200:
+ *              description: Successfully made action
+ *          400:
+ *              description: Action not made
+ */
+
+/** 
+ * @swagger 
+ * /blogs/comment/{id}:
+ *  post:
+ *      summary: sending messages
+ *      tags: [Comments]
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            schema:
+ *              type: string
+ *            required: true
+ *            description: the blog id
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          comment:
+ *                              type: string
+ *                              description: your comment
+ *      
+ *      responses:
+ *          201:
+ *              description: Successfully added a comment
+ *          400:
+ *              description: comment not added
+ */
+
+
 Router.get('/blogs',controller.viewBlog)
 Router.get('/blogs/sort',controller.sortedBlogs)
 Router.get('/blogs/add',controller.viewAddblog)

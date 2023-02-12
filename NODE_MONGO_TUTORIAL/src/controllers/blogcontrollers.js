@@ -92,7 +92,7 @@ const deleteBlog= (req,res)=>{
     const id= req.params.id;
     Blog.findByIdAndRemove({_id:id},(err,data)=>{
       if(err){
-          res.json(err)
+          res.status(400).json(err)
       }
       if(data){
           res.status(200).json(data)
