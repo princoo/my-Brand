@@ -1,6 +1,7 @@
 const express= require('express')
 const{connect,close} = require('./src/configs/database')
 const cookieparser= require('cookie-parser')
+const dotenv= require('dotenv')
 const swaggerJSDoc= require('swagger-jsdoc')
 const swaggerUi= require('swagger-ui-express')
 const upload= require('./src/configs/multer')
@@ -36,14 +37,14 @@ app.use( express.static( "public" ) );
 app.set('view engine','ejs')
 app.use(express.json())
 app.use(cookieparser())
-
+dotenv.config()
 app.all('*',verifyUser)
 app.use('',blogRoutes)
 
 
 const PORT = process.env.PORT ||3000
 const server= app.listen(PORT,()=>{
-    console.log("server connected fine")
+    console.log(`server connected fine ${PORT}`)
    })
 module.exports= server
 
