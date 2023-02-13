@@ -2,8 +2,8 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": " mocha --timeout 20000",
-    "coverage": "nyc npm run test"
+    "test": " mocha --timeout 20000 && coveralls < coverage/lcov.info",
+    "coverage": "nyc npm run test && nyc report --reporter=text-lcov | coveralls"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
@@ -26,8 +26,11 @@
     "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
     "chai-http": "^4.3.0",
+    "coveralls": "^3.1.1",
     "mocha": "^10.2.0",
     "nyc": "^15.1.0",
     "supertest": "^6.3.3"
   }
 }
+
+

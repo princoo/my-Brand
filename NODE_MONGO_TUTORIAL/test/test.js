@@ -25,7 +25,7 @@ describe("TASKS TEST",()=>{
         })
     })
 
-    describe.only("GET /blogs/:id",()=>{
+    describe("GET /blogs/:id",()=>{
         it("should get single blog",(done)=>{
             chai.request(server)
             .get("/blogs/"+ process.env.BLOG_ID)
@@ -73,7 +73,7 @@ describe("TASKS TEST",()=>{
         })
     })
 
-    describe.only("POST /signup",()=>{
+    describe("POST /signup",()=>{
         it("it should signup a new user",(done)=>{
             const user={
                 username:process.env.USERNAME,
