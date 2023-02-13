@@ -10,6 +10,7 @@ const cloudinary= require('../configs/cloudinary')
 const Comments = require('../models/commentsmodule')
 const validateEmail= require('../middlewares/emailvalidation')
 const {validateSignup,validateAddblog,validateLogin,validateMessages,validateCommnet}= require('../middlewares/formvalidation')
+const { findOneAndDelete } = require('../models/blogmodule')
 
 
 app.use(express.json())
@@ -54,7 +55,7 @@ const updateBlog= async(req,res)=>{
               res.status(400).json({"error":"CAN NOT FIND THE ID"})
             }
             if(data){
-              res.json(data)
+              res.status(200).json(data)
             }
            })
     }
@@ -90,14 +91,30 @@ if(!error){
 // deleting blog
 const deleteBlog= (req,res)=>{
     const id= req.params.id;
-    Blog.findByIdAndRemove({_id:id},(err,data)=>{
-      if(err){
-          res.status(400).json(err)
-      }
-      if(data){
-          res.status(200).json(data)
-      }
+    Blog.findOne({_id:id})
+    .then(async(blog)=>{
+        try {
+            if(!blog){
+                res.status(400).json({"error":"cant find the blog"})
+            }else{
+                await Blog.deleteOne({_id:id})
+                await Comments.deleteOne({blogid:id})
+                await BlogLike.deleteOne({blog_id:id})
+                res.status(200).json({"Message":"blog deleted"})
+            } 
+        } catch (error) {
+            res.status(400).json({"Error":error})
+        }
+        
     })
+    // Blog.findByIdAndRemove({_id:id},(err,data)=>{
+    //   if(err){
+    //       res.status(400).json(err)
+    //   }
+    //   if(data){
+    //       res.status(200).json(data)
+    //   }
+    // })
 }
 // geting limited amount of blogs
 const sortedBlogs= async(req,res)=>{

@@ -53,6 +53,7 @@ Router.get('/auth/google/redirect',passport.authenticate('google'),controller.ca
  *      name: Messages
  *      name: Likes
  *      name: Comments
+ *      name: User
  *  
  */
 
@@ -121,10 +122,17 @@ Router.get('/auth/google/redirect',passport.authenticate('google'),controller.ca
 
 /** 
  * @swagger 
+ * securityDefinitions:
+ *      bearerAuth:
+ *          type: "apiKey"
+ *          name: "Authorization"
+ *          in: "header"
  * /add:
  *  post:
  *      summary: adding new blog
  *      tags: [Blogs]
+ *      security:
+ *          - bearerAuth: []
  *      requestBody:
  *          required: true
  *          content:
@@ -174,7 +182,7 @@ Router.get('/auth/google/redirect',passport.authenticate('google'),controller.ca
  *              headers:
  *                  set-cookie:
  *                      type: string
- *                      example: jwt= procces.env.ADMIN_TOKEN
+ *                      example: jwc= oooooooo999999
  */
 
 /** 
@@ -209,6 +217,18 @@ Router.get('/auth/google/redirect',passport.authenticate('google'),controller.ca
  *                  set-cookie:
  *                      type: string
  *                      example: jwt=proccess.env.ADMIN_TOKEN; path=/; httpOnly
+ */
+
+/**
+ * @swagger
+ * /logout:
+ *  get:
+ *      summary: loging out
+ *      tags: [Login/Signup]
+ *      responses:
+ *          200:
+ *              description: successfully loged out
+ * 
  */
 
 /** 
@@ -288,6 +308,113 @@ Router.get('/auth/google/redirect',passport.authenticate('google'),controller.ca
  *          400:
  *              description: comment not added
  */
+
+/**
+ * @swagger
+ * /users/update/{id}:
+ *  patch:
+ *      summary: Update user info
+ *      tags: [User]
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            shema:
+ *              type: string
+ *            required: true
+ *            description: user ID
+ *      requestBody:
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          username:
+ *                              type: string
+ *                              description: your username
+ *                          email:
+ *                              type: string
+ *                              description: your email
+ *      responses:
+ *          200: 
+ *              description: User info updated
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *          400:
+ *              description: Failed to update User info
+ *      
+ */
+
+/**
+ * @swagger
+ * /blogs/{id}:
+ *  patch:
+ *      summary: this API updates a blog
+ *      tags: [Blogs]
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            required: true
+ *      requestBody:
+ *          content:
+ *              multipart/form-data:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          title:
+ *                              type: string
+ *                              description: blog title
+ *                          body:
+ *                              type: string
+ *                              description: blog body
+ *                          image:
+ *                              type: string
+ *                              format: binary
+ *                              description: blog image
+ *      responses:
+ *          200:
+ *              description: Blog updated successfully 
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *          400:
+ *              description: Unable to update blog
+ */
+
+/**
+ * @swagger
+ * /messages:
+ *  get:
+ *      summary: this API gets all the messages
+ *      tags: [Messages]
+ *      
+ *      responses:
+ *          200:
+ *              description: Retrieved all blogs
+ */
+
+/**
+ * @swagger
+ * /blogs/{blogID}/{commentID}:
+ *  delete:
+ *      summary: this API will delete a comment
+ *      tags: [Comments]
+ *      parameters:
+ *          - in: path
+ *            name: blogID
+ *            required: true
+ *          - in: path
+ *            name: commentID
+ *            required: true
+ *      responses:
+ *          200:
+ *              description: Comment deleted successfully 
+ *          400:
+ *              description: oops Comment not deleted
+ */
+
 
 
 Router.get('/blogs',controller.viewBlog)

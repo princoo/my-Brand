@@ -3,7 +3,7 @@ const dotenv= require('dotenv')
 dotenv.config()
 
 const connect = (databaseName) => {
-  return mongoose.connect(process.env.MONGO_URL, {
+  return mongoose.connect(`${process.env.MONGO_URL}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
