@@ -15,7 +15,7 @@ chai.use(chaiAspromise)
 
 describe("TASKS TEST",()=>{
 
-    describe("GET /blogs",()=>{
+    describe.only("GET /blogs",()=>{
         it("it should get all blogs",(done)=>{
             chai.request(server)
             .get("/blogs")
