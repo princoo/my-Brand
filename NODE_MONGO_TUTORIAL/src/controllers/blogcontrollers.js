@@ -80,6 +80,7 @@ const viewAddblog= (req,res)=>{
 const addBlog= async(req,res)=>{
 const {error,value} = validateAddblog(req.body)
 if(!error){
+
     const image= await cloudinary.uploader.upload(req.file.path)
     await Blog.create({title:req.body.title , body:req.body.body,imageUrl:{"id":image.public_id,"Url":image.url}})
     res.status(201).json({"message":"BLOG ADDED"})
@@ -273,7 +274,7 @@ const updateUser=  (req,res)=>{
 // toggle likes
 const toggleLikes = (req,res)=>{
     const blog_id= req.params.id;
-    Blog.findOne({_id:blog_id})
+     Blog.findOne({_id:blog_id})
     .then((blog)=>{
         if(!blog){
             res.status(400).json({"message":"Blog not found !!"})
@@ -307,12 +308,12 @@ const toggleLikes = (req,res)=>{
                     res.status(400).json({"message":err})
                 }
             }).catch((err)=>{
-                res.status(400).json({"message":err})
+                res.status(40).json({"message":err})
             })
 
         }
     }).catch((err)=>{
-        res.status(400).json({"message":err})
+        res.status(401).json({"message":err})
     }) 
 }
 // deleting comment
