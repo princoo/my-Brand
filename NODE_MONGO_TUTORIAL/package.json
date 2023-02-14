@@ -2,7 +2,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": "  mocha src/test/test.js --timeout 20000",
+    "test": "  mocha src/test/test.js --exit --timeout 20000",
     "coverage": " nyc --reporter=lcov npm run test"
   },
   "dependencies": {
