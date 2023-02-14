@@ -3,7 +3,7 @@ const dotenv= require('dotenv')
 dotenv.config()
 
 const connect = (databaseName) => {
-  return mongoose.connect(`mongodb://127.0.0.1:27017/${databaseName}`, {
+  return mongoose.connect(`mongodb+srv://princo:prince123@cluster0.i0nhr.mongodb.net/store?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
