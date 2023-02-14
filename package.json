@@ -2,8 +2,8 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test":"mocha-phantomjs ./test/FlickrTest.html",
-    "coverage": "nyc npm run test && nyc report --reporter=text-lcov | coveralls"
+    "test": " mocha --timeout 20000",
+    "coverage": "nyc npm run test"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
