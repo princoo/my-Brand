@@ -20,8 +20,8 @@ describe("TASKS TEST",()=>{
             chai.request(server)
             .get("/blogs")
             .end((err,response)=>{
-                response.should.have.status(200)
-                response.body.should.be.a('array')
+                response.should.have.status(200);
+                response.body.should.be.a('array');
                 done()
             })
         })
