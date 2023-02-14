@@ -1,13 +1,13 @@
 const chai= require('chai')
 const chaiHttp= require('chai-http')
-const fs = require('fs')
-const FormData = require('form-data');
-const admin = require('./NODE_MONGO_TUTORIAL/src/middlewares/adminActions')
+// const fs = require('fs')
+// const FormData = require('form-data');
+// const admin = require('./NODE_MONGO_TUTORIAL/src/middlewares/adminActions')
 const chaiAspromise= require('chai-as-promised')
-const request= require('supertest')
-const server= require('./NODE_MONGO_TUTORIAL/app')
+// const request= require('supertest')
+const server= require('../NODE_MONGO_TUTORIAL/app')
 const dotenv = require('dotenv')
-const emailval= require('./NODE_MONGO_TUTORIAL/src/middlewares/emailvalidation')
+const emailval= require('../NODE_MONGO_TUTORIAL/src/middlewares/emailvalidation')
 dotenv.config();
 chai.should()
 chai.use(chaiHttp)
