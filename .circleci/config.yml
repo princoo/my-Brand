@@ -14,7 +14,7 @@ jobs:
           command: cd NODE_MONGO_TUTORIAL && npm install mocha nyc chai-http chai
       - run:
           name: Run Unit Tests
-          command: cd NODE_MONGO_TUTORIAL && npm coverage
+          command: cd NODE_MONGO_TUTORIAL && npm run coverage
     
 workflows:
   build_tests:
