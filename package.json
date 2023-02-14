@@ -2,7 +2,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": " mocha --timeout 20000 && coveralls < coverage/lcov.info",
+    "test":"mocha-phantomjs ./test/FlickrTest.html",
     "coverage": "nyc npm run test && nyc report --reporter=text-lcov | coveralls"
   },
   "dependencies": {
