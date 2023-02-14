@@ -2,8 +2,8 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": " node --experimental-modules node_modules/.bin/mocha --timeout 20000",
-    "coverage": "nyc npm run test"
+    "test": "  mocha src/test/test.js --timeout 20000",
+    "coverage": " nyc --reporter=lcov npm run test"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",

@@ -5,9 +5,9 @@ const chaiHttp= require('chai-http')
 // const admin = require('./NODE_MONGO_TUTORIAL/src/middlewares/adminActions')
 const chaiAspromise= require('chai-as-promised')
 // const request= require('supertest')
-const server= require('./NODE_MONGO_TUTORIAL/app')
+const server= require('../../app')
 const dotenv = require('dotenv')
-const emailval= require('./NODE_MONGO_TUTORIAL/src/middlewares/emailvalidation')
+const emailval= require('../middlewares/emailvalidation')
 dotenv.config();
 chai.should()
 chai.use(chaiHttp)
@@ -15,7 +15,7 @@ chai.use(chaiAspromise)
 
 describe("TASKS TEST",()=>{
 
-    describe("GET /blogs",()=>{
+    describe.only("GET /blogs",()=>{
         it("it should get all blogs",(done)=>{
             chai.request(server)
             .get("/blogs")
