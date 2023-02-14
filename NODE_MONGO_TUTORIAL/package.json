@@ -2,7 +2,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": " mocha --timeout 20000",
+    "test": " node --experimental-modules node_modules/.bin/mocha --timeout 20000",
     "coverage": "nyc npm run test"
   },
   "dependencies": {
