@@ -192,13 +192,13 @@ const login= async(req,res)=>{
                 }
               
             }else{
-                res.json({
+                res.status(401).json({
                     "Status":"Error",
                      "Message":"Email does not exist"
             })
             }
           } catch (err) {
-            res.json(err)
+            res.status(400).json(err)
           }
     }else{
         res.status(400).json({"error":error})

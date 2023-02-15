@@ -64,6 +64,22 @@ describe("TASKS TEST",()=>{
         })
     })
 
+    describe.skip("POST /login",()=>{
+        it("it should not login (incorect password)",(done)=>{
+            const user={
+                email:"admin@gmail.com",
+                password:process.env.INCORRECT_ADMIN_PASSWORD
+            }
+            chai.request(server)
+            .post("/login")
+            .send(user)
+            .end((err,response)=>{
+                response.should.have.status(400)
+                response.should.be.json
+                done()
+            })
+        })
+    })
 
     describe("POST /login",()=>{
         it("it should login the normal user",(done)=>{
