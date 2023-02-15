@@ -51,6 +51,11 @@
     <!-- javascript -->
     <script src="../javascript/runpage.js"></script>
     <script>
+         fetch('https://my-brand-production-b3f0.up.railway.app/blogs')
+         .then((data)=>{
+            console.log(data)
+         })
+        console.log(data)
  window.onload=popup()
 const container= document.querySelector(".container");
 const hide= document.getElementById("more")
