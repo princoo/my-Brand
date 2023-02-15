@@ -1,5 +1,5 @@
 const express= require('express')
-const{connect,close} = require('./src/configs/database')
+const{connect} = require('./src/configs/database')
 const cookieparser= require('cookie-parser')
 const dotenv= require('dotenv')
 const swaggerJSDoc= require('swagger-jsdoc')

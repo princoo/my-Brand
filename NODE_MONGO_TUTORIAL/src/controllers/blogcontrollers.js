@@ -83,7 +83,9 @@ if(!error){
 
     const image= await cloudinary.uploader.upload(req.file.path)
     await Blog.create({title:req.body.title , body:req.body.body,imageUrl:{"id":image.public_id,"Url":image.url}})
-    res.status(201).json({"message":"BLOG ADDED"})
+    .then((data)=>{
+        res.status(201).json({"data":data,"message":"BLOG ADDED"})
+    })
 }else{
     res.status(400).json({"error":error})
 } 
@@ -108,14 +110,6 @@ const deleteBlog= (req,res)=>{
         }
         
     })
-    // Blog.findByIdAndRemove({_id:id},(err,data)=>{
-    //   if(err){
-    //       res.status(400).json(err)
-    //   }
-    //   if(data){
-    //       res.status(200).json(data)
-    //   }
-    // })
 }
 // geting limited amount of blogs
 const sortedBlogs= async(req,res)=>{
@@ -224,7 +218,7 @@ const comments = async(req,res)=>{
     .then((post)=>{
      post.comments.unshift(result)
      post.save()
-     res.status(200).json({"Message":"comment Added"})
+     res.status(200).json({"Message":"comment Added","data":result._id})
     })
  }else{
     res.status(400).json({"error":error})
@@ -292,7 +286,8 @@ const toggleLikes = (req,res)=>{
                             blog.likes.unshift(result);
                             await blog.save()
                             res.status(200).json({"message":"Like Added"})
-                        }).catch((err)=>{
+                        })
+                        .catch((err)=>{
                             res.status(400).json({"Error":err})
     
                         })
@@ -307,12 +302,14 @@ const toggleLikes = (req,res)=>{
                 }catch(err){
                     res.status(400).json({"message":err})
                 }
-            }).catch((err)=>{
-                res.status(40).json({"message":err})
+            })
+            .catch((err)=>{
+                res.status(400).json({"message":err})
             })
 
         }
-    }).catch((err)=>{
+    })
+    .catch((err)=>{
         res.status(401).json({"message":err})
     }) 
 }
@@ -338,17 +335,22 @@ const deleteComment = (req,res)=>{
                     res.status(400).json({"message":err})
             }
      
-    })
+    })  
+}
+const deleteUser =async(req,res)=>{
+    const id= req.params.id
+        const result= await Users.findOne({_id:id})
+        if(result){
+            await Users.deleteOne({_id:id})
+            res.status(200).json({"message":"user deleted"})
+        }
+        else{
+            res.status(400).json({"error":"cant find the user"})
+        }
+       
     
-
 }
 
-const google = (req,res)=>{
-    res.send("loging in with google")
-}
-const callback= (req,res)=>{
-    res.send("you reached the call back")
-}
 
 module.exports={
     viewBlog,
@@ -367,6 +369,5 @@ module.exports={
     updateUser,
     toggleLikes,
     deleteComment,
-    google,
-    callback,
+    deleteUser,
 }

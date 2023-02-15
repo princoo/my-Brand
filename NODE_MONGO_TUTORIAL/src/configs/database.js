@@ -10,10 +10,7 @@ const connect = (databaseName) => {
   .then(()=>console.log("database connected"));
 };
 
-const close = () => {
-  return mongoose.connection.close();
-};
-module.exports = { connect, close };
+module.exports = { connect };
 
 
 //mongodb://127.0.0.1:27017/${databaseName}

@@ -1,5 +1,5 @@
 const express= require('express')
-const passport= require('passport')
+// const passport= require('passport')
 const controller= require('../controllers/blogcontrollers')
 const {verification} = require('../middlewares/verifytoken')
 const verifyUser = require('../middlewares/verifyuser')
@@ -8,10 +8,10 @@ const upload= require('../configs/multer')
 // const upload= require('../middlewares/multer')
 const Router= express.Router()
 
-Router.get('/auth/google',passport.authenticate('google',{
-    scope:['profile']
-}))
-Router.get('/auth/google/redirect',passport.authenticate('google'),controller.callback)
+// Router.get('/auth/google',passport.authenticate('google',{
+//     scope:['profile']
+// }))
+// Router.get('/auth/google/redirect',passport.authenticate('google'),controller.callback)
 
 /**
  * @swagger
@@ -434,5 +434,6 @@ Router.post('/login',controller.login)
 Router.get('/logout',controller.logout)
 Router.post('/messages',controller.addMessages)
 Router.get('/messages',verification,adminAction,controller.viewmessages)
+Router.delete('/users/:id',verification,adminAction,controller.deleteUser)
 
 module.exports= Router
