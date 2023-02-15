@@ -197,7 +197,8 @@ const login= async(req,res)=>{
                      "Message":"Email does not exist"
             })
             }
-          } catch (err) {
+          }
+           catch (err) {
             res.status(402).json(err)
           }
     }else{

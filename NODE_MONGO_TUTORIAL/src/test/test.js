@@ -115,6 +115,23 @@ describe("TASKS TEST",()=>{
         })
     })
 
+    describe("POST /login",()=>{
+        it("it should not login the user (incorect email)",(done)=>{
+            const user={
+                email:"rashiiii@gmail.com",
+                password:"rash"
+            }
+            chai.request(server)
+            .post("/login")
+            .send(user)
+            .end((err,res)=>{
+                res.should.have.status(401)
+                res.should.be.json
+                done()
+            })
+        })
+    })
+
     describe("POST /signup",()=>{
         it("it should signup a new user",(done)=>{
             const user={
@@ -334,6 +351,20 @@ describe("TASKS TEST",()=>{
             .set('cookie',`jwt=${process.env.ADMIN_TOKEN}`)
             .end((err,res)=>{
                  res.should.have.status(200)
+                res.should.be.json
+                res.body.should.have.property('message')
+                done()
+            })
+        })
+    })
+
+    describe("POST /blogs/like/:id",()=>{
+        it("it should  remove a like to a blog ( when loged in)",(done)=>{
+            chai.request(server)
+            .post("/blogs/like/ 4040edd")
+            .set('cookie',`jwt=${process.env.ADMIN_TOKEN}`)
+            .end((err,res)=>{
+                 res.should.have.status(401)
                 res.should.be.json
                 res.body.should.have.property('message')
                 done()

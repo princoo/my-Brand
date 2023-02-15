@@ -19,6 +19,9 @@ jobs:
       - run:
           name: Upload coverage to Coveralls
           command: cd NODE_MONGO_TUTORIAL && npx coveralls < coverage/lcov.info
+      - run:
+          name: update coverage badge
+          command: cd NODE_MONGO_TUTORIAL && npx update-badge
 workflows:
   build_tests:
     jobs:
