@@ -71,8 +71,32 @@
         right.appendChild(h2)
     }
      b=JSON.parse(a);
+     getMessages()
 
-    for (let i = 1; i < b.length; i++) {
+    // for (let i = 1; i < b.length; i++) {
+       async function getMessages(){
+        // var cookies= document.cookie
+        //         .split(';')
+        //         .map(cookie => cookie.split('='))
+        //         .reduce((accumulator, [key,value]) =>
+        //         ({ ...accumulator,[key.trim()]: decodeURIComponent(value)}),{})
+        //         console.log(cookies.jwt)
+        const res = await fetch('https://my-brand-production-b3f0.up.railway.app/messages', {
+                                method: 'GET',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Origin': 'http://127.0.0.1:5500', 
+                                },
+                                credentials: 'include',
+                                mode: 'cors', 
+                                });
+
+
+        const data= await res.json()
+        console.log(data)
+           
+    }
+        
      const p1=document.createElement("p")
     const h4=document.createElement("h4")
     const p2=document.createElement("p")
@@ -88,7 +112,7 @@
         p2.innerHTML=b[i].msg
         div.innerHTML=p1.outerHTML + h4.outerHTML + p2.outerHTML + button;
         right.appendChild(div)
-    }
+    // }
     function remove(id){
         const result=b.filter(msg=>b.indexOf(msg)!=id )
         localStorage.setItem("messages",JSON.stringify(result))

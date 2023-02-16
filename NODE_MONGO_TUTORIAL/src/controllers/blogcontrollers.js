@@ -108,7 +108,7 @@ const deleteBlog= (req,res)=>{
         } catch (error) {
             res.status(400).json({"Error":error})
         }
-        
+
     })
 }
 // geting limited amount of blogs
@@ -170,7 +170,8 @@ const login= async(req,res)=>{
                     const auth= await bcrypt.compare(password,user.password)
                     if(auth){
                         const token= generateToken(user._id)
-                        res.cookie('jwt',token,{httpOnly:true})
+                        const maxAge= 3*24*60*60;
+                        res.cookie('jwt',token,{httpOnly:true,maxAge:maxAge *1000})
 
                         res.status(200).json({"Status":200,"Message":"Loged In As Admin","toke":token})
 
@@ -253,7 +254,9 @@ const deleteMessage= async(req,res)=>{
 // view messages
 const viewmessages= async(req,res)=>{
     await Message.find()
-        .then((data)=> res.status(200).json({"message":data}))
+        .then((data)=> {
+            res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+            res.status(200).json({"message":data})})
         // .then((data)=>{
         //     // res.render('home')
         // })

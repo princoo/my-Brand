@@ -71,18 +71,11 @@
     <script src="../javascript/runpage.js"></script>
     <script>
 window.onload=popup()
-
 const send= document.getElementById("send")
 const err= document.getElementById("error")
-
 send.addEventListener("click",async(e)=>{  
     e.preventDefault()
-    let a= localStorage.getItem("messages")
-        if(a==null){
-            localStorage.setItem("messages",JSON.stringify([{email:"none",subject:"none",msg:"none"}]))
-            a=localStorage.getItem("messages")
-        }
-        const b= JSON.parse(a)
+    err.innerHTML=""
         const email= document.getElementById("email").value.trim()
         const subject= document.getElementById("subject").value.trim()
         const message= document.getElementById("message").value.trim()
@@ -98,11 +91,7 @@ if(email && subject && message){
                         headers:{'Content-Type':'application/json'} 
                      })
                      const data = await res.json()
-                     console.log(data)
-        //     err.innerHTML=""
-        // b.push({email:mail,subject:sub,msg:message})
-        // console.log(b)
-        // localStorage.setItem("messages",JSON.stringify(b))
+                    //  console.log(data)
         }
     }else{
         err.innerHTML="Please fill all fields"

@@ -69,43 +69,25 @@
             const res= await fetch('https://my-brand-production-b3f0.up.railway.app/login',{
             method:'POST',
             body:JSON.stringify({email,password}),
-            headers:{'Content-Type':'application/json'}     
+            headers:{'Content-Type':'application/json'} ,  
+            credentials: "same-origin"
           })
+          const cookie= res.headers.get('cookie')
+          console.log(cookie)
           const data= await res.json()
             if(data.Status !=200){
                 err.innerHTML=data.Message
             }else{
                 if(data.Message=="Loged In As Admin"){
+                    document.cookie=`jwt=${data.toke}`
+                    document.cookie=`test=${data.toke}`
+
+                    // console.log(data)
                     window.location.href="dashboard.html"
                 }else{
                     window.location.href="blog.html"
                 }
             }
-            // const index= users.findIndex(user =>user.email==email);
-            //  if(index!=(-1)){
-            // if(email=="admin@gmail.com"){
-            //     if (password=="admin"){
-            //     localStorage.setItem("Active",JSON.stringify([{activeuser:email,likeaction:"0",dislikeaction:"0"}]))
-            //     window.location.href="dashboard.html"
-            //      }
-            //      else{
-            //         err.innerHTML="Incorrect Password"
-            //     }
-            //     }
-            //     else{
-            //         if(users[index].password==password){
-            //             localStorage.setItem("Active",JSON.stringify([{activeuser:users[index].email,likeaction:"0",dislikeaction:"0"}]))
-            //             window.location.href="blog.html"
-            //         }
-            //         else{
-            //             err.innerHTML="Incorrect Password !!"
-            //         }
-            //     }}
-            //     else{
-            //         err.innerHTML="User does not exists !!"
-
-            //     }
-
         }
         }
         else{
