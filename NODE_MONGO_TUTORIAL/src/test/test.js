@@ -464,7 +464,7 @@ describe("TASKS TEST",()=>{
         })
     })
 
-    describe.only("POST /messages",()=>{
+    describe("POST /messages",()=>{
         it("it should send add a new message",(done)=>{
             const msg={
                 email:"princeineza@gmail.com",
@@ -485,7 +485,7 @@ describe("TASKS TEST",()=>{
     })
 
 
-    describe.only("POST /messages",()=>{
+    describe("POST /messages",()=>{
         it("it should  not send add a new message (empty fields)",(done)=>{
             const msg={
                 email:"",
@@ -522,7 +522,7 @@ describe("TASKS TEST",()=>{
         })
     })
 
-    describe.only("POST /messages",()=>{
+    describe("POST /messages",()=>{
         it("it should display all messages (when admin)",(done)=>{
             chai.request(server)
             .get("/messages")
@@ -536,7 +536,7 @@ describe("TASKS TEST",()=>{
         })
     })
 
-    describe.only("POST /messages",()=>{
+    describe("POST /messages",()=>{
         it("it should delete a message",(done)=>{
             chai.request(server)
             .delete("/messages/" + message_id)
