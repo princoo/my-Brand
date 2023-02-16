@@ -256,6 +256,7 @@ const viewmessages= async(req,res)=>{
     await Message.find()
         .then((data)=> {
             res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+            res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
             res.status(200).json({"message":data})})
         // .then((data)=>{
         //     // res.render('home')
