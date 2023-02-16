@@ -51,57 +51,40 @@
     <!-- javascript -->
     <script src="../javascript/runpage.js"></script>
     <script>
-         fetch('https://my-brand-production-b3f0.up.railway.app/blogs')
-         .then((data)=>{
-            console.log(data)
-         })
-        console.log(data)
- window.onload=popup()
+         window.onload=popup()
 const container= document.querySelector(".container");
 const hide= document.getElementById("more")
+         fetch('https://my-brand-production-b3f0.up.railway.app/blogs')
+         .then((response)=>{
+            return response.json()
+         })
+         .then((data)=>{
+            let i=1
+            data.forEach(blog => {
 
-let a = localStorage.getItem('Blogs')
-if(a==null){
-        localStorage.setItem("Blogs",JSON.stringify([{title:"no blogs yet",body:"not yet",image:"none"}]))
-        a=localStorage.getItem('Blogs')
-    }
-    const b = JSON.parse(a)
-    if((b.length) < 5){
-        console.log("yoo")
-        hide.style.display="none"
-    }
-    if(b.length==1){
-        const header = document.createElement("h2")
-        header.classList.add("none")
-        const content = document.createTextNode("NO BLOGS YET !!!");
-        header.appendChild(content)
-        container.appendChild(header)
-    }
-    else{
-        for (let i = 1; i < b.length; i++) {
         const div = document.createElement("div");
         const img = document.createElement("img");
         const p= document.createElement("p");
         div.classList.add("scale");
-        div.setAttribute("id",b.indexOf(b[i]))
+        div.setAttribute("id",blog._id)
         div.addEventListener("click",(e)=>{
-        window.location.href=`story.html?page=${b.indexOf(b[i])}`
+        window.location.href=`story.html?page=${blog._id}`
+        // window.location.href=`/story/${blog._id}.html`
+
         })
         if(i>3){
-            div.classList.add("new")
-        }
+                div.classList.add("new")
+                }
         // assignment
-        img.src=b[i].image
-        const textContent=document.createTextNode(b[i].title);
+        img.src=blog.imageUrl.Url
+        const textContent=document.createTextNode(blog.title);
         p.appendChild(textContent);
         div.innerHTML= img.outerHTML + p.outerHTML;
         container.appendChild(div);
-    }
-    }
-
-
-
-
+        i++
+            });
+         })
+       
     </script>
 </body>
 </html>

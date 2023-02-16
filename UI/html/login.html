@@ -49,7 +49,7 @@
     <script src="../javascript/runpage.js"></script>
     <script>
         // login
-    function login(event){
+    async function login(event){
     event.preventDefault();
     const redirect= document.getElementById("next");
     const email=document.getElementById("email").value;
@@ -66,30 +66,45 @@
         if(!ValidateEmail(email)){
             err.innerHTML="Email is not valid"
         }else{
-            const index= users.findIndex(user =>user.email==email);
-             if(index!=(-1)){
-            if(email=="admin@gmail.com"){
-                if (password=="admin"){
-                localStorage.setItem("Active",JSON.stringify([{activeuser:email,likeaction:"0",dislikeaction:"0"}]))
-                window.location.href="dashboard.html"
-                 }
-                 else{
-                    err.innerHTML="Incorrect Password"
+            const res= await fetch('https://my-brand-production-b3f0.up.railway.app/login',{
+            method:'POST',
+            body:JSON.stringify({email,password}),
+            headers:{'Content-Type':'application/json'}     
+          })
+          const data= await res.json()
+            if(data.Status !=200){
+                err.innerHTML=data.Message
+            }else{
+                if(data.Message=="Loged In As Admin"){
+                    window.location.href="dashboard.html"
+                }else{
+                    window.location.href="blog.html"
                 }
-                }
-                else{
-                    if(users[index].password==password){
-                        localStorage.setItem("Active",JSON.stringify([{activeuser:users[index].email,likeaction:"0",dislikeaction:"0"}]))
-                        window.location.href="blog.html"
-                    }
-                    else{
-                        err.innerHTML="Incorrect Password !!"
-                    }
-                }}
-                else{
-                    err.innerHTML="User does not exists !!"
+            }
+            // const index= users.findIndex(user =>user.email==email);
+            //  if(index!=(-1)){
+            // if(email=="admin@gmail.com"){
+            //     if (password=="admin"){
+            //     localStorage.setItem("Active",JSON.stringify([{activeuser:email,likeaction:"0",dislikeaction:"0"}]))
+            //     window.location.href="dashboard.html"
+            //      }
+            //      else{
+            //         err.innerHTML="Incorrect Password"
+            //     }
+            //     }
+            //     else{
+            //         if(users[index].password==password){
+            //             localStorage.setItem("Active",JSON.stringify([{activeuser:users[index].email,likeaction:"0",dislikeaction:"0"}]))
+            //             window.location.href="blog.html"
+            //         }
+            //         else{
+            //             err.innerHTML="Incorrect Password !!"
+            //         }
+            //     }}
+            //     else{
+            //         err.innerHTML="User does not exists !!"
 
-                }
+            //     }
 
         }
         }

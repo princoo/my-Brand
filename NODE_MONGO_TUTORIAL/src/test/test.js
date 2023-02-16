@@ -17,6 +17,7 @@ describe("TASKS TEST",()=>{
     let blog
     let comment_id
     let user_id
+    let message_id
 
     describe("GET /blogs",()=>{
         it("it should get all blogs",(done)=>{
@@ -463,10 +464,11 @@ describe("TASKS TEST",()=>{
         })
     })
 
-    describe("POST /messages",()=>{
+    describe.only("POST /messages",()=>{
         it("it should send add a new message",(done)=>{
             const msg={
                 email:"princeineza@gmail.com",
+                subject:"hiring",
                 message:" to text"
             }
             chai.request(server)
@@ -476,15 +478,18 @@ describe("TASKS TEST",()=>{
                 res.should.have.status(201)
                 res.should.be.json
                 res.body.should.have.property("message")
+                message_id= res.body.data._id
                 done()
             })
         })
     })
 
-    describe("POST /messages",()=>{
+
+    describe.only("POST /messages",()=>{
         it("it should  not send add a new message (empty fields)",(done)=>{
             const msg={
                 email:"",
+                subject:"hiring",
                 message:" to text"
             }
             chai.request(server)
@@ -517,7 +522,7 @@ describe("TASKS TEST",()=>{
         })
     })
 
-    describe("POST /messages",()=>{
+    describe.only("POST /messages",()=>{
         it("it should display all messages (when admin)",(done)=>{
             chai.request(server)
             .get("/messages")
@@ -531,6 +536,18 @@ describe("TASKS TEST",()=>{
         })
     })
 
+    describe.only("POST /messages",()=>{
+        it("it should delete a message",(done)=>{
+            chai.request(server)
+            .delete("/messages/" + message_id)
+            .set('cookie',`jwt=${process.env.ADMIN_TOKEN}`)
+            .end((err,res)=>{
+                res.should.have.status(201)
+                res.should.be.json
+                done()
+            })
+        })
+    })
     describe("GET /logout",()=>{
         it("it should logout a user",(done)=>{
 

@@ -84,7 +84,7 @@ function change(){
 
 
 // signup
-function signup(event){
+async function signup(event){
     event.preventDefault();
      let a= localStorage.getItem("Users");
 let count=0;
@@ -92,6 +92,7 @@ let count=0;
         localStorage.setItem("Users",JSON.stringify([{email:"admin@gmail.com",password:"admin"}]))
          a= localStorage.getItem("Users");
     }
+    let username=document.getElementById("username").value;
     let email=document.getElementById("email").value;
     let password=document.getElementById("subject1").value;
     let confirm= document.getElementById("subject2").value;
@@ -105,28 +106,47 @@ let count=0;
             err.innerHTML="Email is not valid"
         }
         else{
-            if(password!=confirm){
-                err.innerHTML="Passwords do not match !!"
-             }
-             else{
-                 const result= newarray.forEach(user=>{
-                     if(user.email==email){
-                          count++;
-                    }})
-                    if(count==0){
-                     const newuser={
-                         email:email,
-                         password:password
+            if(password.length <5){
+                err.innerHTML="Password is too short !!"
+
+            }else{
+                if(password!=confirm){
+                    err.innerHTML="Passwords do not match !!"
+                 }
+                 else{
+                     const res= await fetch('https://my-brand-production-b3f0.up.railway.app/signup',{
+                        method:'POST',
+                        body:JSON.stringify({username,email,password}),
+                        headers:{'Content-Type':'application/json'} 
+                     })
+                     const data= await res.json()
+                     if(data.Error){
+                        err.innerHTML=data.Error 
                      }
-                     newarray.push({email:newuser.email,password:newuser.password});
-                     localStorage.setItem("Users",JSON.stringify(newarray));
-             
-                     window.location.href="login.html";
-                    }
-                    else{
-                err.innerHTML="Email exists"         
-                    }
-             }
+                     if(data.user){
+                        window.location.href="login.html";
+                     }
+                    //  console.log(data)
+                    //  const result= newarray.forEach(user=>{
+                    //      if(user.email==email){
+                    //           count++;
+                    //     }})
+                    //     if(count==0){
+                    //      const newuser={
+                    //          email:email,
+                    //          password:password
+                    //      }
+                    //      newarray.push({email:newuser.email,password:newuser.password});
+                    //      localStorage.setItem("Users",JSON.stringify(newarray));
+                 
+                    //      window.location.href="login.html";
+                    //     }
+                    //     else{
+                    // err.innerHTML="Email exists"         
+                    //     }
+                 }
+            }
+
         }
    
     }
@@ -166,6 +186,9 @@ function popup(){
     // email validation
     function ValidateEmail(mail) {
         return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)
+}
+function passLength(password){
+    return 
 }
 
 

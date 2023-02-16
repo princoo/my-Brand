@@ -75,44 +75,42 @@ window.onload=popup()
 const send= document.getElementById("send")
 const err= document.getElementById("error")
 
-send.addEventListener("click",(e)=>{  
+send.addEventListener("click",async(e)=>{  
+    e.preventDefault()
     let a= localStorage.getItem("messages")
         if(a==null){
             localStorage.setItem("messages",JSON.stringify([{email:"none",subject:"none",msg:"none"}]))
             a=localStorage.getItem("messages")
         }
         const b= JSON.parse(a)
-        const mail= document.getElementById("email").value.trim()
-        const sub= document.getElementById("subject").value.trim()
+        const email= document.getElementById("email").value.trim()
+        const subject= document.getElementById("subject").value.trim()
         const message= document.getElementById("message").value.trim()
 
-if(mail && sub && message){
-    if(!ValidateEmail(mail)){
+if(email && subject && message){
+    if(!ValidateEmail(email)){
         err.innerHTML="Email is not valid"
         }
         else{
-            err.innerHTML=""
-        b.push({email:mail,subject:sub,msg:message})
-        console.log(b)
-        localStorage.setItem("messages",JSON.stringify(b))
+            const res= await fetch('https://my-brand-production-b3f0.up.railway.app/messages',{
+                        method:'POST',
+                        body:JSON.stringify({email,subject,message}),
+                        headers:{'Content-Type':'application/json'} 
+                     })
+                     const data = await res.json()
+                     console.log(data)
+        //     err.innerHTML=""
+        // b.push({email:mail,subject:sub,msg:message})
+        // console.log(b)
+        // localStorage.setItem("messages",JSON.stringify(b))
         }
     }else{
         err.innerHTML="Please fill all fields"
     }
         })
-
         function ValidateEmail(mail) {
                     return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)
         }
-
-
-        const successCallback = (position) =>{
-            console.log(position)
-        }
-        const errorCallback = (error) =>{
-            console.log(error)
-        }
-        const watchid= navigator.geolocation.watchPosition(successCallback,errorCallback)
     </script>
 
 </body>

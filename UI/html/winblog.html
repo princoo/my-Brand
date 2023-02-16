@@ -79,9 +79,14 @@ const right = document.querySelector(".right");
         right.appendChild(header)
     }
     else{
-        for (let i = 1; i < b.length; i++) {
-            const modify=`<i class="change fa fa-edit" id="${b.indexOf(b[i])}" style="color: green;" onclick="modify(${b.indexOf(b[i])})"></i> <br>`
-            const remove=`<i class="delete fa fa-trash" id="${b.indexOf(b[i])}" aria-hidden="true" style="color: red;" onclick="erase(${b.indexOf(b[i])})"></i> <br>`
+            generateBlogs()
+
+       async function generateBlogs(){
+            const res=  await fetch('https://my-brand-production-b3f0.up.railway.app/blogs')
+            const data =  await res.json()
+            data.forEach(blog => {
+             const modify=`<i class="change fa fa-edit" id="${blog._id}" style="color: green;" onclick="modify(${blog._id})"></i> <br>`
+            const remove=`<i class="delete fa fa-trash" id="${blog._id}" aria-hidden="true" style="color: red;" onclick="erase(${blog._id})"></i> <br>`
             const parent = document.createElement("div")
             const img = document.createElement("img");
             const div =  document.createElement("div");
@@ -95,6 +100,8 @@ const right = document.querySelector(".right");
             const commentDiv = document.createElement("div")
             const changeDiv = document.createElement("div")
             const deleteDiv = document.createElement("div")
+            const imageDiv=  document.createElement("div")
+            imageDiv.classList.add("imagediv")
             likeDiv.classList.add("div")
             img.classList.add("image")
             commentDiv.classList.add("div")
@@ -109,33 +116,33 @@ const right = document.querySelector(".right");
             commentSpan.textContent="31"
             const yoo =document.querySelector(".delete")
 
-             // number of commements
-            let comments= localStorage.getItem("Comments");
-            if(comments==null){
-                localStorage.setItem("Comments",JSON.stringify([{blogid:"none",email:"none",comment:"none"}]));
-                comments= localStorage.getItem("Comments")
-            }
-            const msg= JSON.parse(comments);
-            const filter=msg.filter(message =>message.blogid==i)
-            commentSpan.innerHTML= filter.length;
+    // number of commements
+            // let comments= localStorage.getItem("Comments");
+            // if(comments==null){
+            //     localStorage.setItem("Comments",JSON.stringify([{blogid:"none",email:"none",comment:"none"}]));
+            //     comments= localStorage.getItem("Comments")
+            // }
+            // const msg= JSON.parse(comments);
+            // const filter=msg.filter(message =>message.blogid==i)
+            // commentSpan.innerHTML= filter.length;
          // ----------------------------------------------
 
-        //  number of likes
-        let liki= localStorage.getItem("Likes");
-        if(liki==null){
-            localStorage.setItem("Likes", JSON.stringify([{blogid:"none",likes:0,dislikes:0}]))
-            liki= localStorage.getItem("Likes")
-        }
-        const heart= JSON.parse(liki)
-        console.log(heart)
-        const likefilter= heart.filter(thumpUp=>thumpUp.blogid==i)
-        if(likefilter.length==0){
-            likeSpan.textContent="0"
-        }
-        else{
-            console.log(likefilter)
-        likeSpan.textContent= likefilter[0].likes
-        }
+    //  number of likes
+        // let liki= localStorage.getItem("Likes");
+        // if(liki==null){
+        //     localStorage.setItem("Likes", JSON.stringify([{blogid:"none",likes:0,dislikes:0}]))
+        //     liki= localStorage.getItem("Likes")
+        // }
+        // const heart= JSON.parse(liki)
+        // console.log(heart)
+        // const likefilter= heart.filter(thumpUp=>thumpUp.blogid==i)
+        // if(likefilter.length==0){
+        //     likeSpan.textContent="0"
+        // }
+        // else{
+        //     console.log(likefilter)
+        // likeSpan.textContent= likefilter[0].likes
+        // }
            
         // ---------------------------------
 
@@ -149,14 +156,98 @@ const right = document.querySelector(".right");
 
             parent.classList.add("blogs")
             div.classList.add("parag");
-            img.src= b[i].image;
-            const content= document.createTextNode(b[i].title);
+            img.src= blog.imageUrl.Url;
+            imageDiv.innerHTML= img.outerHTML
+            const content= document.createTextNode(blog.title);
             p.appendChild(content);
             div.appendChild(p)
-            parent.innerHTML= img.outerHTML + div.outerHTML + editdiv.outerHTML
+            parent.innerHTML= imageDiv.outerHTML + div.outerHTML + editdiv.outerHTML
             right.appendChild(parent)
-           
+            });
         }
+        // for (let i = 1; i < b.length; i++) {
+            // const res=  fetch('https://my-brand-production-b3f0.up.railway.app/blogs')
+            // const data =  res.json()
+            // data.forEach(blog => {
+            //     console.log(blog)
+            // });
+        //     const modify=`<i class="change fa fa-edit" id="${b.indexOf(b[i])}" style="color: green;" onclick="modify(${b.indexOf(b[i])})"></i> <br>`
+        //     const remove=`<i class="delete fa fa-trash" id="${b.indexOf(b[i])}" aria-hidden="true" style="color: red;" onclick="erase(${b.indexOf(b[i])})"></i> <br>`
+        //     const parent = document.createElement("div")
+        //     const img = document.createElement("img");
+        //     const div =  document.createElement("div");
+        //     const p = document.createElement("p");
+        //     const editdiv =document.createElement("div")
+        //     const likeSpan= document.createElement("span")
+        //     const commentSpan= document.createElement("span")
+        //     const changeSpan=document.createElement("span")
+        //     const deleteSpan=document.createElement("span")
+        //     const likeDiv= document.createElement("div")
+        //     const commentDiv = document.createElement("div")
+        //     const changeDiv = document.createElement("div")
+        //     const deleteDiv = document.createElement("div")
+        //     likeDiv.classList.add("div")
+        //     img.classList.add("image")
+        //     commentDiv.classList.add("div")
+        //     changeDiv.classList.add("div")
+        //     changeDiv.classList.add("green")
+        //     deleteDiv.classList.add("div")
+        //     deleteDiv.classList.add("delete")            
+        //     editdiv.classList.add("edit")
+        //     changeSpan.textContent="Edit"
+        //     deleteSpan.textContent="Delete"
+        //     likeSpan.textContent="0"
+        //     commentSpan.textContent="31"
+        //     const yoo =document.querySelector(".delete")
+
+        //      // number of commements
+        //     let comments= localStorage.getItem("Comments");
+        //     if(comments==null){
+        //         localStorage.setItem("Comments",JSON.stringify([{blogid:"none",email:"none",comment:"none"}]));
+        //         comments= localStorage.getItem("Comments")
+        //     }
+        //     const msg= JSON.parse(comments);
+        //     const filter=msg.filter(message =>message.blogid==i)
+        //     commentSpan.innerHTML= filter.length;
+        //  // ----------------------------------------------
+
+        // //  number of likes
+        // let liki= localStorage.getItem("Likes");
+        // if(liki==null){
+        //     localStorage.setItem("Likes", JSON.stringify([{blogid:"none",likes:0,dislikes:0}]))
+        //     liki= localStorage.getItem("Likes")
+        // }
+        // const heart= JSON.parse(liki)
+        // console.log(heart)
+        // const likefilter= heart.filter(thumpUp=>thumpUp.blogid==i)
+        // if(likefilter.length==0){
+        //     likeSpan.textContent="0"
+        // }
+        // else{
+        //     console.log(likefilter)
+        // likeSpan.textContent= likefilter[0].likes
+        // }
+           
+        // // ---------------------------------
+
+
+        // // edit section
+        //     likeDiv.innerHTML= like + likeSpan.outerHTML
+        //     commentDiv.innerHTML= comment + commentSpan.outerHTML
+        //     changeDiv.innerHTML=  modify + changeSpan.outerHTML
+        //     deleteDiv.innerHTML= remove + deleteSpan.outerHTML
+        //     editdiv.innerHTML = likeDiv.outerHTML + commentDiv.outerHTML + changeDiv.outerHTML + deleteDiv.outerHTML;
+
+        //     parent.classList.add("blogs")
+        //     div.classList.add("parag");
+        //     img.src= b[i].image;
+        //     const content= document.createTextNode(b[i].title);
+        //     p.appendChild(content);
+        //     div.appendChild(p)
+        //     parent.innerHTML= img.outerHTML + div.outerHTML + editdiv.outerHTML
+        //     right.appendChild(parent)
+           
+        // }
 
         // delete blog
         function erase(id){

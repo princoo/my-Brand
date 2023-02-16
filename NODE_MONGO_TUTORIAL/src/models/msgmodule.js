@@ -7,6 +7,10 @@ const msgschema = new Schema({
         type:String,
         required:true
     },
+    heading:{
+        type: String,
+        required: true
+    },
     message:{
         type:String,
         required:true

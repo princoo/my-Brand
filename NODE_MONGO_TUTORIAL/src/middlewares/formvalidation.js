@@ -23,6 +23,7 @@ const addblogSchema= joi.object({
 })
 const messageSchema= joi.object({
     email:joi.string().email().required(),
+    subject:joi.string().required(),
     message:joi.string().required()
 })
 const commentSchema= joi.object({

@@ -32,7 +32,7 @@
     <div class="story">
         <img src="" alt="" srcset="" class="image" id="image">
         <h3 id="title"></h3>
-            <p id="body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo omnis maxime laboriosam quidem, minima porro quas doloribus enim reprehenderit. Voluptatum provident, voluptatem aspernatur reiciendis ratione perspiciatis doloremque quas. Neque repudiandae cumque impedit? Atque dolor beatae illum ab optio, recusandae voluptatem totam velit consequuntur magni id in consequatur! Tempora voluptas quis amet, molestiae minus quas expedita eaque quam, ex velit cum. Illo labore animi maxime corporis mollitia quidem earum, delectus expedita tenetur quos doloremque natus. Eaque doloremque iste nostrum vel, accusantium exercitationem doloribus, repudiandae, debitis nam quae nisi suscipit? Blanditiis deleniti itaque numquam aspernatur ullam, mollitia odit saepe. Nam, dolor nihil.</p>
+            <p id="body"></p>
             <div class="footer">
                 <i class="fa fa-thumbs-up" aria-hidden="true" onclick="funcLike()"></i>
                 <span id="likes"></span>
@@ -71,6 +71,8 @@
 
     <!-- javasript -->
     <script src="../javascript/runpage.js"></script>
+    <script src="../functions/fetchblogs.js"></script>
+
     <script>
 window.onload=popup()
 
@@ -125,11 +127,20 @@ form.addEventListener('submit',(e)=>{
 })
 const a= localStorage.getItem("Blogs")
 const b= JSON.parse(a);
+ fetch('https://my-brand-production-b3f0.up.railway.app/blogs')
+.then((response)=>{return response.json()})
+.then((data)=>{
+    const Blog = data.filter(blog=>blog._id==id)
+    if(Blog.length==0){
+        console.log("You are lost ")
+    }else{
+        image.src=Blog[0].imageUrl.Url
+    title.textContent=Blog[0].title;
+    body.textContent=Blog[0].body
+    }
+    
+})
 const blog= b.filter(blogid => b.indexOf(blogid)==id);
-image.src=blog[0].image
-title.textContent=blog[0].title;
-body.textContent=blog[0].body
-
 // add comment
 let comment= localStorage.getItem("Comments");
 if(comment==null){

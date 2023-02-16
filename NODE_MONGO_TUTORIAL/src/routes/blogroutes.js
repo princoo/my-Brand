@@ -433,6 +433,7 @@ Router.post('/signup',controller.signUp)
 Router.post('/login',controller.login)
 Router.get('/logout',controller.logout)
 Router.post('/messages',controller.addMessages)
+Router.delete('/messages/:id',verification,adminAction,controller.deleteMessage)
 Router.get('/messages',verification,adminAction,controller.viewmessages)
 Router.delete('/users/:id',verification,adminAction,controller.deleteUser)
 

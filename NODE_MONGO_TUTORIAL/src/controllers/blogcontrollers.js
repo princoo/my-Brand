@@ -228,18 +228,28 @@ const comments = async(req,res)=>{
 }
 // adding messages
 const addMessages= async(req,res)=>{
-    
 const {error,value} = validateMessages(req.body)
 if(!error){
     person= req.body.email
+    subject= req.body.subject
     messageContent= req.body.message
-await Message.create({email:person , message:messageContent})
-    res.status(201).json({"message":"message ADDED"})
-}else{
-    res.status(400).json({"error":error})
+ Message.create({email:person , heading:subject, message:messageContent})
+    .then((data)=>{
+        res.status(201).json({"message":"message ADDED","data":data})
+
+    })
+        // res.status(201).json({"message":"message ADDED"})
+    }else{
+        res.status(400).json({"error":error})
+    }   
 }
-    
-}
+//deleting a message
+const deleteMessage= async(req,res)=>{
+    const id = req.params.id
+        await Message.deleteOne({_id:id})
+        res.status(201).json({"message":"message Deleted"})
+    }
+
 // view messages
 const viewmessages= async(req,res)=>{
     await Message.find()
@@ -371,4 +381,5 @@ module.exports={
     toggleLikes,
     deleteComment,
     deleteUser,
+    deleteMessage,
 }
