@@ -40,7 +40,7 @@ app.use(express.json())
 app.use(cookieparser())
 dotenv.config()
 app.use(cors({
-    origin:'http://127.0.0.1:5500'
+    origin:"*"
 }))
 
 app.all('*',verifyUser)
