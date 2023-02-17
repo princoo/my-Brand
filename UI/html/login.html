@@ -80,12 +80,12 @@
             }else{
                 if(data.Message=="Loged In As Admin"){
                     document.cookie=`jwt=${data.toke}`
-                    document.cookie=`test=${data.toke}`
-
                     // console.log(data)
                     window.location.href="dashboard.html"
                 }else{
                     window.location.href="blog.html"
+                    document.cookie=`jwt=${data.toke}`
+
                 }
             }
         }

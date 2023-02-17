@@ -58,6 +58,8 @@
 
 <!-- javascript -->
 <script src="../javascript/runpage.js"></script>
+<script src="../functions/token.js"></script>
+
 
 <script>
     window.onload=popup()
@@ -72,27 +74,17 @@
     }
      b=JSON.parse(a);
      getMessages()
-
     // for (let i = 1; i < b.length; i++) {
        async function getMessages(){
-        // var cookies= document.cookie
-        //         .split(';')
-        //         .map(cookie => cookie.split('='))
-        //         .reduce((accumulator, [key,value]) =>
-        //         ({ ...accumulator,[key.trim()]: decodeURIComponent(value)}),{})
-        //         console.log(cookies.jwt)
-        const res = await fetch('https://my-brand-production-b3f0.up.railway.app/messages', {
+        const res = await fetch('http://localhost:5000/messages', {
                                 method: 'GET',
                                 headers: {
+                                    'Authentication': `Bearer ${cookies.jwt}`,
                                     'Content-Type': 'application/json',
                                 },
-                                credentials: 'include',
-                                mode: 'cors', 
                                 });
-
-
         const data= await res.json()
-        console.log(data)
+        // console.log(data) 
            
     }
         
@@ -112,11 +104,11 @@
         div.innerHTML=p1.outerHTML + h4.outerHTML + p2.outerHTML + button;
         right.appendChild(div)
     // }
-    function remove(id){
-        const result=b.filter(msg=>b.indexOf(msg)!=id )
-        localStorage.setItem("messages",JSON.stringify(result))
-        window.location.reload()
-    }
+    // function remove(id){
+    //     const result=b.filter(msg=>b.indexOf(msg)!=id )
+    //     localStorage.setItem("messages",JSON.stringify(result))
+    //     window.location.reload()
+    // }
 
 </script>
 </body>

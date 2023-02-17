@@ -3,8 +3,8 @@ const jwtoken= require('jsonwebtoken')
 
 // jwt verification
 const verification= (req,res,next)=>{
-    const token = req.cookies.jwt
-    
+    const authHeader = req.headers.authentication;
+    const token = authHeader && authHeader.split(' ')[1];
     if(token){
         jwtoken.verify(token,'mavins',(err,decodedtoken)=>{
             if(err){
@@ -16,7 +16,7 @@ const verification= (req,res,next)=>{
         })
     
     }else{
-        res.status(401).json({"Message":"Please Login First !!!"})
+        res.status(401).json({"Message":"Please Login Firstii !!!"})
     }
     
      }

@@ -34,12 +34,18 @@ const options={
 const specs= swaggerJSDoc(options);
 app.use('/myapi',swaggerUi.serve,swaggerUi.setup(specs))
 
-app.use(cors())
 app.use( express.static( "public" ) );
 app.set('view engine','ejs')
 app.use(express.json())
 app.use(cookieparser())
 dotenv.config()
+app.use(cors(
+    {
+        // origin: 'http://127.0.0.1:550',
+        optionsSuccessStatus: 200 
+      }
+))
+
 app.all('*',verifyUser)
 app.use('',blogRoutes)
 
