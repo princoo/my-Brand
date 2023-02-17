@@ -4,4 +4,4 @@ var cookies= document.cookie
 .reduce((accumulator, [key,value]) =>
 ({ ...accumulator,[key.trim()]: decodeURIComponent(value)}),{})
 
-module.exports= cookies
+// module.exports= cookies

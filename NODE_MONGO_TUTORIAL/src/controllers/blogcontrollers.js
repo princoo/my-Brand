@@ -248,6 +248,8 @@ if(!error){
 const deleteMessage= async(req,res)=>{
     const id = req.params.id
         await Message.deleteOne({_id:id})
+        res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+        res.setHeader('Access-Control-Allow-Credentials', 'true');
         res.status(201).json({"message":"message Deleted"})
     }
 
