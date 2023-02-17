@@ -2,7 +2,7 @@ const express= require('express')
 const{connect} = require('./src/configs/database')
 const cookieparser= require('cookie-parser')
 const dotenv= require('dotenv')
-// const cors= require('cors')
+const cors= require('cors')
 const swaggerJSDoc= require('swagger-jsdoc')
 const swaggerUi= require('swagger-ui-express')
 const upload= require('./src/configs/multer')
@@ -34,7 +34,7 @@ const options={
 const specs= swaggerJSDoc(options);
 app.use('/myapi',swaggerUi.serve,swaggerUi.setup(specs))
 
-// app.use(cors())
+app.use(cors())
 app.use( express.static( "public" ) );
 app.set('view engine','ejs')
 app.use(express.json())
