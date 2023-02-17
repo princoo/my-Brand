@@ -49,22 +49,16 @@ const adminAction= (req,res,next)=>{
                         next()
                        }
                        else{
-                        res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
-                        res.setHeader('Access-Control-Allow-Credentials', 'true');
                         res.status(400).json({"message":"Only Admin can perform this action"})
                        }
     
                     }else{
-                        res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
-                        res.setHeader('Access-Control-Allow-Credentials', 'true');
                         res.status(400).json({"message":"user not found"})
     
                     }
                 }
             })
         }else{
-            res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
-            res.setHeader('Access-Control-Allow-Credentials', 'true');
         res.status(401).json({"message":"Log In first !!"})   
         }
  }

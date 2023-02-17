@@ -114,11 +114,11 @@ window.onload=popup()
     const formData={
         title: title.value,
         body:body.value,
-        image:image.value
+        image:image.files[0]
     }
 
   
-    const res= await fetch('https://my-brand-production-b3f0.up.railway.app/', 
+    const res= await fetch('https://my-brand-production-b3f0.up.railway.app/add', 
                                 {
                              method: 'POST',
                              body:formData,
