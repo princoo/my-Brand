@@ -44,7 +44,7 @@
     <div class="right">
     <h1>DASHBOARD</h1>  
     <h3 style="color: rgb(203, 122, 40);">ADD NEW BLOG</h3>
-    <form action="">
+    <form >
         <input type="text" placeholder="BLOG TITLE" name="title" class="title" id="title" >
         <textarea name="body" cols="30" rows="12" placeholder="  BLOG BODY" class="body" id="body" ></textarea><br>
         <input type="file" class="file" name="image" id="image" >
@@ -72,6 +72,7 @@
 
 <!-- javascript -->
 <script src="../javascript/runpage.js"></script>
+<script src="../functions/token.js"></script>
 
 <script>
 window.onload=popup()
@@ -87,36 +88,57 @@ window.onload=popup()
     let url="";
 
   //    generating image url
-    image.addEventListener('change',()=>{
-        const fr= new FileReader();
-        fr.readAsDataURL(image.files[0]);
-        fr.addEventListener('load',()=>{
-             url= fr.result
-        })
-    })
+    // image.addEventListener('change',()=>{
+    //     const fr= new FileReader();
+    //     fr.readAsDataURL(image.files[0]);
+    //     fr.addEventListener('load',()=>{
+    //          url= fr.result
+    //     })
+    // })
 
 // storing
-    send.addEventListener('click',(e)=>{
+    send.addEventListener('click',async(e)=>{
     e.preventDefault();
-    let a = localStorage.getItem("Blogs");
-    if(a==null){
-        localStorage.setItem("Blogs",JSON.stringify([{title:"no blogs yet",body:"not yet",image:"none"}]))
-        a=localStorage.getItem('Blogs')
-    }
-    const newarray= JSON.parse(a)
-        console.log(title.value)
-    if(title.value && body.value && url){
-    newarray.push({title:title.value,body:body.value,image:url})
-    localStorage.setItem("Blogs",JSON.stringify(newarray))
-    loader.style.display="block"
-            wait.textContent="ADDING ..."
+    // let a = localStorage.getItem("Blogs");
+    // if(a==null){
+    //     localStorage.setItem("Blogs",JSON.stringify([{title:"no blogs yet",body:"not yet",image:"none"}]))
+    //     a=localStorage.getItem('Blogs')
+    // }
+    // const newarray= JSON.parse(a)
+    //     console.log(title.value)
 
-            setTimeout(()=>{
-                loader.style.display="none"
-            },2000)
-            setTimeout(()=>{
-            window.location.href="dashboard.html"
-            },2000)    }
+    if(title.value && body.value && image.value){
+    // newarray.push({title:title.value,body:body.value,image:url})
+    // localStorage.setItem("Blogs",JSON.stringify(newarray))
+    
+    const formData={
+        title: title.value,
+        body:body.value,
+        image:image.value
+    }
+
+  
+    const res= await fetch('https://my-brand-production-b3f0.up.railway.app/add', 
+                                {
+                             method: 'POST',
+                             body:formData,
+                             headers: {
+                                'Authentication': `Bearer ${cookies.jwt}`,
+                                'Content-Type': 'application/json',
+                            },
+                            });
+                            const data= await res.json()
+                            console.log(data)
+            // loader.style.display="block"
+            // wait.textContent="ADDING ..."
+
+            // setTimeout(()=>{
+            //     loader.style.display="none"
+            // },2000)
+            // setTimeout(()=>{
+            // window.location.href="dashboard.html"
+            // },2000) 
+           }
     else{
     err.innerHTML="Please fill all the fields"
     }
@@ -202,28 +224,28 @@ window.onload=popup()
 
 
 // checking for edit
-const check= window.location.search
-if(check!=""){
-let parameter= new URLSearchParams(window.location.search)
-let id = parameter.get("page")
-let draftid =parameter.get("draft")
-if(id){
-const a= localStorage.getItem("Blogs")
-const b= JSON.parse(a);
-const blog= b.filter(blogid => b.indexOf(blogid)==id);
-title.value= blog[0].title
-body.value= blog[0].body
-url=blog[0].image;
-}
-else{
-const a= localStorage.getItem("Drafts")
-const b= JSON.parse(a);
-const blog= b.filter(blogid => b.indexOf(blogid)==draftid);
-title.value= blog[0].title
-body.value= blog[0].body
-url=blog[0].image
-}
-}
+// const check= window.location.search
+// if(check!=""){
+// let parameter= new URLSearchParams(window.location.search)
+// let id = parameter.get("page")
+// let draftid =parameter.get("draft")
+// if(id){
+// const a= localStorage.getItem("Blogs")
+// const b= JSON.parse(a);
+// const blog= b.filter(blogid => b.indexOf(blogid)==id);
+// title.value= blog[0].title
+// body.value= blog[0].body
+// url=blog[0].image;
+// }
+// else{
+// const a= localStorage.getItem("Drafts")
+// const b= JSON.parse(a);
+// const blog= b.filter(blogid => b.indexOf(blogid)==draftid);
+// title.value= blog[0].title
+// body.value= blog[0].body
+// url=blog[0].image
+// }
+// }
 
 </script>
 </body>

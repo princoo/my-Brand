@@ -56,6 +56,8 @@
   </div>
 <!-- javascript -->
 <script src="../javascript/runpage.js"></script>
+<script src="../functions/token.js"></script>
+
 <script>
 window.onload=popup()
 // div data
@@ -80,13 +82,12 @@ const right = document.querySelector(".right");
     }
     else{
             generateBlogs()
-
        async function generateBlogs(){
             const res=  await fetch('https://my-brand-production-b3f0.up.railway.app/blogs')
             const data =  await res.json()
             data.forEach(blog => {
-             const modify=`<i class="change fa fa-edit" id="${blog._id}" style="color: green;" onclick="modify(${blog._id})"></i> <br>`
-            const remove=`<i class="delete fa fa-trash" id="${blog._id}" aria-hidden="true" style="color: red;" onclick="erase(${blog._id})"></i> <br>`
+             const modify=`<i class="change fa fa-edit" id="${blog._id}" style="color: green;" onclick="modify('${blog._id}')"></i> <br>`
+            const remove=`<i class="delete fa fa-trash" id="${blog._id}" aria-hidden="true" style="color: red;" onclick="erase('${blog._id}')"></i> <br>`
             const parent = document.createElement("div")
             const img = document.createElement("img");
             const div =  document.createElement("div");
@@ -166,11 +167,6 @@ const right = document.querySelector(".right");
             });
         }
         // for (let i = 1; i < b.length; i++) {
-            // const res=  fetch('https://my-brand-production-b3f0.up.railway.app/blogs')
-            // const data =  res.json()
-            // data.forEach(blog => {
-            //     console.log(blog)
-            // });
         //     const modify=`<i class="change fa fa-edit" id="${b.indexOf(b[i])}" style="color: green;" onclick="modify(${b.indexOf(b[i])})"></i> <br>`
         //     const remove=`<i class="delete fa fa-trash" id="${b.indexOf(b[i])}" aria-hidden="true" style="color: red;" onclick="erase(${b.indexOf(b[i])})"></i> <br>`
         //     const parent = document.createElement("div")
@@ -248,21 +244,19 @@ const right = document.querySelector(".right");
         //     right.appendChild(parent)
            
         // }
-
+        }
+        
         // delete blog
-        function erase(id){
-            let array= b.filter(blog => b.indexOf(blog)!=id)
-            localStorage.setItem("Blogs",JSON.stringify(array))
-            // console.log("done")
-          let comments= localStorage.getItem("Comments")
-            const result= JSON.parse(comments);
-            const com= result.filter(each=>each.blogid!=id);
-            localStorage.setItem("Comments",JSON.stringify(com))
-
-            let likes= localStorage.getItem("Likes")
-            const filt= JSON.parse(likes);
-            const erase= filt.filter(each=>each.blogid!=id);
-            localStorage.setItem("Likes",JSON.stringify(erase))
+       async function erase(id){
+            const res= await fetch(`https://my-brand-production-b3f0.up.railway.app/blogs/${id}`,{
+                method:'DELETE',
+                headers:{
+                    'Authentication': `Bearer ${cookies.jwt}`,
+                    'Content-Type': 'application/json',
+             }
+            })
+            const data=await res.json()
+            console.log(data)
             window.location.reload()
            }
            function modify(id){
@@ -270,7 +264,7 @@ const right = document.querySelector(".right");
            }
        
 
-    }
+    
    
 
 </script>

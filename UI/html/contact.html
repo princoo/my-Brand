@@ -91,6 +91,7 @@ if(email && subject && message){
                         headers:{'Content-Type':'application/json'} 
                      })
                      const data = await res.json()
+                     window.location.reload()
                     //  console.log(data)
         }
     }else{

@@ -66,15 +66,14 @@
         const right = document.getElementById("right")
     let a=localStorage.getItem("messages")
     let b=JSON.parse(a);
-    if(a==null ||b.length==1){
-        const h2=document.createElement("h2")
-        h2.classList.add("empty")
-        h2.innerHTML="NO MESSAGES YET !!"
-        right.appendChild(h2)
-    }
+    // if(a==null ||b.length==1){
+    //     const h2=document.createElement("h2")
+    //     h2.classList.add("empty")
+    //     h2.innerHTML="NO MESSAGES YET !!"
+    //     right.appendChild(h2)
+    // }
      b=JSON.parse(a);
      getMessages()
-    // for (let i = 1; i < b.length; i++) {
        async function getMessages(){
         const res = await fetch('https://my-brand-production-b3f0.up.railway.app/messages', {
                                 method: 'GET',
@@ -83,13 +82,20 @@
                                     'Content-Type': 'application/json',
                                 },
                                 });
-        const data= await res.json()
-        console.log(data.message) 
-        data.message.forEach(msg => {
+    const data= await res.json()
+    console.log(data.message) 
+    if(data.message.length==0){
+    const h2=document.createElement("h2")
+    h2.classList.add("empty")
+    h2.innerHTML="NO MESSAGES YET !!"
+    right.appendChild(h2)
+     }
+     else{   
+    data.message.forEach(msg => {
     const p1=document.createElement("p")
     const h4=document.createElement("h4")
     const p2=document.createElement("p")
-    const button=`<button class="delete" id="${msg._id}" onclick="remove('${msg._id}')"">DELETE<DELETE>`
+    const button=`<button class="delete" id="${msg._id}" onclick="remove('${msg._id}')">DELETE<DELETE>`
     const div= document.createElement("div")
     p1.classList.add("email")
     h4.classList.add("heading")
@@ -102,35 +108,18 @@
         right.appendChild(div)
         });
     }
-        
-    //  const p1=document.createElement("p")
-    // const h4=document.createElement("h4")
-    // const p2=document.createElement("p")
-    // const button=`<button class="delete" id="${i}" onclick="remove(${i})">DELETE<DELETE>`
-    // const div= document.createElement("div")
-
-    p1.classList.add("email")
-    h4.classList.add("heading")
-    p2.classList.add("body")
-    div.classList.add("start")
-        p1.innerHTML=b[i].email
-        h4.innerHTML=b[i].subject
-        p2.innerHTML=b[i].msg
-        div.innerHTML=p1.outerHTML + h4.outerHTML + p2.outerHTML + button;
-        right.appendChild(div)
-    // }
+    }
     async function remove(id){
-        const res = await fetch(`https://my-brand-production-b3f0.up.railway.app/messages/:${id}`,{
+    const res = await fetch(`https://my-brand-production-b3f0.up.railway.app/messages/${id}`,{
                                 method: 'DELETE',
                                 headers: {
                                     'Authentication': `Bearer ${cookies.jwt}`,
                                     'Content-Type': 'application/json',
-                                }})
-        console.log(res)
-
-        // const result=b.filter(msg=>b.indexOf(msg)!=id )
-        // localStorage.setItem("messages",JSON.stringify(result))
-        // window.location.reload()
+                                },
+                            })
+    const data= await res.json()
+    console.log(data)
+        window.location.reload()
     }
 
 </script>

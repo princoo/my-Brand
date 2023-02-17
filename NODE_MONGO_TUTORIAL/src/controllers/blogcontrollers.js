@@ -84,6 +84,8 @@ if(!error){
     const image= await cloudinary.uploader.upload(req.file.path)
     await Blog.create({title:req.body.title , body:req.body.body,imageUrl:{"id":image.public_id,"Url":image.url}})
     .then((data)=>{
+        res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+        res.setHeader('Access-Control-Allow-Credentials', 'true');
         res.status(201).json({"data":data,"message":"BLOG ADDED"})
     })
 }else{

@@ -39,12 +39,7 @@ app.set('view engine','ejs')
 app.use(express.json())
 app.use(cookieparser())
 dotenv.config()
-app.use(cors(
-    {
-        // origin: 'http://127.0.0.1:550',
-        // optionsSuccessStatus: 200 
-      }
-))
+app.use(cors())
 
 app.all('*',verifyUser)
 app.use('',blogRoutes)
