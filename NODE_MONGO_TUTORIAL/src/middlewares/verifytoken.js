@@ -20,6 +20,8 @@ const verification= (req,res,next)=>{
         if(cookieToken){
             jwtoken.verify(cookieToken,'mavins',(err,decodedtoken)=>{
                 if(err){
+                    res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+                    res.setHeader('Access-Control-Allow-Credentials', 'true');
                     res.status(401).json({"Error":"Please Login First !!!"})
                 }
                 if(decodedtoken){
@@ -27,6 +29,8 @@ const verification= (req,res,next)=>{
                 }
             })
         }else{
+            res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+            res.setHeader('Access-Control-Allow-Credentials', 'true');
         res.status(401).json({"Message":"Please Login Firstii !!!"})
         }
     }
