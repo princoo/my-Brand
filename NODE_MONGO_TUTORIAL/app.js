@@ -13,7 +13,9 @@ const verifyUser = require('./src/middlewares/verifyuser')
 
 const app= express()
 connect("CHALLENGE")
-
+app.use(cors({
+    origin:"*"
+}))
 const options={
     definition:{
         openapi:"3.0.0",
@@ -39,9 +41,7 @@ app.set('view engine','ejs')
 app.use(express.json())
 app.use(cookieparser())
 dotenv.config()
-app.use(cors({
-    origin:"*"
-}))
+
 
 app.all('*',verifyUser)
 app.use('',blogRoutes)
