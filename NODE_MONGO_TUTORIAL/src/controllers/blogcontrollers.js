@@ -27,7 +27,7 @@ const viewBlog= async(req,res)=>{
 const singleBlog= async(req,res)=>{
     const id= req.params.id
             let count=0;
-            await Blog.findById({_id:id})
+            await Blog.findById({_id:id}).populate('comments')
             .then((data)=>{
                 res.status(200).json(data)
             })
