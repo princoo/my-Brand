@@ -356,6 +356,7 @@ const deleteComment = (req,res)=>{
      
     })  
 }
+//delete user
 const deleteUser =async(req,res)=>{
     const id= req.params.id
         const result= await Users.findOne({_id:id})
