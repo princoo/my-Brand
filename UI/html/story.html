@@ -72,9 +72,11 @@
     <!-- javasript -->
     <script src="../javascript/runpage.js"></script>
     <script src="../functions/fetchblogs.js"></script>
+    <script src="../functions/token.js"></script>
 
-    <script>
+    <script type="module">
 window.onload=popup()
+import { newComment } from '../functions/addcomment.js';
 
 const image= document.getElementById("image")
 const title = document.getElementById("title");
@@ -142,12 +144,12 @@ const b= JSON.parse(a);
 })
 const blog= b.filter(blogid => b.indexOf(blogid)==id);
 // add comment
-let comment= localStorage.getItem("Comments");
-if(comment==null){
-    localStorage.setItem("Comments",JSON.stringify([{blogid:"none",email:"none",comment:"none"}]))
-    comment=localStorage.getItem("Comments");
-}
-const array=JSON.parse(comment)
+// let comment= localStorage.getItem("Comments");
+// if(comment==null){
+//     localStorage.setItem("Comments",JSON.stringify([{blogid:"none",email:"none",comment:"none"}]))
+//     comment=localStorage.getItem("Comments");
+// }
+// const array=JSON.parse(comment)
 
 send.addEventListener('click',(e)=>{
     e.preventDefault();
@@ -156,35 +158,33 @@ send.addEventListener('click',(e)=>{
     }
     else{
         err.innerHTML=""
-        let user=localStorage.getItem("Active")
-
-    if(client.length==0){
-        loader.style.display="block";
-        cancel.addEventListener('click',(e)=>{
+        const commentData={
+        comment:commentSec.value
+        }
+        const result= newComment(id,commentData)
+        result.then((data)=> {
+            console.log(data)
+            if(data.Error){
+            loader.style.display="block";
+            cancel.addEventListener('click',(e)=>{
             loader.style.display="none"
         })
     }
-    else{
-    const active=JSON.parse(user);
-    const z=active[0].activeuser
-    array.push({blogid:id,email:z,comment:commentSec.value})
-    localStorage.setItem("Comments",JSON.stringify(array))
-    window.location.href=`story.html?page=${id}`
-    }
+    })
     }
 
 })
 
 // read comments
 const icon=`<i class="fa fa-user" aria-hidden="true"></i>`;
-const result = array.filter(blog => blog.blogid==id);
-let x=localStorage.getItem("Replies")
-let z= JSON.parse(x)
-if(x==null || z.length<2){
-    localStorage.setItem("Replies",JSON.stringify([{blogid:"none",comm_id:"none",email:"none",reply:"none"}]))
-    x=localStorage.getItem("Replies")
-    z=JSON.parse(x)
-}
+// const result = array.filter(blog => blog.blogid==id);
+// let x=localStorage.getItem("Replies")
+// let z= JSON.parse(x)
+// if(x==null || z.length<2){
+//     localStorage.setItem("Replies",JSON.stringify([{blogid:"none",comm_id:"none",email:"none",reply:"none"}]))
+//     x=localStorage.getItem("Replies")
+//     z=JSON.parse(x)
+// }
 
     var filter=z.filter(reply => reply.blogid==id)
 

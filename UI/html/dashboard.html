@@ -78,7 +78,7 @@
 window.onload=popup()
 import { blogs } from '../functions/fetchblogs.js';
 import { generateBlog } from '../functions/singleblog.js';
-import { updateBlog } from '../functions/updateblog.js';
+import { updateBlog,update } from '../functions/updateblog.js';
 
     const send = document.getElementById('addblog');
     const title = document.getElementById('title');
@@ -102,43 +102,31 @@ import { updateBlog } from '../functions/updateblog.js';
 // storing
     send.addEventListener('click',async(e)=>{
     e.preventDefault();
-    // let a = localStorage.getItem("Blogs");
-    // if(a==null){
-    //     localStorage.setItem("Blogs",JSON.stringify([{title:"no blogs yet",body:"not yet",image:"none"}]))
-    //     a=localStorage.getItem('Blogs')
-    // }
-    // const newarray= JSON.parse(a)
-    //     console.log(title.value)
 
     if(title.value && body.value && image.value){
-    // newarray.push({title:title.value,body:body.value,image:url})
-    // localStorage.setItem("Blogs",JSON.stringify(newarray))
-    
-    const formData={
-        title: title.value,
-        body:body.value,
-        image:image.files[0]
-    }  
+    const formData = new FormData();
+    formData.append('title', title.value);
+    formData.append('body', body.value);
+    formData.append('image', image.files[0]);
     const res= await fetch('https://my-brand-production-b3f0.up.railway.app/add', 
                                 {
                              method: 'POST',
                              body:formData,
                              headers: {
                                 'Authentication': `Bearer ${cookies.jwt}`,
-                                'Content-Type': 'application/json',
                             },
                             });
                             const data= await res.json()
                             console.log(data)
-            // loader.style.display="block"
-            // wait.textContent="ADDING ..."
+            loader.style.display="block"
+            wait.textContent="ADDING ..."
 
-            // setTimeout(()=>{
-            //     loader.style.display="none"
-            // },2000)
-            // setTimeout(()=>{
-            // window.location.href="dashboard.html"
-            // },2000) 
+            setTimeout(()=>{
+                loader.style.display="none"
+            },2000)
+            setTimeout(()=>{
+            window.location.href="dashboard.html"
+            },2000) 
            }
     else{
     err.innerHTML="Please fill all the fields"
@@ -172,42 +160,32 @@ import { updateBlog } from '../functions/updateblog.js';
                 loader.style.display="none"
             },2000)
             setTimeout(()=>{
-            // window.location.href="dashboard.html"
+            window.location.href="dashboard.html"
             },2000)
 
         }
         else if(id){
 
             if (image.value){
-
-                const formData={
-                        title: title.value,
-                        body: body.value,
-                        image: image.files[0]
-                        }
+                console.log('image')
+                const formData = new FormData();
+                formData.append('title', title.value);
+                formData.append('body', body.value);
+                formData.append('image', image.files[0]);
                         const result= updateBlog(id,formData)
                         console.log(result)
             }else{
-                const formData={
+                console.log('no image')
+
+                    const formData={
                     title: title.value,
-                    body: title.value,
+                    body: body.value,
                      }
-                     const result= updateBlog(id,formData)
+                     const result= update(id,formData)
                      result.then((data)=>{
-                        clg(data)
+                        console.log(data)
                      })
-                    // console.log(result)
             }
-            // let p= localStorage.getItem("Blogs")
-            // const i= JSON.parse(p);
-            // i.forEach(blog =>{
-            //     if(i.indexOf(blog)==id){
-            //         blog.title=title.value;
-            //         blog.body=body.value;
-            //         blog.image=url;
-            //     }
-            // })
-            // localStorage.setItem("Blogs",JSON.stringify(i))
             loader.style.display="block"
             wait.textContent="UPDATING ..."
 
@@ -215,7 +193,7 @@ import { updateBlog } from '../functions/updateblog.js';
                 loader.style.display="none"
             },2000)
             setTimeout(()=>{
-            // window.location.href="dashboard.html"
+            window.location.href="dashboard.html"
             },2000)        
         }
         else{
@@ -260,15 +238,9 @@ let draftid =parameter.get("draft")
 if(id){
  const blog= generateBlog(id)
  blog.then((data)=>{
-        title.value=data.title
-    body.value= data.body
-    url
-    console.log(data.imageUrl)
-    })
     title.value=data.title
     body.value= data.body
-    url
-
+    })
 }
 else{
 const a= localStorage.getItem("Drafts")

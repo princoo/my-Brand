@@ -27,20 +27,12 @@ const viewBlog= async(req,res)=>{
 const singleBlog= async(req,res)=>{
     const id= req.params.id
             let count=0;
-            await Blog.find()
+            await Blog.findById({_id:id})
             .then((data)=>{
-                data.forEach(blog => {
-                    if(blog._id==id){  
-                        res.status(200).json(blog)
-                        count+=1
-                    }
-                    
-                })
-                if(count==0){
-                    res.status(404).json({"error":"THE BLOG DOES NOT EXIST"})
-                    // res.render('single')
-
-                }
+                res.status(200).json(data)
+            })
+            .catch((err)=>{
+                res.status(404).json({"error":"THE BLOG DOES NOT EXIST"})
             })
 }
 // updating blog
@@ -367,9 +359,8 @@ const deleteUser =async(req,res)=>{
         else{
             res.status(400).json({"error":"cant find the user"})
         }
-       
-    
 }
+
 
 
 module.exports={
