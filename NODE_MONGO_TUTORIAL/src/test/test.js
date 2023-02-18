@@ -585,7 +585,7 @@ describe("TASKS TEST",()=>{
         describe("POST /signup",()=>{
         it("it should not delete a user (invalid id)",(done)=>{
             chai.request(server)
-            .delete("/users/" + process.env.INVALID_USER_ID)
+            .delete("/users/"  + user_id)
             .set('cookie',`jwt=${process.env.ADMIN_TOKEN}`)
             .end((err,res)=>{
                 res.should.have.status(400)
