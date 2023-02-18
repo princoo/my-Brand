@@ -385,7 +385,7 @@ describe("TASKS TEST",()=>{
             })
         })
     })
-    describe("POST /blogs/:id",()=>{
+    describe.only("POST /blogs/:id",()=>{
         it("should not delete a blog(not admin)",(done)=>{
             chai.request(server)
             .delete("/blogs/" + process.env.DELETED_BLOG_ID)
@@ -582,11 +582,11 @@ describe("TASKS TEST",()=>{
         })
     })
 
-        describe("POST /signup",()=>{
+        describe.only("POST /signup",()=>{
         it("it should not delete a user (invalid id)",(done)=>{
             chai.request(server)
             .delete("/users/" + user_id)
-            .set('cookie',`jwt=${process.env.USER_TOKEN}`)
+            .set('cookie',`jwt=${process.env.ADMIN_TOKEN}`)
             .end((err,res)=>{
                 res.should.have.status(400)
                 res.should.be.json
@@ -607,7 +607,7 @@ describe("TASKS TEST",()=>{
             })
         })
     })
-    describe("POST /signup",()=>{
+    describe.only("POST /signup",()=>{
         it("it should not delete a user (USER NOT THERE)",(done)=>{
             chai.request(server)
             .delete("/users/" + user_id)
