@@ -1,5 +1,4 @@
-export let blogs
-fetch('https://my-brand-production-b3f0.up.railway.app/blogs')
+export let blogs=fetch('https://my-brand-production-b3f0.up.railway.app/blogs')
 .then((response)=>{
     return response.json()
 })
@@ -9,5 +8,6 @@ fetch('https://my-brand-production-b3f0.up.railway.app/blogs')
 .catch((err)=>{
     console.log(err)
 })
+
 
 

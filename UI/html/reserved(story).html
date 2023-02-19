@@ -71,13 +71,12 @@
 
     <!-- javasript -->
     <script src="../javascript/runpage.js"></script>
-    <!-- <script src="../functions/fetchblogs.js"></script> -->
+    <script src="../functions/fetchblogs.js"></script>
     <script src="../functions/token.js"></script>
 
     <script type="module">
 window.onload=popup()
 import { newComment } from '../functions/addcomment.js';
-import { generateBlog } from '../functions/singleblog.js';
 
 const image= document.getElementById("image")
 const title = document.getElementById("title");
@@ -128,17 +127,30 @@ if(client.length!=0){
 form.addEventListener('submit',(e)=>{
     e.preventDefault()
 })
-// getting single blog
-console.log('first')
-
-    const Blog= generateBlog(id)
-    Blog.then((data)=>{
-    image.src=data.imageUrl.Url
-    title.textContent=data.title;
-    body.textContent=data.body
-    })
-
+const a= localStorage.getItem("Blogs")
+const b= JSON.parse(a);
+ fetch('https://my-brand-production-b3f0.up.railway.app/blogs')
+.then((response)=>{return response.json()})
+.then((data)=>{
+    const Blog = data.filter(blog=>blog._id==id)
+    if(Blog.length==0){
+        console.log("You are lost ")
+    }else{
+        image.src=Blog[0].imageUrl.Url
+    title.textContent=Blog[0].title;
+    body.textContent=Blog[0].body
+    }
+    
+})
+const blog= b.filter(blogid => b.indexOf(blogid)==id);
 // add comment
+// let comment= localStorage.getItem("Comments");
+// if(comment==null){
+//     localStorage.setItem("Comments",JSON.stringify([{blogid:"none",email:"none",comment:"none"}]))
+//     comment=localStorage.getItem("Comments");
+// }
+// const array=JSON.parse(comment)
+
 send.addEventListener('click',(e)=>{
     e.preventDefault();
     if(commentSec.value.trim()==='' || commentSec.value.trim()==null){
@@ -151,14 +163,12 @@ send.addEventListener('click',(e)=>{
         }
         const result= newComment(id,commentData)
         result.then((data)=> {
-            // console.log(data)
+            console.log(data)
             if(data.Error){
             loader.style.display="block";
             cancel.addEventListener('click',(e)=>{
             loader.style.display="none"
-            })
-    }else{
-        window.location.reload()
+        })
     }
     })
     }
@@ -176,19 +186,14 @@ const icon=`<i class="fa fa-user" aria-hidden="true"></i>`;
 //     z=JSON.parse(x)
 // }
 
-    // var filter=z.filter(reply => reply.blogid==id)
+    var filter=z.filter(reply => reply.blogid==id)
 
-// for (let i = 0; i < result.length; i++) {
-    
-    // const fedback=filter.filter(reply => reply.comm_id==i+1)
-    // const count =fedback.length
-// const reply=`<p class="show_replies">-------View replies (${reserved})-------</p> <span class="add_reply"><i class="fa fa-reply" aria-hidden=""></i> Reply</span>`
-// const send_reply=`<button onclick="create_reply(${reserved})" class="reply_btn" >REPLY</button>`
+for (let i = 0; i < result.length; i++) {
+    const fedback=filter.filter(reply => reply.comm_id==i+1)
+    const count =fedback.length
+const reply=`<p class="show_replies">-------View replies (${count})-------</p> <span class="add_reply"><i class="fa fa-reply" aria-hidden=""></i> Reply</span>`
+const send_reply=`<button onclick="create_reply(${i+1})" class="reply_btn" >REPLY</button>`
 
-const Comments= generateBlog(id)
-    Comments.then((data)=>{
-    data.comments.forEach((comment)=>{
-   
 const reply_div= document.createElement("div");
 const userDiv= document.createElement("div");
 const parag1= document.createElement("p");
@@ -199,6 +204,7 @@ const textarea=document.createElement("textarea")
 const all = document.createElement("div")
 all.classList.add("allc")
 
+
 parag1.classList.add("profile");
 parag2.classList.add("message");
 userDiv.classList.add("user");
@@ -208,21 +214,50 @@ textarea.setAttribute("id","reply_text")
 reply_sec.classList.add("section")
 reply_err.setAttribute("id","reply_err")
 
-reply_sec.innerHTML= textarea.outerHTML + reply_err.outerHTML   
-parag1.innerHTML = icon + " " + comment.name;
-parag2.innerHTML= comment.comment;
+reply_sec.innerHTML= textarea.outerHTML + reply_err.outerHTML + send_reply  
+parag1.innerHTML = icon + " " + result[i].email;
+parag2.innerHTML= result[i].comment;
+reply_div.innerHTML=reply
+// all.innerHTML= reply_sec.outerHTML
+
 userDiv.innerHTML= parag1.outerHTML + parag2.outerHTML +reply_div.outerHTML + reply_sec.outerHTML  
 container.appendChild(userDiv) 
+
 // inserting reply data
+fedback.forEach(reply => {
+    let reply_comment=document.createElement("div")
+    let reply_email=document.createElement("p")
+    let reply_msg= document.createElement("p")
+    reply_email.classList.add("reply_email")
+    reply_msg.classList.add("reply_msg")
+    reply_comment.classList.add("reply_comment")
+    let divs= document.querySelectorAll(".reply_comment")
 
+    let email_text=  document.createTextNode(reply.email)
+    let msg_text=  document.createTextNode(reply.reply)
+    reply_email.appendChild(email_text)
+    reply_msg.appendChild(msg_text)
+    reply_comment.innerHTML=reply_email.outerHTML + reply_msg.outerHTML
+    all.innerHTML+= reply_comment.outerHTML
+    userDiv.appendChild(all)
+});
 // hiding reply form
+let add_reply= document.querySelectorAll(".add_reply")
+const section= document.querySelectorAll(".section")
+   add_reply[i].addEventListener("click",(e)=>{
+   section[i].classList.toggle("sec")
+   })
 
-// hiding replys
+   // hiding replys
+   const allc =document.querySelectorAll(".allc")
+let view=document.querySelectorAll(".show_replies")
+view[i].addEventListener("click",(e)=>{
 
+    allc[i].classList.toggle("hide")
+
+    
 })
-})
-
-// }
+}
 
 //    sending reply
 function create_reply(comid){

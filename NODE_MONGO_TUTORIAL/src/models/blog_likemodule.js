@@ -12,6 +12,10 @@ const blog_likes_schema = new Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"Users"
     },
+    impression:{
+        type: String,
+        
+        },
 },{timestamps:true});
 const blog_likes= mongoose.model('Bloglikes',blog_likes_schema)
 

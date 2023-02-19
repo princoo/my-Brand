@@ -281,7 +281,7 @@ const toggleLikes = (req,res)=>{
     const blog_id= req.params.id;
      Blog.findOne({_id:blog_id})
     .then((blog)=>{
-        if(!blog){
+        if(!blog){ cxvf 
             res.status(400).json({"message":"Blog not found !!"})
         }else{
             let currentUser= res.locals.user
@@ -291,7 +291,7 @@ const toggleLikes = (req,res)=>{
             }).then(async(blog_like)=>{
                 try{
                     if(!blog_like){
-                        const result = await BlogLike.create({blog_id:blog_id,user_id:currentUser._id})
+                        const result = await BlogLike.create({blog_id:blog_id,user_id:currentUser._id,impression:"Like"})
                         Blog.findOne({_id:blog_id})
                         .then(async(blog)=>{
                             blog.likes.unshift(result);
@@ -303,12 +303,21 @@ const toggleLikes = (req,res)=>{
     
                         })
                     }else{
-                         await BlogLike.deleteOne({_id:blog_like._id})
-                         await Blog.updateOne({_id:blog_like.blog_id},
-                            {
-                            $pull:{likes:blog_like._id}
-                        })
-                        res.status(200).json({"message":"Like Removed"})
+                        if(blog_like.impression=="Like"){
+                            await BlogLike.deleteOne({_id:blog_like._id})
+                            await Blog.updateOne({_id:blog_like.blog_id},
+                               {
+                               $pull:{likes:blog_like._id}
+                           })
+                        //    res.status(200).json({"message":"Like Removed"})
+                        }else{
+                            await BlogLike.updateOne({_id:blog_like._id},
+                                {
+                                    $set:{impression:"Like"}
+                                })
+                                res.json("updated")
+                        }
+                        
                     }
                 }catch(err){
                     res.status(400).json({"message":err})
@@ -323,6 +332,61 @@ const toggleLikes = (req,res)=>{
     .catch((err)=>{
         res.status(401).json({"message":err})
     }) 
+}
+const toggleDislike=(req,res)=>{
+    const blog_id= req.params.id;
+    Blog.findOne({_id:blog_id})
+   .then((blog)=>{
+       if(!blog){ cxvf 
+           res.status(400).json({"message":"Blog not found !!"})
+       }else{
+           let currentUser= res.locals.user
+           BlogLike.findOne({
+               blog_id:blog_id,
+               user_id:currentUser._id
+           }).then(async(blog_like)=>{
+               try{
+                   if(!blog_like){
+                       const result = await BlogLike.create({blog_id:blog_id,user_id:currentUser._id,impression:"Dislike"})
+                       Blog.findOne({_id:blog_id})
+                       .then(async(blog)=>{
+                           blog.likes.unshift(result);
+                           await blog.save()
+                           res.status(200).json({"message":"Dislike Added"})
+                       })
+                       .catch((err)=>{
+                           res.status(400).json({"Error":err})
+   
+                       })
+                   }else{
+                       if(blog_like.impression=="Dislike"){
+                           await BlogLike.deleteOne({_id:blog_like._id})
+                           await Blog.updateOne({_id:blog_like.blog_id},
+                              {
+                              $pull:{likes:blog_like._id}
+                          })
+                          res.status(200).json({"message":"Dislike Removed"})
+                       }else{
+                           await BlogLike.updateOne({_id:blog_like._id},
+                               {
+                                   $set:{impression:"Dislike"}
+                               })
+                               res.json("updated")
+                       }
+                   }
+               }catch(err){
+                   res.status(400).json({"message":err})
+               }
+           })
+           .catch((err)=>{
+               res.status(400).json({"message":err})
+           })
+
+       }
+   })
+   .catch((err)=>{
+       res.status(401).json({"message":err})
+   }) 
 }
 // deleting comment
 const deleteComment = (req,res)=>{
@@ -382,4 +446,5 @@ module.exports={
     deleteComment,
     deleteUser,
     deleteMessage,
+    toggleDislike
 }
