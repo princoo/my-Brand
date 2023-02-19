@@ -1,4 +1,4 @@
-
+export let numberOfLikes
 export  async function generateBlog(id) {
     const res= await fetch(`https://my-brand-production-b3f0.up.railway.app/blogs/${id}`, 
     {
