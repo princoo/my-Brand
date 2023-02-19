@@ -309,7 +309,7 @@ const toggleLikes = (req,res)=>{
                                {
                                $pull:{likes:blog_like._id}
                            })
-                        //    res.status(200).json({"message":"Like Removed"})
+                           res.status(200).json({"message":"Like Removed"})
                         }else{
                             await BlogLike.updateOne({_id:blog_like._id},
                                 {
