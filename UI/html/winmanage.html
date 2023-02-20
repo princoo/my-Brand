@@ -86,7 +86,7 @@
 
 <!-- javascript -->
 <script src="../javascript/runpage.js"></script>
-<script>
+<script type="module">
     window.onload=popup()
     const cont = document.querySelector(".cont")
     const accounts = document.querySelector(".Accounts")
@@ -97,12 +97,12 @@
     accounts.addEventListener("click",(e)=>{
         cont.style.display="block" 
     })
-    let a=localStorage.getItem("Users")
-    if(a==null){
-        localStorage.setItem("Users",JSON.stringify([{email:"none",password:"none"}]))
-        a=localStorage.getItem("Users");
-    }
-    const b=JSON.parse(a)
+    // let a=localStorage.getItem("Users")
+    // if(a==null){
+    //     localStorage.setItem("Users",JSON.stringify([{email:"none",password:"none"}]))
+    //     a=localStorage.getItem("Users");
+    // }
+    // const b=JSON.parse(a)
     for (let i = 0; i < b.length; i++) {
         
         const parag=document.createElement("p")

@@ -58,8 +58,12 @@
 <script src="../javascript/runpage.js"></script>
 <script src="../functions/token.js"></script>
 
-<script>
+<script type="module">
 window.onload=popup()
+import { generateBlog } from '../functions/singleblog.js'
+import { modify , erase } from '../functions/buttons.js'
+
+
 // div data
 const like="<i class=\"icon1 fa fa-heart\" id=\"like\" aria-hidden=\"true\" style=\"color: rgb(0, 221, 255);\"></i> <br>"           
 const comment="<i class=\"icon2 fa fa-comment\" aria-hidden=\"true\" style=\"color: chocolate;\"></i> <br>"
@@ -81,13 +85,16 @@ const right = document.querySelector(".right");
         right.appendChild(header)
     }
     else{
-            generateBlogs()
        async function generateBlogs(){
             const res=  await fetch('https://my-brand-production-b3f0.up.railway.app/blogs')
             const data =  await res.json()
-            data.forEach(blog => {
-             const modify=`<i class="change fa fa-edit" id="${blog._id}" style="color: green;" onclick="modify('${blog._id}')"></i> <br>`
-            const remove=`<i class="delete fa fa-trash" id="${blog._id}" aria-hidden="true" style="color: red;" onclick="erase('${blog._id}')"></i> <br>`
+
+            for(const blog of data ) {
+            const single= await generateBlog(blog._id)
+            const nbr= single.likes.filter((likes)=> likes.impression=="Like")
+            const modify=`<i class="change fa fa-edit" id="${blog._id}" style="color: green;" ></i> <br>`
+            const remove=`<i class="delete fa fa-trash" id="delete" aria-hidden="true" style="color: red;" onclick="erase('${blog._id}')"></i> <br>`
+            
             const parent = document.createElement("div")
             const img = document.createElement("img");
             const div =  document.createElement("div");
@@ -113,40 +120,10 @@ const right = document.querySelector(".right");
             editdiv.classList.add("edit")
             changeSpan.textContent="Edit"
             deleteSpan.textContent="Delete"
-            likeSpan.textContent="0"
-            commentSpan.textContent="31"
+
+            likeSpan.textContent= nbr.length
+            commentSpan.textContent= blog.comments.length
             const yoo =document.querySelector(".delete")
-
-    // number of commements
-            // let comments= localStorage.getItem("Comments");
-            // if(comments==null){
-            //     localStorage.setItem("Comments",JSON.stringify([{blogid:"none",email:"none",comment:"none"}]));
-            //     comments= localStorage.getItem("Comments")
-            // }
-            // const msg= JSON.parse(comments);
-            // const filter=msg.filter(message =>message.blogid==i)
-            // commentSpan.innerHTML= filter.length;
-         // ----------------------------------------------
-
-    //  number of likes
-        // let liki= localStorage.getItem("Likes");
-        // if(liki==null){
-        //     localStorage.setItem("Likes", JSON.stringify([{blogid:"none",likes:0,dislikes:0}]))
-        //     liki= localStorage.getItem("Likes")
-        // }
-        // const heart= JSON.parse(liki)
-        // console.log(heart)
-        // const likefilter= heart.filter(thumpUp=>thumpUp.blogid==i)
-        // if(likefilter.length==0){
-        //     likeSpan.textContent="0"
-        // }
-        // else{
-        //     console.log(likefilter)
-        // likeSpan.textContent= likefilter[0].likes
-        // }
-           
-        // ---------------------------------
-
 
         // edit section
             likeDiv.innerHTML= like + likeSpan.outerHTML
@@ -163,8 +140,22 @@ const right = document.querySelector(".right");
             div.appendChild(p)
             parent.innerHTML= imageDiv.outerHTML + div.outerHTML + editdiv.outerHTML
             right.appendChild(parent)
-            });
+            // edit and delete buttons
+            const Edit= document.getElementById(blog._id)
+                Edit.addEventListener('click',(e)=>{
+                    window.location.href=`dashboard.html?page=${blog._id}`
+                })
+            };
         }
+
+        async function render() {
+                try {
+                 await generateBlogs();
+                } catch (error) {
+                 console.error(error);
+                     }
+                }
+                render();
         // for (let i = 1; i < b.length; i++) {
         //     const modify=`<i class="change fa fa-edit" id="${b.indexOf(b[i])}" style="color: green;" onclick="modify(${b.indexOf(b[i])})"></i> <br>`
         //     const remove=`<i class="delete fa fa-trash" id="${b.indexOf(b[i])}" aria-hidden="true" style="color: red;" onclick="erase(${b.indexOf(b[i])})"></i> <br>`
@@ -246,21 +237,6 @@ const right = document.querySelector(".right");
         }
         
         // delete blog
-       async function erase(id){
-            const res= await fetch(`https://my-brand-production-b3f0.up.railway.app/blogs/${id}`,{
-                method:'DELETE',
-                headers:{
-                    'Authentication': `Bearer ${cookies.jwt}`,
-                    'Content-Type': 'application/json',
-             }
-            })
-            const data=await res.json()
-            console.log(data)
-            window.location.reload()
-           }
-           function modify(id){
-            window.location.href=`dashboard.html?page=${id}`
-           }
        
 
     

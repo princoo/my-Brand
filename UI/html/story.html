@@ -78,7 +78,7 @@
 window.onload=popup()
 import { newComment } from '../functions/addcomment.js';
 import { generateBlog } from '../functions/singleblog.js';
-import { generateLikes, generateDislikes } from '../functions/add(like/dislike).js';
+import { generateLikes, generateDislikes } from '../functions/add(like_dislike).js';
 
 const image= document.getElementById("image")
 const title = document.getElementById("title");
@@ -188,7 +188,7 @@ const icon=`<i class="fa fa-user" aria-hidden="true"></i>`;
 const Comments= generateBlog(id)
     Comments.then((data)=>{
     data.comments.forEach((comment)=>{
-   
+
 const reply_div= document.createElement("div");
 const userDiv= document.createElement("div");
 const parag1= document.createElement("p");
@@ -219,9 +219,13 @@ container.appendChild(userDiv)
 
 // hiding replys
 
+// displaying likes
+const Like_nbr= data.likes.filter(like=> like.impression=="Like")
+const Dislike_nrb=data.likes.filter(like=> like.impression=="Dislike")
+ likes.textContent=Like_nbr.length;
+ dislikes.textContent=Dislike_nrb.length;
 })
 })
-
 // }
 
 //    sending reply
@@ -258,22 +262,6 @@ function create_reply(comid){
     
 }
 
-// displaying likes
-// let display= localStorage.getItem("Likes")
-// if(display==null){
-//     localStorage.setItem("Likes",JSON.stringify([{blogid:id,likes:"0",dislikes:"0"}]));
-//     display=localStorage.getItem("Likes");
-// }
-// const content=JSON.parse(display);
-// const single= content.filter(blog=>blog.blogid==id)
-// if(single.length==0){
-//     const new_Array={blogid:id,likes:"0",dislikes:"0"}
-//     content.push(new_Array)
-//     localStorage.setItem("Likes",JSON.stringify(content));
-// }
-//  likes.textContent=single[0].likes;
-//  dislikes.textContent=single[0].dislikes;
- 
 // incrementing likes
     like.addEventListener('click',(e)=>{
         const result= generateLikes(id)
@@ -285,6 +273,7 @@ function create_reply(comid){
                 })
             }else{
                 console.log(data)
+                window.location.reload()
             }
         })
     })
@@ -300,6 +289,7 @@ dislike.addEventListener('click',(e)=>{
                 })
             }else{
                 console.log(data)
+                window.location.reload()
             }
         })
     })

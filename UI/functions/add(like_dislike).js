@@ -23,4 +23,3 @@ export  async function generateLikes(id) {
      return data
  }
 
-

@@ -425,7 +425,12 @@ const deleteUser =async(req,res)=>{
         }
 }
 
-
+// getting all users
+const getUsers= async(req,res)=>{
+        await Users.find()
+            .then((data)=> res.status(200).json(data))
+          
+}
 
 module.exports={
     viewBlog,
@@ -446,5 +451,6 @@ module.exports={
     deleteComment,
     deleteUser,
     deleteMessage,
-    toggleDislike
+    toggleDislike,
+    getUsers,
 }
