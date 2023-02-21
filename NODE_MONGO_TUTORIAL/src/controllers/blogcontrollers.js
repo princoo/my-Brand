@@ -219,9 +219,17 @@ const comments = async(req,res)=>{
     })
  }else{
     res.status(400).json({"error":error})
- }
-   
+ } 
 }
+// view comments
+const viewComments= async(req,res)=>{
+    await Comments.find().populate('replies')
+    .then((data)=> {
+        // res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+        // res.setHeader('Access-Control-Allow-Credentials', 'true');
+        res.status(200).json({"message":data})})
+}
+
 // adding messages
 const addMessages= async(req,res)=>{
 const {error,value} = validateMessages(req.body)
@@ -473,4 +481,5 @@ module.exports={
     toggleDislike,
     getUsers,
     reply,
+    viewComments,
 }

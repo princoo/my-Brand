@@ -26,3 +26,4 @@ export async function eraseUser(id){
     console.log(data)
     window.location.reload()
    }
+
