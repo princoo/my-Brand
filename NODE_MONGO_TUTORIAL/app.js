@@ -26,7 +26,7 @@ const options={
         },
         servers:[
             {
-                url:'http://localhost:5000/'
+                url:'https://my-brand-production-b3f0.up.railway.app/'
             }
         ],
     },

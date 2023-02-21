@@ -86,8 +86,13 @@
 
 <!-- javascript -->
 <script src="../javascript/runpage.js"></script>
+<script src="../functions/token.js"></script>
+
 <script type="module">
     window.onload=popup()
+    import { generateUsers } from '../functions/users.js';
+    import { eraseUser } from '../functions/buttons.js';
+
     const cont = document.querySelector(".cont")
     const accounts = document.querySelector(".Accounts")
     const all=document.querySelector(".cont")
@@ -97,23 +102,19 @@
     accounts.addEventListener("click",(e)=>{
         cont.style.display="block" 
     })
-    // let a=localStorage.getItem("Users")
-    // if(a==null){
-    //     localStorage.setItem("Users",JSON.stringify([{email:"none",password:"none"}]))
-    //     a=localStorage.getItem("Users");
-    // }
-    // const b=JSON.parse(a)
-    for (let i = 0; i < b.length; i++) {
-        
+
+        const result= generateUsers()
+        result.then((data)=>{
+        for(const user of data){
+
         const parag=document.createElement("p")
-        const button=`<button class="delete" onclick="erase(${i})">DELETE ACCOUNT</button>`
+        const button=`<button class="delete" id='${user._id}'>DELETE ACCOUNT</button>`
         const section= document.createElement("div")
         section.classList.add("section")
         parag.classList.add("acc")
-
-        let text=document.createTextNode(b[i].email)
+        let text=document.createTextNode(user.email)
         parag.appendChild(text) 
-        if (b[i].email=="admin@gmail.com") {
+        if (user.email=="admin@gmail.com") {
             section.innerHTML= parag.outerHTML;
         container.innerHTML += section.outerHTML
         all.appendChild(container) 
@@ -122,16 +123,19 @@
         section.innerHTML= parag.outerHTML + button;
         container.innerHTML += section.outerHTML
         all.appendChild(container) 
-    
+        const removeButtons= document.querySelectorAll('.delete')
+        removeButtons.forEach((remove)=>{
+            remove.addEventListener('click',(e)=>{
+                const user_id = e.target.getAttribute('id')
+                eraseUser(user_id)
+            })
+        })
         }  
-    }
+       
+                }
+        }) 
 
-function erase(id){
-    const filtered= b.filter(acc => b.indexOf(acc)!=id)
-    localStorage.setItem("Users",JSON.stringify(filtered))
-    window.location.reload()
-    
-}
+        // deleting user
 </script>
 </body>
 </html>
