@@ -225,8 +225,8 @@ const comments = async(req,res)=>{
 const viewComments= async(req,res)=>{
     await Comments.find().populate('replies')
     .then((data)=> {
-        // res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
-        // res.setHeader('Access-Control-Allow-Credentials', 'true');
+        res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+        res.setHeader('Access-Control-Allow-Credentials', 'true');
         res.status(200).json({"message":data})})
 }
 
@@ -452,6 +452,8 @@ const reply= async(req,res)=>{
     .then((data)=>{
      data.replies.unshift(result)
      data.save()
+     res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+     res.setHeader('Access-Control-Allow-Credentials', 'true');
      res.status(200).json({"Message":"Reply Added","data":result._id})
     })
  }else{

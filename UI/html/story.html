@@ -79,6 +79,7 @@ window.onload=popup()
 import { newComment } from '../functions/addcomment.js';
 import { generateBlog } from '../functions/singleblog.js';
 import { generateLikes, generateDislikes } from '../functions/add(like_dislike).js';
+import { nbrOfReplies , newReply } from '../functions/fetch(blogs&replies).js';
 
 const image= document.getElementById("image")
 const title = document.getElementById("title");
@@ -184,10 +185,20 @@ const icon=`<i class="fa fa-user" aria-hidden="true"></i>`;
     // const count =fedback.length
 // const reply=`<p class="show_replies">-------View replies (${reserved})-------</p> <span class="add_reply"><i class="fa fa-reply" aria-hidden=""></i> Reply</span>`
 // const send_reply=`<button onclick="create_reply(${reserved})" class="reply_btn" >REPLY</button>`
-
 const Comments= generateBlog(id)
+let arr
     Comments.then((data)=>{
-    data.comments.forEach((comment)=>{
+        const size= data.comments
+    // data.comments.forEach(async(comment)=>{
+for (let i = 0; i < size.length; i++) {
+    
+
+    //  nbr of replies
+const result= nbrOfReplies(data.comments[i]._id)
+result.then((rply)=>{
+// console.log(rply.length)
+const reply=`<p class="show_replies">-------View replies (${rply.length})-------</p> <span class="add_reply"><i class="fa fa-reply" aria-hidden=""></i> Reply</span>`
+const send_reply=`<button class="reply_btn" id="send_reply">REPLY</button>`
 
 const reply_div= document.createElement("div");
 const userDiv= document.createElement("div");
@@ -208,15 +219,22 @@ textarea.setAttribute("id","reply_text")
 reply_sec.classList.add("section")
 reply_err.setAttribute("id","reply_err")
 
-reply_sec.innerHTML= textarea.outerHTML + reply_err.outerHTML   
-parag1.innerHTML = icon + " " + comment.name;
-parag2.innerHTML= comment.comment;
+reply_sec.innerHTML= textarea.outerHTML + reply_err.outerHTML  + send_reply  
+parag1.innerHTML = icon + " " + data.comments[i].name;
+
+parag2.innerHTML= data.comments[i].comment;
+reply_div.innerHTML=reply
+
 userDiv.innerHTML= parag1.outerHTML + parag2.outerHTML +reply_div.outerHTML + reply_sec.outerHTML  
 container.appendChild(userDiv) 
 // inserting reply data
 
 // hiding reply form
-
+let add_reply= document.querySelectorAll(".add_reply")
+const section= document.querySelectorAll(".section")
+add_reply[i].addEventListener('click',(e)=>{
+section[i].classList.toggle('sec')
+})
 // hiding replys
 
 // displaying likes
@@ -224,40 +242,61 @@ const Like_nbr= data.likes.filter(like=> like.impression=="Like")
 const Dislike_nrb=data.likes.filter(like=> like.impression=="Dislike")
  likes.textContent=Like_nbr.length;
  dislikes.textContent=Dislike_nrb.length;
+
+//  sending reply 
+const send= document.querySelectorAll('#send_reply')
+send[i].addEventListener('click',(e)=>{
+const text=document.querySelectorAll("#reply_text");
+const error= document.querySelectorAll("#reply_err");
+if(text[i].value.trim()==='' || text[i].value.trim()==null){
+error[i].innerHTML="Please add reply"
+}
+else{
+    const replyData={
+    reply:text[i].value
+    }
+    const sentReply= newReply(data.comments._id,replyData)
+}
 })
+
+
 })
-// }
+}
+})
+// })
+
+// const result= newReply(id,)
 
 //    sending reply
 function create_reply(comid){
-    const text=document.querySelectorAll("#reply_text");
-  const error= document.querySelectorAll("#reply_err");
+//     const text=document.querySelectorAll("#reply_text");
+//   const error= document.querySelectorAll("#reply_err");
 
-    if(text[comid-1].value.trim()==='' || text[comid-1].value.trim()==null){
-        error[comid-1].innerHTML="Please add reply"
-    }
-    else{
-        error[comid-1].innerHTML=" "
-    if(client.length==0){
-        loader.style.display="block";
-        cancel.addEventListener('click',(e)=>{
-            loader.style.display="none"
-        })
-    }
-    else{
-        let a=localStorage.getItem("Replies")
-        if(a==null){
-            localStorage.setItem("Replies",JSON.stringify([{blogid:"none",comm_id:"none",email:"none",reply:"none"}]))
-            a=localStorage.getItem("Replies")
-        }
-        const replies=JSON.parse(a)
-        const active=JSON.parse(user);
-        const z=active[0].activeuser
-        replies.push({blogid:id,comm_id:comid,email:z,reply:text[comid-1].value})
-        localStorage.setItem("Replies",JSON.stringify(replies))
-        window.location.reload()
-    }
-}
+//     if(text[comid-1].value.trim()==='' || text[comid-1].value.trim()==null){
+//         error[comid-1].innerHTML="Please add reply"
+//     }
+//     else{
+//         error[comid-1].innerHTML=" "
+//     if(client.length==0){
+        // loader.style.display="block";
+        // cancel.addEventListener('click',(e)=>{
+        //     loader.style.display="none"
+        // })
+//     }
+//     else{
+//         // let a=localStorage.getItem("Replies")
+//         // if(a==null){
+//         //     localStorage.setItem("Replies",JSON.stringify([{blogid:"none",comm_id:"none",email:"none",reply:"none"}]))
+//         //     a=localStorage.getItem("Replies")
+//         // }
+//         // const replies=JSON.parse(a)
+//         // const active=JSON.parse(user);
+//         // const z=active[0].activeuser
+//         // replies.push({blogid:id,comm_id:comid,email:z,reply:text[comid-1].value})
+//         // localStorage.setItem("Replies",JSON.stringify(replies))
+//         window.location.reload()
+//     }
+// }
 
     
 }

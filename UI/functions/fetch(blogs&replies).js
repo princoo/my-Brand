@@ -1,25 +1,35 @@
-// export let blogs=fetch('https://my-brand-production-b3f0.up.railway.app/blogs')
-// .then((response)=>{
-//     return response.json()
-// })
-// .then((data)=>{
-//    blogs= data
-// })
-// .catch((err)=>{
-//     console.log(err)
-// })
-
 //    nbr of replies
 export async function nbrOfReplies(id){
-    const res= await fetch(`https://my-brand-production-b3f0.up.railway.app/users/${id}`,{
-        method:'',
-        headers:{
-            'Authentication': `Bearer ${cookies.jwt}`,
-            'Content-Type': 'application/json',
-     }
+    let way=[]
+    const res= await fetch(`https://my-brand-production-b3f0.up.railway.app/comments`,{
+        method:'GET'
     })
     const data=await res.json()
-    console.log(data)
-    window.location.reload()
-   }
+
+// console.log(data.message[1].replies)
+data.message.forEach((msg)=>{
+    msg.replies.forEach((reply)=>{
+    if(reply.comment_id==id){
+        way.push(reply)
+    }else{
+    }
+    })
+})
+return way
+}
+// sending a reply to a comment
+export  async function newReply(id,replyData) {
+    const res= await fetch(`https://my-brand-production-b3f0.up.railway.app/comment/reply/${id}`, 
+    {
+     method: 'POST',
+     body:JSON.stringify(replyData),
+     headers: {
+             'Authentication': `Bearer ${cookies.jwt}`,
+             'Content-Type': 'application/json',
+        },
+     }); 
+     const data= await res.json()
+     console.log(data)
+    //  return data
+ }
 
