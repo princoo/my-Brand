@@ -29,10 +29,13 @@ const messageSchema= joi.object({
 const commentSchema= joi.object({
     comment:joi.string().required()
 })
-
+ const replySchema= joi.object({
+    reply:joi.string().required()
+ })
 exports.validateSignup = validator(signupSchema)
 exports.validateLogin = validator(loginSchema)
 exports.validateAddblog = validator(addblogSchema)
 exports.validateMessages = validator(messageSchema)
 exports.validateCommnet = validator(commentSchema)
+exports.validateReply = validator(replySchema)
 

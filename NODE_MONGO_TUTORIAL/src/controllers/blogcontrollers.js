@@ -9,8 +9,9 @@ const Message = require('../models/msgmodule')
 const cloudinary= require('../configs/cloudinary')
 const Comments = require('../models/commentsmodule')
 const validateEmail= require('../middlewares/emailvalidation')
-const {validateSignup,validateAddblog,validateLogin,validateMessages,validateCommnet}= require('../middlewares/formvalidation')
+const {validateSignup,validateAddblog,validateLogin,validateMessages,validateCommnet, validateReply}= require('../middlewares/formvalidation')
 const { findOneAndDelete } = require('../models/blogmodule')
+const Replies = require('../models/replies')
 
 
 app.use(express.json())
@@ -424,12 +425,30 @@ const deleteUser =async(req,res)=>{
             res.status(400).json({"error":"cant find the user"})
         }
 }
-
 // getting all users
 const getUsers= async(req,res)=>{
         await Users.find()
             .then((data)=> res.status(200).json(data))
           
+}
+// reply on a comment
+const reply= async(req,res)=>{
+    const{error,value} = validateReply(req.body)
+ if(!error){
+    const id= req.params.id
+    const name=  res.locals.user.username
+    const reply= req.body.reply
+
+    const result= await Replies.create({comment_id:id,name:name,reply:reply})
+    await Comments.findById(id)
+    .then((data)=>{
+     data.replies.unshift(result)
+     data.save()
+     res.status(200).json({"Message":"Reply Added","data":result._id})
+    })
+ }else{
+    res.status(400).json({"error":error})
+ }
 }
 
 module.exports={
@@ -453,4 +472,5 @@ module.exports={
     deleteMessage,
     toggleDislike,
     getUsers,
+    reply,
 }

@@ -438,5 +438,6 @@ Router.delete('/messages/:id',verification,adminAction,controller.deleteMessage)
 Router.get('/messages',verification,adminAction,controller.viewmessages)
 Router.get('/users',verification,adminAction,controller.getUsers)
 Router.delete('/users/:id',verification,adminAction,controller.deleteUser)
+Router.post('/comment/reply/:id',verification,controller.reply)
 
 module.exports= Router
