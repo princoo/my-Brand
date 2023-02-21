@@ -260,8 +260,6 @@ const deleteMessage= async(req,res)=>{
 const viewmessages= async(req,res)=>{
     await Message.find()
         .then((data)=> {
-            res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
-            res.setHeader('Access-Control-Allow-Credentials', 'true');
             res.status(200).json({"message":data})})
         // .then((data)=>{
         //     // res.render('home')
@@ -452,8 +450,6 @@ const reply= async(req,res)=>{
     .then((data)=>{
      data.replies.unshift(result)
      data.save()
-     res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
-     res.setHeader('Access-Control-Allow-Credentials', 'true');
      res.status(200).json({"Message":"Reply Added","data":result._id})
     })
  }else{
