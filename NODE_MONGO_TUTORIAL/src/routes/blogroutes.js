@@ -440,5 +440,7 @@ Router.get('/comments',controller.viewComments)
 Router.get('/users',verification,adminAction,controller.getUsers)
 Router.delete('/users/:id',verification,adminAction,controller.deleteUser)
 Router.post('/comment/reply/:id',verification,controller.reply)
+Router.post('/drafts/add',verification,adminAction,upload.single('image'),controller.addDraft)
+Router.get('/drafts',controller.viewDrafts)
 
 module.exports= Router

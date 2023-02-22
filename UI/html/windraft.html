@@ -61,50 +61,51 @@
 
 <!-- javascript -->
 <script src="../javascript/runpage.js"></script>
-<script>
+<script src="../functions/token.js"></script>
+
+<script type="module">
     window.onload=popup()
+    import { generateDrafts } from '../functions/fetch(blogs&replies).js';
 
     const right = document.querySelector(".right");
     const empty =document.querySelector(".empty")
           
-
-
-
-    let a=localStorage.getItem("Drafts");
-    if(a==null){
-        localStorage.setItem("Drafts",JSON.stringify([{title:"none",body:"none",image:"none"}]))
-        a=localStorage.getItem("Drafts");
-    }
-    const b= JSON.parse(a)
+    // alet a=localStorage.getItem("Drafts");
+    // if(a==null){
+    //     localStorage.setItem("Drafts",JSON.stringify([{title:"none",body:"none",image:"none"}]))
+    //     =localStorage.getItem("Drafts");
+    // }
+    // const b= JSON.parse(a)
+generateDrafts()
     if (b.length==1) {
-       empty.textContent="NO DRAFTS YET !!" 
+    //    empty.textContent="NO DRAFTS YET !!" 
     }
     else{
-        for (let i = 1; i < b.length; i++) {
-    const img = document.createElement("img");
-            const div =  document.createElement("div");
-            const parent = document.createElement("div");
-            const container=document.createElement("div");
+    //     for (let i = 1; i < b.length; i++) {
+    // const img = document.createElement("img");
+    //         const div =  document.createElement("div");
+    //         const parent = document.createElement("div");
+    //         const container=document.createElement("div");
 
-            const p = document.createElement("p");
-            const button=`<button class="edit" id="${i}" onclick="modify(${i})">EDIT<DELETE>`
-            const edit=`<button class="delete" id="${i}" onclick="remove(${i})">DELETE<DELETE>`
+    //         const p = document.createElement("p");
+    //         const button=`<button class="edit" id="${i}" onclick="modify(${i})">EDIT<DELETE>`
+    //         const edit=`<button class="delete" id="${i}" onclick="remove(${i})">DELETE<DELETE>`
 
-            img.classList.add("image");
-            parent.classList.add("blogs");
-            div.classList.add("parag");
+    //         img.classList.add("image");
+    //         parent.classList.add("blogs");
+    //         div.classList.add("parag");
 
-            img.src= b[i].image ;
-            const content= document.createTextNode(b[i].title);
-            p.appendChild(content);
-            div.appendChild(p)
-            parent.innerHTML= img.outerHTML + div.outerHTML;
-            container.innerHTML= button + edit;
-            right.appendChild(parent)
-            right.appendChild(container)
+    //         img.src= b[i].image ;
+    //         const content= document.createTextNode(b[i].title);
+    //         p.appendChild(content);
+    //         div.appendChild(p)
+    //         parent.innerHTML= img.outerHTML + div.outerHTML;
+    //         container.innerHTML= button + edit;
+    //         right.appendChild(parent)
+    //         right.appendChild(container)
 
         
-} 
+// } 
     }
     // delete draft
     function remove(id){

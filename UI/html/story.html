@@ -228,7 +228,23 @@ reply_div.innerHTML=reply
 userDiv.innerHTML= parag1.outerHTML + parag2.outerHTML +reply_div.outerHTML + reply_sec.outerHTML  
 container.appendChild(userDiv) 
 // inserting reply data
+rply.forEach(element => {
+    let reply_comment=document.createElement("div")
+    let reply_email=document.createElement("p")
+    let reply_msg= document.createElement("p")
+    reply_email.classList.add("reply_email")
+    reply_msg.classList.add("reply_msg")
+    reply_comment.classList.add("reply_comment")
+    let divs= document.querySelectorAll(".reply_comment")
 
+    let email_text=  document.createTextNode(element.name)
+    let msg_text=  document.createTextNode(element.reply)
+    reply_email.appendChild(email_text)
+    reply_msg.appendChild(msg_text)
+    reply_comment.innerHTML=reply_email.outerHTML + reply_msg.outerHTML
+    all.innerHTML+= reply_comment.outerHTML
+    userDiv.appendChild(all)
+});
 // hiding reply form
 let add_reply= document.querySelectorAll(".add_reply")
 const section= document.querySelectorAll(".section")
@@ -236,7 +252,12 @@ add_reply[i].addEventListener('click',(e)=>{
 section[i].classList.toggle('sec')
 })
 // hiding replys
-
+const allc =document.querySelectorAll(".allc")
+let view=document.querySelectorAll(".show_replies")
+view[i].addEventListener("click",(e)=>{
+allc[i].classList.toggle("hide")
+})
+   
 // displaying likes
 const Like_nbr= data.likes.filter(like=> like.impression=="Like")
 const Dislike_nrb=data.likes.filter(like=> like.impression=="Dislike")
@@ -252,13 +273,12 @@ if(text[i].value.trim()==='' || text[i].value.trim()==null){
 error[i].innerHTML="Please add reply"
 }
 else{
-    const replyData={
-    reply:text[i].value
-    }
-    const sentReply= newReply(data.comments[i]._id,replyData)
+const replyData={
+reply:text[i].value
+}
+const sentReply= newReply(data.comments[i]._id,replyData)
 }
 })
-
 
 })
 }

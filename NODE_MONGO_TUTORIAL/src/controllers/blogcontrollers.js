@@ -12,6 +12,7 @@ const validateEmail= require('../middlewares/emailvalidation')
 const {validateSignup,validateAddblog,validateLogin,validateMessages,validateCommnet, validateReply}= require('../middlewares/formvalidation')
 const { findOneAndDelete } = require('../models/blogmodule')
 const Replies = require('../models/replies')
+const drafts = require('../models/daftmodule')
 
 
 app.use(express.json())
@@ -219,7 +220,7 @@ const comments = async(req,res)=>{
     })
  }else{
     res.status(400).json({"error":error})
- } 
+ }
 }
 // view comments
 const viewComments= async(req,res)=>{
@@ -456,6 +457,45 @@ const reply= async(req,res)=>{
     res.status(400).json({"error":error})
  }
 }
+// saving a draft
+const addDraft= async(req,res)=>{
+const {error,value} = validateAddblog(req.body)
+if(!error){
+
+    const image= await cloudinary.uploader.upload(req.file.path)
+    await drafts.create({title:req.body.title , body:req.body.body,imageUrl:{"id":image.public_id,"Url":image.url}})
+    .then((data)=>{
+        // res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+        // res.setHeader('Access-Control-Allow-Credentials', 'true');
+        res.status(201).json({"data":data,"message":"DRAFT ADDED"})
+    })
+}else{
+    res.status(400).json({"error":error})
+}        
+}
+// view all drafts
+const viewDrafts= async(req,res)=>{
+    await drafts.find()
+        .then((data)=> res.status(200).json(data))
+}
+// deleting draft
+const deleteDraft= (req,res)=>{
+    const id= req.params.id;
+    drafts.findOne({_id:id})
+    .then(async(draft)=>{
+        try {
+            if(!draft){
+                res.status(400).json({"error":"cant find the blog"})
+            }else{
+                await drafts.deleteOne({_id:id})
+                res.status(200).json({"Message":"draft deleted"})
+            } 
+        } catch (error) {
+            res.status(400).json({"Error":error})
+        }
+
+    })
+}
 
 module.exports={
     viewBlog,
@@ -480,4 +520,7 @@ module.exports={
     getUsers,
     reply,
     viewComments,
+    addDraft,
+    viewDrafts,
+    deleteDraft,
 }
