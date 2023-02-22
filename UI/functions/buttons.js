@@ -26,4 +26,17 @@ export async function eraseUser(id){
     console.log(data)
     window.location.reload()
    }
+//    deleting a draft
+export async function eraseDraft(id){
+    const res= await fetch(`https://my-brand-production-b3f0.up.railway.app/users/${id}`,{
+        method:'DELETE',
+        headers:{
+            'Authentication': `Bearer ${cookies.jwt}`,
+            'Content-Type': 'application/json',
+     }
+    })
+    const data=await res.json()
+    console.log(data)
+    window.location.reload()
+   }
 

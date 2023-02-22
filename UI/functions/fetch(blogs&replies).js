@@ -43,6 +43,6 @@ export  async function generateDrafts() {
         },
      }); 
      const data= await res.json()
-     console.log(data)
-    //  return data
+    //  console.log(data)
+     return data
  }

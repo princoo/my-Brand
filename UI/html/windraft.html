@@ -76,7 +76,32 @@
     //     =localStorage.getItem("Drafts");
     // }
     // const b= JSON.parse(a)
-generateDrafts()
+    const Drafts= generateDrafts()
+    Drafts.then((data)=>{
+        for (let i = 0; i < data.length; i++) {
+            const img = document.createElement("img");
+            const div =  document.createElement("div");
+            const parent = document.createElement("div");
+            const container=document.createElement("div");
+
+            const p = document.createElement("p");
+            const button=`<button class="edit" id="${data[i]._id}" onclick="modify('${data[i]._id}')">EDIT<DELETE>`
+            const edit=`<button class="delete" id="${data[i]._id}" onclick="remove('${data[i]._id}')">DELETE<DELETE>`
+
+            img.classList.add("image");
+            parent.classList.add("blogs");
+            div.classList.add("parag");
+
+            img.src= data[i].imageUrl.Url ;
+            const content= document.createTextNode(data[i].title);
+            p.appendChild(content);
+            div.appendChild(p)
+            parent.innerHTML= img.outerHTML + div.outerHTML;
+            container.innerHTML= button + edit;
+            right.appendChild(parent)
+            right.appendChild(container)  
+        }
+    })
     if (b.length==1) {
     //    empty.textContent="NO DRAFTS YET !!" 
     }
