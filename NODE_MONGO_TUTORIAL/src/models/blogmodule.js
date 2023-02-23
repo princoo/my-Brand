@@ -15,6 +15,10 @@ const blogschema = new Schema({
         type:Object,
         required:true
     },
+    category:{
+        type:String,
+        required:true
+    },
     comments:[{
         type: mongoose.Schema.Types.ObjectId,
         ref:"Comments"
@@ -22,7 +26,11 @@ const blogschema = new Schema({
     likes:[{
         type: mongoose.Schema.Types.ObjectId,
         ref:"Bloglikes"
-    }]
+    }],
+    category:{
+        type:String,
+        required:true,
+    }
 },{timestamps:true});
 const blogs= mongoose.model('Blogs',blogschema)
 

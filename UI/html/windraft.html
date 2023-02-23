@@ -66,6 +66,7 @@
 <script type="module">
     window.onload=popup()
     import { generateDrafts } from '../functions/fetch(blogs&replies).js';
+    import { eraseDraft } from '../functions/buttons.js';
 
     const right = document.querySelector(".right");
     const empty =document.querySelector(".empty")
@@ -78,6 +79,12 @@
     // const b= JSON.parse(a)
     const Drafts= generateDrafts()
     Drafts.then((data)=>{
+        if(data.length==0){
+                   empty.textContent="NO DRAFTS YET !!" 
+        }
+        else{
+
+        
         for (let i = 0; i < data.length; i++) {
             const img = document.createElement("img");
             const div =  document.createElement("div");
@@ -86,7 +93,7 @@
 
             const p = document.createElement("p");
             const button=`<button class="edit" id="${data[i]._id}" onclick="modify('${data[i]._id}')">EDIT<DELETE>`
-            const edit=`<button class="delete" id="${data[i]._id}" onclick="remove('${data[i]._id}')">DELETE<DELETE>`
+            const edit=`<button class="delete" id="${data[i]._id}">DELETE<DELETE>`
 
             img.classList.add("image");
             parent.classList.add("blogs");
@@ -99,8 +106,13 @@
             parent.innerHTML= img.outerHTML + div.outerHTML;
             container.innerHTML= button + edit;
             right.appendChild(parent)
-            right.appendChild(container)  
+            right.appendChild(container) 
+            const deleteBtn= document.querySelectorAll('.delete')
+            deleteBtn[i].addEventListener('click',(e)=>{
+                    eraseDraft(data[i]._id)
+            }) 
         }
+    }
     })
     if (b.length==1) {
     //    empty.textContent="NO DRAFTS YET !!" 
@@ -144,9 +156,8 @@
             window.location.href=`dashboard.html?draft=${id}`
            }
        
+// deleting draft
 
-
-   
 </script>
 </body>
 </html>

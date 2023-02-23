@@ -76,9 +76,10 @@
 
 <script type="module">
 window.onload=popup()
-import { blogs } from '../functions/fetchblogs.js';
+// import { blogs } from '../functions/fetchblogs.js';
 import { generateBlog } from '../functions/singleblog.js';
 import { updateBlog,update } from '../functions/updateblog.js';
+import { addDraft } from '../functions/senddraft.js';
 
     const send = document.getElementById('addblog');
     const title = document.getElementById('title');
@@ -90,14 +91,6 @@ import { updateBlog,update } from '../functions/updateblog.js';
     const wait=document.getElementById("wait")
     let url="";
 
-  //    generating image url
-    // image.addEventListener('change',()=>{
-    //     const fr= new FileReader();
-    //     fr.readAsDataURL(image.files[0]);
-    //     fr.addEventListener('load',()=>{
-    //          url= fr.result
-    //     })
-    // })
 
 // storing
     send.addEventListener('click',async(e)=>{
@@ -108,6 +101,7 @@ import { updateBlog,update } from '../functions/updateblog.js';
     formData.append('title', title.value);
     formData.append('body', body.value);
     formData.append('image', image.files[0]);
+    console.log(formData)
     const res= await fetch('https://my-brand-production-b3f0.up.railway.app/add', 
                                 {
                              method: 'POST',
@@ -134,7 +128,7 @@ import { updateBlog,update } from '../functions/updateblog.js';
    
 })
 // save in draft 
-     edit.addEventListener('click',(e)=>{
+     edit.addEventListener('click',async(e)=>{
         e.preventDefault();
         if (title.value && body.value && image) {
             const check= window.location.search
@@ -172,11 +166,9 @@ import { updateBlog,update } from '../functions/updateblog.js';
                 formData.append('title', title.value);
                 formData.append('body', body.value);
                 formData.append('image', image.files[0]);
-                        const result= updateBlog(id,formData)
-                        console.log(result)
+                const result= updateBlog(id,formData)
+                console.log(result)
             }else{
-                console.log('no image')
-
                     const formData={
                     title: title.value,
                     body: body.value,
@@ -197,28 +189,47 @@ import { updateBlog,update } from '../functions/updateblog.js';
             },2000)        
         }
         else{
-            console.log('PAGE NOT FOUND')
+    //     const formData = new FormData();
+    //     formData.append('title', title.value);
+    //     formData.append('body', body.value);
+    //     formData.append('image', image.files[0]);
+    //     console.log(formData)
+    //    addDraft(formData)
+            // console.log('PAGE NOT FOUND')
         }
         }
         else{
-     let a = localStorage.getItem("Drafts");
-    if(a==null){
-        localStorage.setItem("Drafts",JSON.stringify([{title:"no blogs yet",body:"not yet",image:"none"}]))
-        a=localStorage.getItem('Blogs')
-    }
-    const newarray= JSON.parse(a)
-    newarray.push({title:title.value,body:body.value,image:url})
-    localStorage.setItem("Drafts",JSON.stringify(newarray))
-    loader.style.display="block"
-            wait.textContent="CREATING ..."
+    //  let a = localStorage.getItem("Drafts");
+    // if(a==null){
+    //     localStorage.setItem("Drafts",JSON.stringify([{title:"no blogs yet",body:"not yet",image:"none"}]))
+    //     a=localStorage.getItem('Blogs')
+    // }
+    // const newarray= JSON.parse(a)
 
-            setTimeout(()=>{
-                loader.style.display="none"
-            },2000)
-            setTimeout(()=>{
-            window.location.href="dashboard.html"
-            },2000)
+    // newarray.push({title:title.value,body:body.value,image:url})
+    // localStorage.setItem("Drafts",JSON.stringify(newarray))
+    // loader.style.display="block"
+    //         wait.textContent="CREATING ..."
+
+    //         setTimeout(()=>{
+    //             loader.style.display="none"
+    //         },2000)
+    //         setTimeout(()=>{
+    //         window.location.href="dashboard.html"
+    //         },2000)
+        // const formData = new FormData();
+        // formData.append('title', title.value);
+        // formData.append('body', body.value);
+        // formData.append('image', image.files[0]);
+        const bodyi={
+            title:title.value,
+            body: body.value,
+            image: image.files[0]
         }
+        // console.log(formData)
+        // console.log(bodyi)
+        addDraft(bodyi)
+            }
         }
         else{
             err.innerHTML="Please fill all the fields"

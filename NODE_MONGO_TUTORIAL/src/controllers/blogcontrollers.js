@@ -19,11 +19,8 @@ app.use(express.json())
 
 // view all blogs
 const viewBlog= async(req,res)=>{
-    await Blog.find()
+    await Blog.find({category:"Blog"})
         .then((data)=> res.status(200).json(data))
-        // .then((data)=>{
-        //     // res.render('home')
-        // })
 }
 // getting single blog
 const singleBlog= async(req,res)=>{
@@ -76,7 +73,7 @@ const {error,value} = validateAddblog(req.body)
 if(!error){
 
     const image= await cloudinary.uploader.upload(req.file.path)
-    await Blog.create({title:req.body.title , body:req.body.body,imageUrl:{"id":image.public_id,"Url":image.url}})
+    await Blog.create({title:req.body.title , body:req.body.body,imageUrl:{"id":image.public_id,"Url":image.url},category:"Blog"})
     .then((data)=>{
         res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
         res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -463,10 +460,8 @@ const {error,value} = validateAddblog(req.body)
 if(!error){
 
     const image= await cloudinary.uploader.upload(req.file.path)
-    await drafts.create({title:req.body.title , body:req.body.body,imageUrl:{"id":image.public_id,"Url":image.url}})
+    await Blog.create({title:req.body.title , body:req.body.body,imageUrl:{"id":image.public_id,"Url":image.url},category:"Draft"})
     .then((data)=>{
-        // res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
-        // res.setHeader('Access-Control-Allow-Credentials', 'true');
         res.status(201).json({"data":data,"message":"DRAFT ADDED"})
     })
 }else{
@@ -475,19 +470,19 @@ if(!error){
 }
 // view all drafts
 const viewDrafts= async(req,res)=>{
-    await drafts.find()
+    await Blog.find({category:"Draft"})
         .then((data)=> res.status(200).json(data))
 }
 // deleting draft
 const deleteDraft= (req,res)=>{
     const id= req.params.id;
-    drafts.findOne({_id:id})
+    Blog.findOne({_id:id})
     .then(async(draft)=>{
         try {
             if(!draft){
                 res.status(400).json({"error":"cant find the blog"})
             }else{
-                await drafts.deleteOne({_id:id})
+                await Blog.deleteOne({_id:id})
                 res.status(200).json({"Message":"draft deleted"})
             } 
         } catch (error) {

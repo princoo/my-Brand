@@ -30,8 +30,8 @@ export  async function newReply(id,replyData) {
      }); 
      const data= await res.json()
      console.log(data)
-    //  return data
- }
+     window.location.reload()
+    }
 // getting drafts
 export  async function generateDrafts() {
     const res= await fetch(`https://my-brand-production-b3f0.up.railway.app/drafts`, 
