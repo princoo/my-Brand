@@ -92,7 +92,7 @@
             const container=document.createElement("div");
 
             const p = document.createElement("p");
-            const button=`<button class="edit" id="${data[i]._id}" onclick="modify('${data[i]._id}')">EDIT<DELETE>`
+            const button=`<button class="edit" id="${data[i]._id}">EDIT<DELETE>`
             const edit=`<button class="delete" id="${data[i]._id}">DELETE<DELETE>`
 
             img.classList.add("image");
@@ -111,6 +111,11 @@
             deleteBtn[i].addEventListener('click',(e)=>{
                     eraseDraft(data[i]._id)
             }) 
+            const EDIT= document.querySelectorAll('.edit')
+            EDIT[i].addEventListener('click',(e)=>{
+                window.location.href=`dashboard.html?draft=${data[i]._id}`
+
+            })
         }
     }
     })

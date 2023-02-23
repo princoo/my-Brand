@@ -491,6 +491,18 @@ const deleteDraft= (req,res)=>{
 
     })
 }
+// getting single draft
+// const singledraft= async(req,res)=>{
+//     const id= req.params.id
+//             let count=0;
+//             await Blog.findById({_id:id}).populate('comments').populate('likes')
+//             .then((data)=>{
+//                 res.status(200).json(data)
+//             })
+//             .catch((err)=>{
+//                 res.status(404).json({"error":"THE BLOG DOES NOT EXIST"})
+//             })
+// }
 
 module.exports={
     viewBlog,

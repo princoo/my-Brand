@@ -80,6 +80,8 @@ window.onload=popup()
 import { generateBlog } from '../functions/singleblog.js';
 import { updateBlog,update } from '../functions/updateblog.js';
 import { addDraft } from '../functions/senddraft.js';
+import { eraseDraft } from '../functions/buttons.js';
+
 
     const send = document.getElementById('addblog');
     const title = document.getElementById('title');
@@ -101,7 +103,35 @@ import { addDraft } from '../functions/senddraft.js';
     formData.append('title', title.value);
     formData.append('body', body.value);
     formData.append('image', image.files[0]);
-    console.log(formData)
+    const check= window.location.search
+    if(check!=""){
+        let parameter= new URLSearchParams(window.location.search)
+        let id = parameter.get("page")
+    let draftid =parameter.get("draft")
+    if(draftid){
+    const res= await fetch('https://my-brand-production-b3f0.up.railway.app/add', 
+                                {
+                             method: 'POST',
+                             body:formData,
+                             headers: {
+                                'Authentication': `Bearer ${cookies.jwt}`,
+                            },
+                            });
+                            const data= await res.json()
+                            const deletedraft= eraseDraft(draftid)
+                            deletedraft.then(dlt=>console.log(dlt))
+                            console.log(data)
+            loader.style.display="block"
+            wait.textContent="ADDING ..."
+            setTimeout(()=>{
+                loader.style.display="none"
+            },2000)
+            setTimeout(()=>{
+            window.location.href="dashboard.html"
+            },2000) 
+}
+    }else{
+        
     const res= await fetch('https://my-brand-production-b3f0.up.railway.app/add', 
                                 {
                              method: 'POST',
@@ -114,7 +144,6 @@ import { addDraft } from '../functions/senddraft.js';
                             console.log(data)
             loader.style.display="block"
             wait.textContent="ADDING ..."
-
             setTimeout(()=>{
                 loader.style.display="none"
             },2000)
@@ -122,6 +151,7 @@ import { addDraft } from '../functions/senddraft.js';
             window.location.href="dashboard.html"
             },2000) 
            }
+        }
     else{
     err.innerHTML="Please fill all the fields"
     }
@@ -207,34 +237,40 @@ import { addDraft } from '../functions/senddraft.js';
     // const newarray= JSON.parse(a)
 
     // newarray.push({title:title.value,body:body.value,image:url})
-    // localStorage.setItem("Drafts",JSON.stringify(newarray))
-    // loader.style.display="block"
-    //         wait.textContent="CREATING ..."
-
-    //         setTimeout(()=>{
-    //             loader.style.display="none"
-    //         },2000)
-    //         setTimeout(()=>{
-    //         window.location.href="dashboard.html"
-    //         },2000)
+    
         // const formData = new FormData();
         // formData.append('title', title.value);
         // formData.append('body', body.value);
         // formData.append('image', image.files[0]);
-        const bodyi={
-            title:title.value,
-            body: body.value,
-            image: image.files[0]
-        }
-        // console.log(formData)
-        // console.log(bodyi)
-        addDraft(bodyi)
+        const formData = new FormData();
+    formData.append('title', title.value);
+    formData.append('body', body.value);
+    formData.append('image', image.files[0]);
+    console.log(formData)
+    const res= await fetch('https://my-brand-production-b3f0.up.railway.app/drafts/add', 
+                                {
+                             method: 'POST',
+                             body:formData,
+                             headers: {
+                                'Authentication': `Bearer ${cookies.jwt}`,
+                            },
+                            });
+                            const data= await res.json()
+                            console.log(data)
             }
         }
         else{
             err.innerHTML="Please fill all the fields"
         }
-    
+    loader.style.display="block"
+            wait.textContent="CREATING ..."
+
+            setTimeout(()=>{
+                loader.style.display="none"
+            },2000)
+            setTimeout(()=>{
+            window.location.href="dashboard.html"
+            },2000)
 })
 
 
@@ -254,12 +290,12 @@ if(id){
     })
 }
 else{
-const a= localStorage.getItem("Drafts")
-const b= JSON.parse(a);
-const blog= b.filter(blogid => b.indexOf(blogid)==draftid);
-title.value= blog[0].title
-body.value= blog[0].body
-url=blog[0].image
+const blog= generateBlog(draftid)
+ blog.then((data)=>{
+    console.log(data)
+    title.value=data.title
+    body.value= data.body
+    })
 }
 }
 
