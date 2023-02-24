@@ -493,9 +493,8 @@ const deleteDraft= (req,res)=>{
 }
 // verifying admin
 const viewAdmin=(req,res)=>{
-    const username=res.locals.user.username
-    res.json({username})
-    
+    const name=res.locals.user
+    res.json({name}) 
 }
 
 module.exports={

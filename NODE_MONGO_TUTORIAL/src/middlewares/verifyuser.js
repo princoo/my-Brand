@@ -9,7 +9,6 @@ const verifyUser= (req,res,next)=>{
     if(token){
         jwtoken.verify(token,'mavins',async(err,decodedtoken)=>{
             if(err){
-
     next()
             }
             if(decodedtoken){
@@ -42,7 +41,6 @@ const verifyUser= (req,res,next)=>{
     
                     }else{
                         next()
-                        // res.json({"message":"user not found"})
     
                     }
                 }
