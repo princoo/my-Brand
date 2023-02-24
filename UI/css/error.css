@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+a, h1{
+    font-family: "montserrat",sans-serif;
+    text-shadow: 2px 2px #42414157
+}
+    .error{
+        text-align: center;
+        margin-top: 10%;
+    }
+    .status{
+        color: rgba(202, 100, 26, 0.87);
+    }

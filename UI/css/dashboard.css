@@ -66,6 +66,10 @@ nav li a{
 
 
 /* dashboard */
+.error{
+    text-align: center;
+    /* display: none; */
+}
 .flex{
     display: flex;
 }

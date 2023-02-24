@@ -158,13 +158,14 @@ let count=0;
 
     // pop up div
 function popup(){
+    console.log(cookies.jwt)
     const text=document.getElementById("text")
   const active= localStorage.getItem("Active")
   const logout=document.getElementById("logout")
   const cancel= document.getElementById("cancel")
   const all=document.querySelector(".allcontainer")
- const b=JSON.parse(active)
-  if (b.length>=1){
+const logedIn= cookies.jwt
+  if (logedIn){
     text.innerHTML="LOG OUT"
     text.addEventListener('click',(e)=>{
       e.preventDefault()
@@ -172,8 +173,9 @@ function popup(){
       all.style.display="block";
       logout.addEventListener('click',(e)=>{
       e.preventDefault()
-      b.splice(0,1)
-      localStorage.setItem("Active",JSON.stringify(b))
+      document.cookie= "jwt=;max-age=0"
+    //   b.splice(0,1)
+    //   localStorage.setItem("Active",JSON.stringify(b))
       window.location.href="../../index.html"
     })
    cancel.addEventListener('click',(e)=>{

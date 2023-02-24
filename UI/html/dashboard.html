@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/dashboard.css">
 </head>
+
 <body>
+
     <!-- navbar -->
     <header>
         <h1> <img src="../html/images/moon.png" alt=""  onclick="change()" id="theme"></h1>
@@ -25,7 +27,6 @@
         </nav>
         <i class="side fa fa-bars" onclick="showmenu()"></i>
 </header>
-
 
     <!-- dashboard -->
     <div class="flex">
@@ -61,6 +62,7 @@
         <span id="wait"></span>
     </div>
 </div>
+
 <!-- popup div -->
 <div class="allcontainer">
     <div class="all">
@@ -76,6 +78,12 @@
 
 <script type="module">
 window.onload=popup()
+
+// protecting the route
+if(!cookies.jwt){
+    window.location.href="error.html"
+}
+
 // import { blogs } from '../functions/fetchblogs.js';
 import { generateBlog } from '../functions/singleblog.js';
 import { updateBlog,update } from '../functions/updateblog.js';
@@ -300,5 +308,7 @@ const blog= generateBlog(draftid)
 }
 
 </script>
+
 </body>
+
 </html>
