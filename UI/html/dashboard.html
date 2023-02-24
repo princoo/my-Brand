@@ -79,18 +79,24 @@
 <script type="module">
 window.onload=popup()
 
+
 // protecting the route
-if(!cookies.jwt){
-    window.location.href="error.html"
-}
+
 
 // import { blogs } from '../functions/fetchblogs.js';
 import { generateBlog } from '../functions/singleblog.js';
 import { updateBlog,update } from '../functions/updateblog.js';
 import { addDraft } from '../functions/senddraft.js';
 import { eraseDraft } from '../functions/buttons.js';
-
-
+const result= viewAdmin()
+result.then((data)=>{
+if(!cookies.jwt || data.name.username!="admin"){
+    window.location.href="/UI/html/error.html"
+}else{
+    const body= document.querySelector('body')
+    body.style.display="block"
+}
+})
     const send = document.getElementById('addblog');
     const title = document.getElementById('title');
     const body = document.getElementById('body');

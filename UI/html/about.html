@@ -23,6 +23,8 @@
             <li><a href="blog.html">BLOG</a></li>
             <li><a href="contact.html">CONTACT</a></li>
             <li><a href="login.html" id="text">LOGIN</a></li>
+            <li><a href="dashboard.html" id="dash" style="display: none;">DASHBOARD</a></li>
+
         </ul>
     </nav>
     <i class="side fa fa-bars" onclick="showmenu()"></i>
@@ -77,7 +79,16 @@
 
 <script>
       window.onload= popup()
-
+// displaying dashboard btn
+const result= viewAdmin()
+result.then((data)=>{
+if(cookies.jwt && data.name.username=="admin"){
+    const dash= document.querySelector('#dash')
+dash.style.display="block"
+console.log('yoo')
+}else{
+}
+})
 </script>
 </body>
 </html>
