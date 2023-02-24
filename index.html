@@ -52,11 +52,9 @@
 
 <!-- js file -->
 <script src="./UI/javascript/runpage.js"></script>
-<script src="./UI/functions/token.js"></script>
 
 <script>
   window.onload=popup()
-
   const result= viewAdmin()
 result.then((data)=>{
 if(cookies.jwt && data.name.username=="admin"){
