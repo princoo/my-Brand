@@ -75,8 +75,7 @@ if(!error){
     const image= await cloudinary.uploader.upload(req.file.path)
     await Blog.create({title:req.body.title , body:req.body.body,imageUrl:{"id":image.public_id,"Url":image.url},category:"Blog"})
     .then((data)=>{
-        res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
-        res.setHeader('Access-Control-Allow-Credentials', 'true');
+        
         res.status(201).json({"data":data,"message":"BLOG ADDED"})
     })
 }else{
@@ -223,8 +222,7 @@ const comments = async(req,res)=>{
 const viewComments= async(req,res)=>{
     await Comments.find().populate('replies')
     .then((data)=> {
-        res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
-        res.setHeader('Access-Control-Allow-Credentials', 'true');
+        
         res.status(200).json({"message":data})})
 }
 
@@ -249,8 +247,7 @@ if(!error){
 const deleteMessage= async(req,res)=>{
     const id = req.params.id
         await Message.deleteOne({_id:id})
-        res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
-        res.setHeader('Access-Control-Allow-Credentials', 'true');
+
         res.status(201).json({"message":"message Deleted"})
     }
 
