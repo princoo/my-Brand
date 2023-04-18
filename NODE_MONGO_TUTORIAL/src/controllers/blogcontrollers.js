@@ -19,9 +19,7 @@ app.use(express.json())
 const viewBlog= async(req,res)=>{
     await Blog.find()
         .then((data)=> res.status(200).json(data))
-        // .then((data)=>{
-        //     // res.render('home')
-        // })
+
 }
 // getting single blog
 const singleBlog= async(req,res)=>{
